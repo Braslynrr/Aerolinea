@@ -11,13 +11,17 @@ public class TipoAvionController {
         this.view = view;
         view.setModel(model);
         view.setController(this);
-        UpdateTable();
+//        UpdateTable();
     }
     
-    void UpdateTable()
-    {
-        model.tablemodel.setLista(TipoAvionDao.getInstance().findTipoAvionEntities());
-    }
+//    void UpdateTable()
+//    {
+//        if (model.tablemodel == null)
+//        {
+//            model.tablemodel = new TipoAvionTableModel(TipoAvionDao.getInstance().findTipoAvionEntities());
+//        }
+//        model.tablemodel.setLista(TipoAvionDao.getInstance().findTipoAvionEntities());
+//    }
     
     
 }

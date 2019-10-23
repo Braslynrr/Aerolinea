@@ -62,7 +62,7 @@ public class UsuarioView extends javax.swing.JPanel implements Observer {
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(50, 80, 350, 170);
+        jScrollPane1.setBounds(20, 80, 350, 170);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

@@ -4,9 +4,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class TipoAvionModel extends Observable {
-    TipoAvionTableModel tablemodel;
+    TipoAvionTableModel tablemodel = null;
 
     public TipoAvionModel() {
+        
     }
      @Override
     public void addObserver(Observer o){

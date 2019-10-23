@@ -22,16 +22,14 @@ public class PersistenceManager
   public void closeEntityManagerFactory() 
   {
     
-    if (emf != null)
-    {
+    if (emf != null){
       emf.close();
       emf = null;
     }
   }
   
-  protected void createEntityManagerFactory() 
-  {
-    this.emf = Persistence.createEntityManagerFactory("aeropuerto");
+  protected void createEntityManagerFactory(){
+    this.emf = Persistence.createEntityManagerFactory("Aeropuerto");
   }
   
   public static PersistenceManager getInstance()
