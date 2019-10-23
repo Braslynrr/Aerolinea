@@ -20,7 +20,6 @@ public class UsuarioDao extends UsuarioJpaController{
     }
     
     private static class UsuarioDaoHolder {
-
         private static final UsuarioDao INSTANCE = new UsuarioDao();
     }
 }
