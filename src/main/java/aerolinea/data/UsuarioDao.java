@@ -9,9 +9,10 @@ package aerolinea.data;
  *
  * @author Admin2
  */
-public class UsuarioDao {
+public class UsuarioDao extends UsuarioJpaController{
     
     private UsuarioDao() {
+         super(PersistenceManager.getInstance().getEntityManagerFactory());
     }
     
     public static UsuarioDao getInstance() {
