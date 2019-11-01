@@ -47,7 +47,7 @@ public class AñadirUsuarioView extends javax.swing.JPanel implements Observer{
 
         Title.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Anadir un usuario");
+        Title.setText("Anadir/Editar un usuario");
 
         ID.setText("ID");
 
@@ -71,6 +71,11 @@ public class AñadirUsuarioView extends javax.swing.JPanel implements Observer{
         });
 
         modificar.setText("Modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,15 +153,31 @@ public class AñadirUsuarioView extends javax.swing.JPanel implements Observer{
         usuario.setApellido(apellidofield.getText());
         usuario.setCodigo(Idfield.getText());
         usuario.setPassword(contraseñafield.getText());
-        usuario.setTipo(standart.isSelected() ? "A": "C");
+        usuario.setTipo(standart.isSelected() ? "C": "A");
         try {
             controller.Añadir(usuario);
         } catch (Exception ex) {
             Logger.getLogger(AñadirUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
+        controller.OcultarDialogo();
   
 //        aerolinea.Main.Controller_Admin.updateTable();
     }//GEN-LAST:event_añadirActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+       Usuario usuario = new Usuario();
+        usuario.setNombre(nombrefield.getText());
+        usuario.setApellido(apellidofield.getText());
+        usuario.setCodigo(Idfield.getText());
+        usuario.setPassword(contraseñafield.getText());
+        usuario.setTipo(standart.isSelected() ? "C": "A");
+        try {
+            controller.Modifcar(usuario);
+        } catch (Exception ex) {
+            Logger.getLogger(AñadirUsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        controller.OcultarDialogo();
+    }//GEN-LAST:event_modificarActionPerformed
 
     @Override
     public void update(Observable o, Object arg) {
@@ -170,16 +191,16 @@ public class AñadirUsuarioView extends javax.swing.JPanel implements Observer{
     private javax.swing.JLabel Apellido;
     private javax.swing.JLabel Contraseña;
     private javax.swing.JLabel ID;
-    private javax.swing.JTextField Idfield;
+    public javax.swing.JTextField Idfield;
     private javax.swing.JLabel Nombre;
-    private javax.swing.JCheckBox Premiun;
-    private javax.swing.JLabel Title;
-    private javax.swing.JTextField apellidofield;
+    public javax.swing.JCheckBox Premiun;
+    public javax.swing.JLabel Title;
+    public javax.swing.JTextField apellidofield;
     public javax.swing.JButton añadir;
-    private javax.swing.JTextField contraseñafield;
-    private javax.swing.JButton modificar;
-    private javax.swing.JTextField nombrefield;
-    private javax.swing.JCheckBox standart;
+    public javax.swing.JTextField contraseñafield;
+    public javax.swing.JButton modificar;
+    public javax.swing.JTextField nombrefield;
+    public javax.swing.JCheckBox standart;
     private javax.swing.JLabel tipousuario;
     // End of variables declaration//GEN-END:variables
 }

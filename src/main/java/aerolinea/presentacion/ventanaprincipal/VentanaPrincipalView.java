@@ -3,7 +3,27 @@ package aerolinea.presentacion.ventanaprincipal;
 import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
 import aerolinea.presentacion.Usuario.UsuarioModel;
+import aerolinea.presentacion.avion.AvionController;
+import aerolinea.presentacion.avion.AvionModel;
+import aerolinea.presentacion.avion.AvionView;
+import aerolinea.presentacion.ciudad.CiudadController;
+import aerolinea.presentacion.ciudad.CiudadModel;
+import aerolinea.presentacion.ciudad.CiudadView;
+import aerolinea.presentacion.pago.PagoController;
+import aerolinea.presentacion.pago.PagoModel;
+import aerolinea.presentacion.pago.PagoView;
+import aerolinea.presentacion.pais.PaisController;
+import aerolinea.presentacion.pais.PaisModel;
+import aerolinea.presentacion.pais.PaisView;
+import aerolinea.presentacion.tipoavion.TipoAvionController;
+import aerolinea.presentacion.tipoavion.TipoAvionModel;
+import aerolinea.presentacion.tipoavion.TipoAvionView;
+import aerolinea.presentacion.vuelo.VueloController;
+import aerolinea.presentacion.vuelo.VueloModel;
+import aerolinea.presentacion.vuelo.VueloView;
+import java.awt.CardLayout;
 import java.awt.Checkbox;
+import java.awt.Container;
 import java.awt.Event;
 import java.awt.event.MouseAdapter;
 import java.text.ParseException;
@@ -12,18 +32,82 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 public class VentanaPrincipalView extends javax.swing.JFrame implements Observer {
 
+    PrincipalUserController Ucontroller;
     UsuarioModel Umodel;
     VentanaPrincipalModel model;
     VentanaPrincipalController controller;
-    PrincipalUserController Ucontroller;
+    CardLayout windows;
+    Container container;
+    public static aerolinea.presentacion.tipoavion.TipoAvionController Controller_Admin;
+    public static aerolinea.presentacion.avion.AvionController Controller_Avion;
+    public static aerolinea.presentacion.pago.PagoController Controller_Pago;
+
+    public VentanaPrincipalView() {
+        initComponents();
+
+        windows = new CardLayout();
+        container = this.getContentPane();
+        container.setLayout(windows);
+
+        TipoAvionModel tmodel = new TipoAvionModel();
+        TipoAvionView tview = new TipoAvionView(this);
+        TipoAvionController tcontroller = new TipoAvionController(tmodel, tview);
+        Controller_Admin = tcontroller;
+
+        AvionModel amodel = new AvionModel();
+        AvionView aview = new AvionView(this);
+        AvionController acontroller = new AvionController(amodel, aview);
+        Controller_Avion = acontroller;
+
+        PagoModel pmodel = new PagoModel();
+        PagoView pview = new PagoView(this);
+        PagoController pcontroller = new PagoController(pmodel, pview);
+        Controller_Pago = pcontroller;
+
+        PaisModel pamodel = new PaisModel();
+        PaisView paview = new PaisView(this);
+        PaisController pacontroller = new PaisController(pamodel, paview);
+
+        CiudadModel cmodel = new CiudadModel();
+        CiudadView cview = new CiudadView(this);
+        CiudadController ccontroller = new CiudadController(cmodel, cview);
+
+        VueloModel vmodel = new VueloModel();
+        VueloView vview = new VueloView(this);
+        VueloController vcontroller = new VueloController(vmodel, vview);
+
+        this.addWindow(tview, "tipoavion");
+        this.addWindow(aview, "avion");
+        this.addWindow(pview, "pago");
+        this.addWindow(paview, "Pais");
+        this.addWindow(cview, "ciudad");
+        this.addWindow(vview, "Vuelos");
+        this.iniciarComponentes();
+
+    }
+
+    public void iniciarComponentes() {
+        this.setTitle("Proyecto_Programacion_3");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+
+    public void setVisibleBlogin() {
+        this.Blogin.setVisible(true);
+    }
 
     public PrincipalUserController getUcontroller() {
         return Ucontroller;
@@ -41,24 +125,13 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.Umodel = Model;
     }
 
-    public VentanaPrincipalView() {
-
-//        TipoAvionView pv = new TipoAvionView();
-//        TipoAvionModel mv = new TipoAvionModel();
-//        TipoAvionController cv = new TipoAvionController(mv,pv);
-        initComponents();
-        Umodel = new UsuarioModel();
-        this.Ucontroller = new PrincipalUserController(Umodel, this);
-        this.IAdministrar.setVisible(false);
-        this.IComprar.setVisible(false);
-        this.ICompras.setVisible(false);
-        this.Iperfil.setVisible(false);
-        this.ISalir.setVisible(false);
-        //this.setResizable(false);
+    public void swapWindow(String window) {
+        windows.show(container, window);
     }
 
-    public void setVisibleBlogin() {
-        this.Blogin.setVisible(true);
+    public void addWindow(JPanel window, String name) {
+        container.add(window);
+        windows.addLayoutComponent(window, name);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,6 +142,11 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         jMenuBar1 = new javax.swing.JMenuBar();
         IAdministrar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         IComprar = new javax.swing.JMenu();
         ICompras = new javax.swing.JMenu();
         Iperfil = new javax.swing.JMenu();
@@ -89,13 +167,53 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
         IAdministrar.setText("Administrar");
 
-        jMenuItem1.setText("result");
+        jMenuItem1.setText("Tipo avion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
         IAdministrar.add(jMenuItem1);
+
+        jMenuItem2.setText("Aviones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem2);
+
+        jMenuItem3.setText("Ciudades");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem3);
+
+        jMenuItem4.setText("Paises");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem4);
+
+        jMenuItem5.setText("Metodos de Pago");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem5);
+
+        jMenuItem6.setText("Vuelos");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem6);
 
         jMenuBar1.add(IAdministrar);
 
@@ -225,8 +343,8 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
             if (JOptionPane.showConfirmDialog(null, files, "Modificar", JOptionPane.OK_CANCEL_OPTION) == 0) {
 
                 if (Parse.Aprove(password.getText(), Parse.CODIGOS)) {
-                    if ( Parse.Aprove(correo.getText(), Parse.CORREO)) {
-                        if (this.Ucontroller.modifyUser(codigo.getText(), nombre.getText(), apellido.getText(),correo.getText(), numero.getText(),fnacimiento.getText(),direccion.getText(), password.getText())) {
+                    if (Parse.Aprove(correo.getText(), Parse.CORREO)) {
+                        if (this.Ucontroller.modifyUser(codigo.getText(), nombre.getText(), apellido.getText(), correo.getText(), numero.getText(), fnacimiento.getText(), direccion.getText(), password.getText())) {
                             JOptionPane.showMessageDialog(null, "Modificado!");
                             this.Lbienvenida.setText("Bienvenido " + Umodel.getUser().toString());
                         } else {
@@ -333,10 +451,10 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
                 "password* :", password
             };
             if (JOptionPane.showConfirmDialog(null, files, "Registrarse", JOptionPane.OK_CANCEL_OPTION) == 0) {
-                if (Parse.Aprove(codigo.getText(),Parse.CODIGOS)) {
+                if (Parse.Aprove(codigo.getText(), Parse.CODIGOS)) {
                     if (this.Umodel.FindUser(codigo.getText()) == null) {
                         if (Parse.Aprove(password.getText(), Parse.CODIGOS)) {
-                            if (Parse.Aprove(correo.getText(),Parse.CORREO)) {
+                            if (Parse.Aprove(correo.getText(), Parse.CORREO)) {
                                 try {
                                     this.Ucontroller.MakeUser(codigo.getText(), nombre.getText(), apellido.getText(), password.getText());
                                     JOptionPane.showMessageDialog(null, "Usuario creado");
@@ -387,15 +505,28 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_ISalirActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         JTextField pa = new JTextField();
-         JTextField to = new JTextField();
-            Object[] files = {
-                "Texto",pa,
-                "tipo",to
-            };
-        JOptionPane.showMessageDialog(null,files);
-        JOptionPane.showMessageDialog(null,Parse.Aprove(pa.getText(),Integer.valueOf(to.getText())));
+        this.swapWindow("tipoavion");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.swapWindow("avion");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        this.swapWindow("ciudad");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         this.swapWindow("Pais");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        this.swapWindow("pago");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        this.swapWindow("Vuelos");
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
@@ -478,5 +609,10 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem Pver;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }
