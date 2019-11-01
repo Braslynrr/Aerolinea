@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  * @author Admin2
  */
 public class Login extends javax.swing.JPanel implements Observer {
+
     VentanaPrincipalView aux;
     LoginController controller;
     UsuarioModel model;
@@ -41,7 +42,7 @@ public class Login extends javax.swing.JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-       
+
     }
 
     @SuppressWarnings("unchecked")
@@ -116,26 +117,29 @@ public class Login extends javax.swing.JPanel implements Observer {
     private void BloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloginActionPerformed
         this.Avisos.setText("");
         try {
-            this.controller.Acceso(this.txt_ID.getText(), this.TXT_password.getText());
-            this.TXT_password.setText("password");
-            this.txt_ID.setText("user");
-            this.Avisos.setText("");
-            //codigo
-            aux.EneablePermises(model.user);
-            aux.remove(this);
-            aux.revalidate();
-            aux.repaint();
+            if (this.controller.Acceso(this.txt_ID.getText(), this.TXT_password.getText())) {
+                this.TXT_password.setText("password");
+                this.txt_ID.setText("user");
+                this.Avisos.setText("");
+                //codigo
+                aux.EneablePermises(model.user);
+                aux.remove(this);
+                aux.revalidate();
+                aux.repaint();
+            } else {
+                this.Avisos.setText("Datos incorrectos");
+            }
+
         } catch (Exception ex) {
-            this.Avisos.setText("Datos incorrectos");
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
     }//GEN-LAST:event_BloginActionPerformed
 
     public void setAux(VentanaPrincipalView aux) {
-        model.user=null;
+        model.user = null;
         this.aux = aux;
     }
-
 
 
     private void BExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BExitActionPerformed
