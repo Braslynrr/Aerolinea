@@ -46,8 +46,13 @@ public class UsuarioModel extends Observable{
     }
     
     public Boolean Access(String Codigo,String password){
-        user=aerolinea.data.UsuarioDao.getInstance().Access(Codigo, password).get(0);
-        return user!=null;
+        user=aerolinea.data.UsuarioDao.getInstance().findUsuario(Codigo);
+        if(user!=null){
+            if(user.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
         }
     public boolean modificarUsuario(String codigo,String nombre,String apellido,String correo,String numero,String fnacimiento,String dir,String password){
         user.setCodigo(codigo);

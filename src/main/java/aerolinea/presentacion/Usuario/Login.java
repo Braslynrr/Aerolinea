@@ -6,6 +6,7 @@
 package aerolinea.presentacion.Usuario;
 
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
+import java.awt.Dialog;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
@@ -59,6 +60,8 @@ public class Login extends javax.swing.JPanel implements Observer {
         BExit = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 255, 153));
+        setMinimumSize(new java.awt.Dimension(209, 150));
+        setPreferredSize(new java.awt.Dimension(230, 180));
         setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -68,15 +71,15 @@ public class Login extends javax.swing.JPanel implements Observer {
 
         txt_ID.setText("Usuario");
         add(txt_ID);
-        txt_ID.setBounds(60, 40, 112, 20);
+        txt_ID.setBounds(60, 30, 150, 30);
 
         jLabel2.setText("ID");
         add(jLabel2);
-        jLabel2.setBounds(0, 35, 78, 24);
+        jLabel2.setBounds(20, 40, 78, 24);
 
         jLabel3.setText("Password");
         add(jLabel3);
-        jLabel3.setBounds(0, 62, 78, 63);
+        jLabel3.setBounds(0, 50, 78, 63);
 
         Blogin.setBackground(new java.awt.Color(51, 51, 255));
         Blogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,7 +90,7 @@ public class Login extends javax.swing.JPanel implements Observer {
             }
         });
         add(Blogin);
-        Blogin.setBounds(137, 113, 70, 23);
+        Blogin.setBounds(170, 130, 70, 23);
 
         Avisos.setForeground(new java.awt.Color(255, 0, 51));
         add(Avisos);
@@ -100,38 +103,31 @@ public class Login extends javax.swing.JPanel implements Observer {
             }
         });
         add(TXT_password);
-        TXT_password.setBounds(60, 80, 110, 20);
+        TXT_password.setBounds(60, 70, 150, 30);
 
         BExit.setBackground(new java.awt.Color(255, 0, 51));
         BExit.setForeground(new java.awt.Color(255, 255, 255));
-        BExit.setText("X");
+        BExit.setText("Cancelar");
         BExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BExitActionPerformed(evt);
             }
         });
         add(BExit);
-        BExit.setBounds(170, 0, 40, 23);
+        BExit.setBounds(90, 130, 70, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloginActionPerformed
         this.Avisos.setText("");
         try {
             if (this.controller.Acceso(this.txt_ID.getText(), this.TXT_password.getText())) {
-                this.TXT_password.setText("password");
-                this.txt_ID.setText("user");
-                this.Avisos.setText("");
-                //codigo
-                aux.EneablePermises(model.user);
-                aux.remove(this);
-                aux.revalidate();
-                aux.repaint();
+                aux.EneablePermises(model.getUser());
+                this.controller.CloseDialog();
             } else {
                 this.Avisos.setText("Datos incorrectos");
             }
-
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null,"erro "+ex.getMessage());
         }
 
     }//GEN-LAST:event_BloginActionPerformed
@@ -141,13 +137,11 @@ public class Login extends javax.swing.JPanel implements Observer {
         this.aux = aux;
     }
 
-
     private void BExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BExitActionPerformed
         this.TXT_password.setText("password");
         this.txt_ID.setText("user");
         this.Avisos.setText("");
-        aux.setVisibleBlogin();
-        this.setVisible(false);
+        this.controller.CloseDialog();
     }//GEN-LAST:event_BExitActionPerformed
 
     private void TXT_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXT_passwordActionPerformed

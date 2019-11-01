@@ -179,7 +179,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Usuario[ codigo=" + codigo + " ]";
+        return codigo+" "+nombre+" "+apellido;
     }
     
 }

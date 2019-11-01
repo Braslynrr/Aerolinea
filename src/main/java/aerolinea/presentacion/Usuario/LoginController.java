@@ -5,6 +5,7 @@
  */
 package aerolinea.presentacion.Usuario;
 import aerolinea.logic.Usuario;
+import java.awt.Dialog;
 
 /**
  *
@@ -13,7 +14,15 @@ import aerolinea.logic.Usuario;
 public class LoginController {
     UsuarioModel model;
     Login view;
+    Dialog dial;
 
+    public Dialog getDial() {
+        return dial;
+    }
+
+    public void setDial(Dialog dial) {
+        this.dial = dial;
+    }
     public LoginController(UsuarioModel model, Login view) {
        this.model = model;
         this.view = view;
@@ -24,5 +33,10 @@ public class LoginController {
     Boolean Acceso(String codigo,String password){
         return model.Access(codigo, password);
     }
+    
+    public void CloseDialog(){
+        dial.setVisible(false);
+    }
+    
     
 }

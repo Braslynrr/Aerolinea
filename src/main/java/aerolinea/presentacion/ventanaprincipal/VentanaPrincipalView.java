@@ -24,6 +24,7 @@ import aerolinea.presentacion.vuelo.VueloView;
 import java.awt.CardLayout;
 import java.awt.Checkbox;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Event;
 import java.awt.event.MouseAdapter;
 import java.text.ParseException;
@@ -31,6 +32,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +44,7 @@ import javax.swing.text.MaskFormatter;
 
 public class VentanaPrincipalView extends javax.swing.JFrame implements Observer {
 
+    VentanaPrincipalView main;
     PrincipalUserController Ucontroller;
     UsuarioModel Umodel;
     VentanaPrincipalModel model;
@@ -62,7 +65,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.ICompras.setVisible(false);
         this.Iperfil.setVisible(false);
         this.ISalir.setVisible(false);
-        
+
         windows = new CardLayout();
         container = this.getContentPane();
         container.setLayout(windows);
@@ -101,8 +104,8 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(cview, "ciudad");
         this.addWindow(vview, "Vuelos");
         this.iniciarComponentes();
-
         
+        this.setLayout(null);
     }
 
     public void iniciarComponentes() {
@@ -465,7 +468,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
                         if (Parse.Aprove(password.getText(), Parse.CODIGOS)) {
                             if (Parse.Aprove(correo.getText(), Parse.CORREO)) {
                                 try {
-                                    Usuario user=new Usuario();
+                                    Usuario user = new Usuario();
                                     user.setCodigo(codigo.getText());
                                     user.setNombre(nombre.getText());
                                     user.setApellido(apellido.getText());
@@ -504,23 +507,31 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_BregistrarseActionPerformed
 
     private void BloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloginActionPerformed
-        this.Blogin.setVisible(false);
-        aerolinea.presentacion.Usuario.Login x = new aerolinea.presentacion.Usuario.Login();
-        aerolinea.presentacion.Usuario.LoginController contr = new aerolinea.presentacion.Usuario.LoginController(Umodel, x);
-        x.setSize(209, 139);
-        x.setLocation(this.getWidth() - x.getWidth() - 15, this.getHeight() - x.getHeight() - 60);
-        this.add(x);
-        x.setAux(this);
-        this.revalidate();
-        this.repaint();
+        aerolinea.presentacion.Usuario.Login log = new aerolinea.presentacion.Usuario.Login();
+        aerolinea.presentacion.Usuario.LoginController contr = new aerolinea.presentacion.Usuario.LoginController(Umodel, log);
+        log.setAux(this);
+        JDialog dialogo;
+        dialogo = new JDialog(this, "Iniciar Sesion", true);
+        dialogo.setResizable(false);
+        JPanel userview = log;
+        contr.setDial(dialogo);
+        dialogo.getContentPane().add(log);
+        dialogo.pack();
+        dialogo.setSize(255, 195);
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
     }//GEN-LAST:event_BloginActionPerformed
 
     private void ISalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ISalirActionPerformed
         this.Lbienvenida.setText("");
-        this.Blogin.setVisible(true);
         this.Umodel.setUser(null);
         this.Bregistrarse.setVisible(true);
+        this.Blogin.setVisible(true);
         this.ISalir.setVisible(false);
+        this.IAdministrar.setVisible(false);
+        this.IComprar.setVisible(false);
+        this.ICompras.setVisible(false);
+        this.Iperfil.setVisible(false);
     }//GEN-LAST:event_ISalirActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -536,7 +547,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-         this.swapWindow("Pais");
+        this.swapWindow("Pais");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
