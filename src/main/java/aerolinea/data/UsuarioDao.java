@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aerolinea.data;
 
 import aerolinea.logic.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author Admin2
- */
 public class UsuarioDao extends UsuarioJpaController {
 
     private UsuarioDao() {
@@ -31,9 +22,9 @@ public class UsuarioDao extends UsuarioJpaController {
     public List<Usuario> Access(String codigo, String password) {
         EntityManager em = getEntityManager();
         try {
-            return em.createQuery("SELECT u FROM Usuario u WHERE u.codigo=:codigo AND u.password=:password")
-                    .setParameter("codigo", codigo)
-                    .setParameter("password", password)
+            return em.createQuery("SELECT u FROM Usuario u WHERE u.cod like codigo AND u.password like pass")
+                    .setParameter("cod", "%"+codigo+"%")
+                    .setParameter("pass", "%"+password+"%")
                     .getResultList();
         } finally {
             em.close();
