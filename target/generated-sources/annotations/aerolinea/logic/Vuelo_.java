@@ -10,13 +10,13 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-11-01T02:02:50")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-11-01T13:17:32")
 @StaticMetamodel(Vuelo.class)
 public class Vuelo_ { 
 
     public static volatile SingularAttribute<Vuelo, Double> precio;
-    public static volatile ListAttribute<Vuelo, Viaje> viajeList1;
     public static volatile SingularAttribute<Vuelo, BigDecimal> descuento;
+    public static volatile ListAttribute<Vuelo, Viaje> viajeList1;
     public static volatile SingularAttribute<Vuelo, Date> llegada;
     public static volatile SingularAttribute<Vuelo, Date> duracion;
     public static volatile SingularAttribute<Vuelo, Ciudad> origen;
@@ -24,7 +24,7 @@ public class Vuelo_ {
     public static volatile SingularAttribute<Vuelo, String> dia;
     public static volatile SingularAttribute<Vuelo, Avion> avion;
     public static volatile SingularAttribute<Vuelo, Date> salida;
-    public static volatile ListAttribute<Vuelo, Viaje> viajeList;
     public static volatile SingularAttribute<Vuelo, Integer> identificador;
+    public static volatile ListAttribute<Vuelo, Viaje> viajeList;
 
 }

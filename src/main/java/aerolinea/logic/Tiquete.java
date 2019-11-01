@@ -20,23 +20,17 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "tiquete")
 @NamedQueries({
     @NamedQuery(name = "Tiquete.findAll", query = "SELECT t FROM Tiquete t"),
     @NamedQuery(name = "Tiquete.findByCodigo", query = "SELECT t FROM Tiquete t WHERE t.codigo = :codigo"),
-    @NamedQuery(name = "Tiquete.findByPersonaNombre", query = "SELECT t FROM Tiquete t WHERE t.personaNombre = :personaNombre")})
+    @NamedQuery(name = "Tiquete.findByPersonaNombre", query = "SELECT t FROM Tiquete t WHERE t.personaNombre = :personaNombre"),
+    @NamedQuery(name = "Tiquete.findByFila", query = "SELECT t FROM Tiquete t WHERE t.fila = :fila"),
+    @NamedQuery(name = "Tiquete.findByAsiento", query = "SELECT t FROM Tiquete t WHERE t.asiento = :asiento")})
 public class Tiquete implements Serializable {
-
-    @Column(name = "Fila")
-    private String fila;
-    @Column(name = "Asiento")
-    private String asiento;
-    @JoinColumn(name = "Reserva", referencedColumnName = "Codigo")
-    @ManyToOne(optional = false)
-    private Reserva reserva;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,9 +40,13 @@ public class Tiquete implements Serializable {
     private Integer codigo;
     @Column(name = "PersonaNombre")
     private String personaNombre;
-    @JoinColumn(name = "Reserva_Codigo", referencedColumnName = "Codigo")
+    @Column(name = "Fila")
+    private String fila;
+    @Column(name = "Asiento")
+    private String asiento;
+    @JoinColumn(name = "Reserva", referencedColumnName = "Codigo")
     @ManyToOne(optional = false)
-    private Reserva reservaCodigo;
+    private Reserva reserva;
 
     public Tiquete() {
     }
@@ -73,12 +71,28 @@ public class Tiquete implements Serializable {
         this.personaNombre = personaNombre;
     }
 
-    public Reserva getReservaCodigo() {
-        return reservaCodigo;
+    public String getFila() {
+        return fila;
     }
 
-    public void setReservaCodigo(Reserva reservaCodigo) {
-        this.reservaCodigo = reservaCodigo;
+    public void setFila(String fila) {
+        this.fila = fila;
+    }
+
+    public String getAsiento() {
+        return asiento;
+    }
+
+    public void setAsiento(String asiento) {
+        this.asiento = asiento;
+    }
+
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     @Override
@@ -104,30 +118,6 @@ public class Tiquete implements Serializable {
     @Override
     public String toString() {
         return "aerolinea.Tiquete[ codigo=" + codigo + " ]";
-    }
-
-    public String getFila() {
-        return fila;
-    }
-
-    public void setFila(String fila) {
-        this.fila = fila;
-    }
-
-    public String getAsiento() {
-        return asiento;
-    }
-
-    public void setAsiento(String asiento) {
-        this.asiento = asiento;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
     }
     
 }

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "tipo_avion")
@@ -32,9 +32,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "TipoAvion.findByAsientos", query = "SELECT t FROM TipoAvion t WHERE t.asientos = :asientos"),
     @NamedQuery(name = "TipoAvion.findByFilas", query = "SELECT t FROM TipoAvion t WHERE t.filas = :filas")})
 public class TipoAvion implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoA")
-    private List<Avion> avionList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +53,8 @@ public class TipoAvion implements Serializable {
     @Basic(optional = false)
     @Column(name = "Filas")
     private int filas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoA")
+    private List<Avion> avionList;
 
     public TipoAvion() {
     }
@@ -121,6 +120,14 @@ public class TipoAvion implements Serializable {
         this.filas = filas;
     }
 
+    public List<Avion> getAvionList() {
+        return avionList;
+    }
+
+    public void setAvionList(List<Avion> avionList) {
+        this.avionList = avionList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -143,15 +150,7 @@ public class TipoAvion implements Serializable {
 
     @Override
     public String toString() {
-        return identificador + " / " + marca + " / " + modelo;
-    }
-
-    public List<Avion> getAvionList() {
-        return avionList;
-    }
-
-    public void setAvionList(List<Avion> avionList) {
-        this.avionList = avionList;
+        return "aerolinea.TipoAvion[ identificador=" + identificador + " ]";
     }
     
 }

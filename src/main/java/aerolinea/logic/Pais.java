@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "pais")
@@ -29,9 +29,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "Pais.findByNombre", query = "SELECT p FROM Pais p WHERE p.nombre = :nombre")})
 public class Pais implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
-    private List<Ciudad> ciudadList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,6 +37,8 @@ public class Pais implements Serializable {
     @Basic(optional = false)
     @Column(name = "Nombre")
     private String nombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pais")
+    private List<Ciudad> ciudadList;
 
     public Pais() {
     }
@@ -69,6 +68,14 @@ public class Pais implements Serializable {
         this.nombre = nombre;
     }
 
+    public List<Ciudad> getCiudadList() {
+        return ciudadList;
+    }
+
+    public void setCiudadList(List<Ciudad> ciudadList) {
+        this.ciudadList = ciudadList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,15 +98,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
-    }
-
-    public List<Ciudad> getCiudadList() {
-        return ciudadList;
-    }
-
-    public void setCiudadList(List<Ciudad> ciudadList) {
-        this.ciudadList = ciudadList;
+        return "aerolinea.Pais[ codigo=" + codigo + " ]";
     }
     
 }

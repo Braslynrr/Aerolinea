@@ -28,7 +28,7 @@ public class PrincipalUserController {
       }
     
     
-     public Usuario FinUser(String codigo){
+     public Usuario FindUser(String codigo){
         return model.FindUser(codigo);
      }
       
@@ -37,8 +37,8 @@ public class PrincipalUserController {
        return this.model.modificarUsuario(codigo, nombre, apellido, correo, numero, fnacimiento, dir, password);
     }
     
-     public void MakeUser(String codigo,String nombre,String apellido,String password) throws Exception{
-            this.model.CrearUsuario(codigo, nombre, apellido, password);
+     public void MakeUser(Usuario user) throws Exception{
+            this.model.CrearUsuario(user);
     }
     
 }

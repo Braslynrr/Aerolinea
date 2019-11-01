@@ -24,16 +24,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
-    @NamedQuery(name ="Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name ="Usuario.Edit", query = "UPDATE Usuario u SET u.nombre=:nombre,u.apellido=:apellido,u.password=:password WHERE u.codigo=:codigo"),
-    @NamedQuery(name="Usuario.Password",query="SELECT u FROM Usuario u WHERE u.codigo =:id AND u.password =:password")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findByCodigo", query = "SELECT u FROM Usuario u WHERE u.codigo = :codigo"),
+    @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "Usuario.findByApellido", query = "SELECT u FROM Usuario u WHERE u.apellido = :apellido"),
+    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
+    @NamedQuery(name = "Usuario.findByCorreoE", query = "SELECT u FROM Usuario u WHERE u.correoE = :correoE"),
+    @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono"),
+    @NamedQuery(name = "Usuario.findByFnacimiento", query = "SELECT u FROM Usuario u WHERE u.fnacimiento = :fnacimiento"),
+    @NamedQuery(name = "Usuario.findByDireccion", query = "SELECT u FROM Usuario u WHERE u.direccion = :direccion"),
+    @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo")})
 public class Usuario implements Serializable {
-
-    @Basic(optional = false)
-    @Column(name = "Tipo")
-    private String tipo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Reserva> reservaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +45,10 @@ public class Usuario implements Serializable {
     private String nombre;
     @Column(name = "Apellido")
     private String apellido;
+    @Basic(optional = false)
     @Column(name = "Password")
     private String password;
+    @Basic(optional = false)
     @Column(name = "CorreoE")
     private String correoE;
     @Column(name = "Telefono")
@@ -54,12 +57,24 @@ public class Usuario implements Serializable {
     private String fnacimiento;
     @Column(name = "Direccion")
     private String direccion;
+    @Basic(optional = false)
+    @Column(name = "Tipo")
+    private String tipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Reserva> reservaList;
 
     public Usuario() {
     }
 
     public Usuario(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Usuario(String codigo, String password, String correoE, String tipo) {
+        this.codigo = codigo;
+        this.password = password;
+        this.correoE = correoE;
+        this.tipo = tipo;
     }
 
     public String getCodigo() {
@@ -126,6 +141,21 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<Reserva> getReservaList() {
+        return reservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        this.reservaList = reservaList;
+    }
 
     @Override
     public int hashCode() {
@@ -149,23 +179,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return this.codigo+" "+this.nombre+" "+this.apellido;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<Reserva> getReservaList() {
-        return reservaList;
-    }
-
-    public void setReservaList(List<Reserva> reservaList) {
-        this.reservaList = reservaList;
+        return "aerolinea.Usuario[ codigo=" + codigo + " ]";
     }
     
 }

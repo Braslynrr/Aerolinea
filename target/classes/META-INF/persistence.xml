@@ -6,6 +6,12 @@
     <class>aerolinea.logic.Pais</class>
     <class>aerolinea.logic.MetodoPago</class>
     <class>aerolinea.logic.Usuario</class>
+    <class>aerolinea.logic.Viaje</class>
+    <class>aerolinea.logic.Avion</class>
+    <class>aerolinea.logic.Ciudad</class>
+    <class>aerolinea.logic.Reserva</class>
+    <class>aerolinea.logic.Tiquete</class>
+    <class>aerolinea.logic.Vuelo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Aeropuerto?useTimezone=true&amp;serverTimezone=UTC&amp;user=root&amp;password=root&amp;allowPublicKeyRetrieval=true&amp;useSSL=false"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

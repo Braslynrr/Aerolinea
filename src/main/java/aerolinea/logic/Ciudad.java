@@ -5,7 +5,6 @@
  */
 package aerolinea.logic;
 
-import aerolinea.logic.Pais;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,7 +21,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "ciudad")
@@ -31,11 +30,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "Ciudad.findByCodigo", query = "SELECT c FROM Ciudad c WHERE c.codigo = :codigo"),
     @NamedQuery(name = "Ciudad.findByNombre", query = "SELECT c FROM Ciudad c WHERE c.nombre = :nombre")})
 public class Ciudad implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "origen")
-    private List<Vuelo> vueloList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destino")
-    private List<Vuelo> vueloList1;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +42,10 @@ public class Ciudad implements Serializable {
     @JoinColumn(name = "Pais", referencedColumnName = "Codigo")
     @ManyToOne(optional = false)
     private Pais pais;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "origen")
+    private List<Vuelo> vueloList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destino")
+    private List<Vuelo> vueloList1;
 
     public Ciudad() {
     }
@@ -85,6 +83,22 @@ public class Ciudad implements Serializable {
         this.pais = pais;
     }
 
+    public List<Vuelo> getVueloList() {
+        return vueloList;
+    }
+
+    public void setVueloList(List<Vuelo> vueloList) {
+        this.vueloList = vueloList;
+    }
+
+    public List<Vuelo> getVueloList1() {
+        return vueloList1;
+    }
+
+    public void setVueloList1(List<Vuelo> vueloList1) {
+        this.vueloList1 = vueloList1;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,23 +121,7 @@ public class Ciudad implements Serializable {
 
     @Override
     public String toString() {
-        return  nombre +" / "+ pais.getNombre();
-    }
-
-    public List<Vuelo> getVueloList() {
-        return vueloList;
-    }
-
-    public void setVueloList(List<Vuelo> vueloList) {
-        this.vueloList = vueloList;
-    }
-
-    public List<Vuelo> getVueloList1() {
-        return vueloList1;
-    }
-
-    public void setVueloList1(List<Vuelo> vueloList1) {
-        this.vueloList1 = vueloList1;
+        return "aerolinea.Ciudad[ codigo=" + codigo + " ]";
     }
     
 }

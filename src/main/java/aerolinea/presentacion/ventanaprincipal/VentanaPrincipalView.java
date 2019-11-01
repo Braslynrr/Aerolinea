@@ -55,6 +55,14 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     public VentanaPrincipalView() {
         initComponents();
 
+        Umodel = new UsuarioModel();
+        this.Ucontroller = new PrincipalUserController(Umodel, this);
+        this.IAdministrar.setVisible(false);
+        this.IComprar.setVisible(false);
+        this.ICompras.setVisible(false);
+        this.Iperfil.setVisible(false);
+        this.ISalir.setVisible(false);
+        
         windows = new CardLayout();
         container = this.getContentPane();
         container.setLayout(windows);
@@ -94,6 +102,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(vview, "Vuelos");
         this.iniciarComponentes();
 
+        
     }
 
     public void iniciarComponentes() {
@@ -452,11 +461,21 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
             };
             if (JOptionPane.showConfirmDialog(null, files, "Registrarse", JOptionPane.OK_CANCEL_OPTION) == 0) {
                 if (Parse.Aprove(codigo.getText(), Parse.CODIGOS)) {
-                    if (this.Umodel.FindUser(codigo.getText()) == null) {
+                    if (this.Ucontroller.FindUser(codigo.getText()) == null) {
                         if (Parse.Aprove(password.getText(), Parse.CODIGOS)) {
                             if (Parse.Aprove(correo.getText(), Parse.CORREO)) {
                                 try {
-                                    this.Ucontroller.MakeUser(codigo.getText(), nombre.getText(), apellido.getText(), password.getText());
+                                    Usuario user=new Usuario();
+                                    user.setCodigo(codigo.getText());
+                                    user.setNombre(nombre.getText());
+                                    user.setApellido(apellido.getText());
+                                    user.setCorreoE(correo.getText());
+                                    user.setTelefono(numero.getText());
+                                    user.setFnacimiento(fnacimiento.getText());
+                                    user.setDireccion(direccion.getText());
+                                    user.setPassword(password.getText());
+                                    user.setTipo("C");
+                                    this.Ucontroller.MakeUser(user);
                                     JOptionPane.showMessageDialog(null, "Usuario creado");
                                 } catch (Exception ex) {
                                     JOptionPane.showMessageDialog(null, "Insercion fallida " + ex.getMessage());

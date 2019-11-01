@@ -5,7 +5,6 @@
  */
 package aerolinea.logic;
 
-import aerolinea.logic.Vuelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +24,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "viaje")

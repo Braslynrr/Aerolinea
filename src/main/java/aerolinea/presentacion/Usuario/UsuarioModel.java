@@ -28,7 +28,7 @@ public class UsuarioModel extends Observable{
     }
     
     public Usuario FindUser(String codigo){
-        return aerolinea.data.UsuarioDao.getInstance().FindUser(codigo).get(0);
+        return aerolinea.data.UsuarioDao.getInstance().findUsuario(codigo);
     }
     
     public String[] Userdata(){
@@ -67,13 +67,8 @@ public class UsuarioModel extends Observable{
         }
         
     }
-    public Boolean CrearUsuario(String codigo,String nombre,String apellido,String password) throws Exception{
-        user=new Usuario();
-        user.setCodigo(codigo);
-        user.setNombre(nombre);
-        user.setApellido(apellido);
-        user.setPassword(password);
-        user.setTipo("C");
+    public Boolean CrearUsuario(Usuario user) throws Exception{
+        this.user=user;
         aerolinea.data.UsuarioDao.getInstance().create(user);
         return true;
     }

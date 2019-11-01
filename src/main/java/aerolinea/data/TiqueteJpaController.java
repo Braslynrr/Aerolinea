@@ -37,21 +37,12 @@ public class TiqueteJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Reserva reservaCodigo = tiquete.getReservaCodigo();
-            if (reservaCodigo != null) {
-                reservaCodigo = em.getReference(reservaCodigo.getClass(), reservaCodigo.getCodigo());
-                tiquete.setReservaCodigo(reservaCodigo);
-            }
             Reserva reserva = tiquete.getReserva();
             if (reserva != null) {
                 reserva = em.getReference(reserva.getClass(), reserva.getCodigo());
                 tiquete.setReserva(reserva);
             }
             em.persist(tiquete);
-            if (reservaCodigo != null) {
-                reservaCodigo.getTiqueteList().add(tiquete);
-                reservaCodigo = em.merge(reservaCodigo);
-            }
             if (reserva != null) {
                 reserva.getTiqueteList().add(tiquete);
                 reserva = em.merge(reserva);
@@ -70,27 +61,13 @@ public class TiqueteJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Tiquete persistentTiquete = em.find(Tiquete.class, tiquete.getCodigo());
-            Reserva reservaCodigoOld = persistentTiquete.getReservaCodigo();
-            Reserva reservaCodigoNew = tiquete.getReservaCodigo();
             Reserva reservaOld = persistentTiquete.getReserva();
             Reserva reservaNew = tiquete.getReserva();
-            if (reservaCodigoNew != null) {
-                reservaCodigoNew = em.getReference(reservaCodigoNew.getClass(), reservaCodigoNew.getCodigo());
-                tiquete.setReservaCodigo(reservaCodigoNew);
-            }
             if (reservaNew != null) {
                 reservaNew = em.getReference(reservaNew.getClass(), reservaNew.getCodigo());
                 tiquete.setReserva(reservaNew);
             }
             tiquete = em.merge(tiquete);
-            if (reservaCodigoOld != null && !reservaCodigoOld.equals(reservaCodigoNew)) {
-                reservaCodigoOld.getTiqueteList().remove(tiquete);
-                reservaCodigoOld = em.merge(reservaCodigoOld);
-            }
-            if (reservaCodigoNew != null && !reservaCodigoNew.equals(reservaCodigoOld)) {
-                reservaCodigoNew.getTiqueteList().add(tiquete);
-                reservaCodigoNew = em.merge(reservaCodigoNew);
-            }
             if (reservaOld != null && !reservaOld.equals(reservaNew)) {
                 reservaOld.getTiqueteList().remove(tiquete);
                 reservaOld = em.merge(reservaOld);
@@ -127,11 +104,6 @@ public class TiqueteJpaController implements Serializable {
                 tiquete.getCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tiquete with id " + id + " no longer exists.", enfe);
-            }
-            Reserva reservaCodigo = tiquete.getReservaCodigo();
-            if (reservaCodigo != null) {
-                reservaCodigo.getTiqueteList().remove(tiquete);
-                reservaCodigo = em.merge(reservaCodigo);
             }
             Reserva reserva = tiquete.getReserva();
             if (reserva != null) {

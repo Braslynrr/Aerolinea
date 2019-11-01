@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "metodo_pago")
@@ -29,9 +29,6 @@ import javax.persistence.Table;
     @NamedQuery(name = "MetodoPago.findByDescripcion", query = "SELECT m FROM MetodoPago m WHERE m.descripcion = :descripcion")})
 public class MetodoPago implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "metodoPagoCodigo")
-    private List<Reserva> reservaList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,6 +37,8 @@ public class MetodoPago implements Serializable {
     @Basic(optional = false)
     @Column(name = "Descripcion")
     private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pago")
+    private List<Reserva> reservaList;
 
     public MetodoPago() {
     }
@@ -69,6 +68,14 @@ public class MetodoPago implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public List<Reserva> getReservaList() {
+        return reservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        this.reservaList = reservaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,15 +98,7 @@ public class MetodoPago implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.data.MetodoPago[ codigo=" + codigo + " ]";
-    }
-
-    public List<Reserva> getReservaList() {
-        return reservaList;
-    }
-
-    public void setReservaList(List<Reserva> reservaList) {
-        this.reservaList = reservaList;
+        return "aerolinea.MetodoPago[ codigo=" + codigo + " ]";
     }
     
 }

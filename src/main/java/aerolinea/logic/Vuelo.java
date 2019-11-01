@@ -5,8 +5,6 @@
  */
 package aerolinea.logic;
 
-import aerolinea.logic.Avion;
-import aerolinea.logic.Ciudad;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,7 +27,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "vuelo")
@@ -44,11 +42,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Vuelo.findByDescuento", query = "SELECT v FROM Vuelo v WHERE v.descuento = :descuento")})
 public class Vuelo implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ida")
-    private List<Viaje> viajeList;
-    @OneToMany(mappedBy = "regreso")
-    private List<Viaje> viajeList1;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,7 +55,7 @@ public class Vuelo implements Serializable {
     @Column(name = "Salida")
     @Temporal(TemporalType.TIME)
     private Date salida;
-    @Column(name = "Llegada",insertable = false, updatable = false)
+    @Column(name = "Llegada")
     @Temporal(TemporalType.TIME)
     private Date llegada;
     @Basic(optional = false)
@@ -75,6 +68,10 @@ public class Vuelo implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Descuento")
     private BigDecimal descuento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ida")
+    private List<Viaje> viajeList;
+    @OneToMany(mappedBy = "regreso")
+    private List<Viaje> viajeList1;
     @JoinColumn(name = "Avion", referencedColumnName = "Identificador")
     @ManyToOne(optional = false)
     private Avion avion;
@@ -156,6 +153,22 @@ public class Vuelo implements Serializable {
         this.descuento = descuento;
     }
 
+    public List<Viaje> getViajeList() {
+        return viajeList;
+    }
+
+    public void setViajeList(List<Viaje> viajeList) {
+        this.viajeList = viajeList;
+    }
+
+    public List<Viaje> getViajeList1() {
+        return viajeList1;
+    }
+
+    public void setViajeList1(List<Viaje> viajeList1) {
+        this.viajeList1 = viajeList1;
+    }
+
     public Avion getAvion() {
         return avion;
     }
@@ -203,22 +216,6 @@ public class Vuelo implements Serializable {
     @Override
     public String toString() {
         return "aerolinea.Vuelo[ identificador=" + identificador + " ]";
-    }
-
-    public List<Viaje> getViajeList() {
-        return viajeList;
-    }
-
-    public void setViajeList(List<Viaje> viajeList) {
-        this.viajeList = viajeList;
-    }
-
-    public List<Viaje> getViajeList1() {
-        return viajeList1;
-    }
-
-    public void setViajeList1(List<Viaje> viajeList1) {
-        this.viajeList1 = viajeList1;
     }
     
 }

@@ -5,16 +5,12 @@
  */
 package aerolinea.logic;
 
-import aerolinea.logic.MetodoPago;
-import aerolinea.logic.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +21,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 @Entity
 @Table(name = "reserva")
@@ -34,27 +30,19 @@ import javax.persistence.Table;
     @NamedQuery(name = "Reserva.findByCodigo", query = "SELECT r FROM Reserva r WHERE r.codigo = :codigo")})
 public class Reserva implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "Codigo")
+    private Integer codigo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reserva")
+    private List<Tiquete> tiqueteList;
     @JoinColumn(name = "Pago", referencedColumnName = "Codigo")
     @ManyToOne(optional = false)
     private MetodoPago pago;
     @JoinColumn(name = "Usuario", referencedColumnName = "Codigo")
     @ManyToOne(optional = false)
     private Usuario usuario;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "Codigo")
-    private Integer codigo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservaCodigo")
-    private List<Tiquete> tiqueteList;
-    @JoinColumn(name = "Metodo_Pago_Codigo", referencedColumnName = "Codigo")
-    @ManyToOne(optional = false)
-    private MetodoPago metodoPagoCodigo;
-    @JoinColumn(name = "Usuario_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Usuario usuarioID;
     @JoinColumn(name = "Viaje", referencedColumnName = "Codigo")
     @ManyToOne(optional = false)
     private Viaje viaje;
@@ -82,20 +70,20 @@ public class Reserva implements Serializable {
         this.tiqueteList = tiqueteList;
     }
 
-    public MetodoPago getMetodoPagoCodigo() {
-        return metodoPagoCodigo;
+    public MetodoPago getPago() {
+        return pago;
     }
 
-    public void setMetodoPagoCodigo(MetodoPago metodoPagoCodigo) {
-        this.metodoPagoCodigo = metodoPagoCodigo;
+    public void setPago(MetodoPago pago) {
+        this.pago = pago;
     }
 
-    public Usuario getUsuarioID() {
-        return usuarioID;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioID(Usuario usuarioID) {
-        this.usuarioID = usuarioID;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Viaje getViaje() {
@@ -129,22 +117,6 @@ public class Reserva implements Serializable {
     @Override
     public String toString() {
         return "aerolinea.Reserva[ codigo=" + codigo + " ]";
-    }
-
-    public MetodoPago getPago() {
-        return pago;
-    }
-
-    public void setPago(MetodoPago pago) {
-        this.pago = pago;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
     
 }

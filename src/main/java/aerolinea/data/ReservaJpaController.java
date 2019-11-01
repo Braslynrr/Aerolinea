@@ -7,6 +7,7 @@ package aerolinea.data;
 
 import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
+import aerolinea.exceptions.PreexistingEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -37,7 +38,7 @@ public class ReservaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Reserva reserva) {
+    public void create(Reserva reserva) throws PreexistingEntityException, Exception {
         if (reserva.getTiqueteList() == null) {
             reserva.setTiqueteList(new ArrayList<Tiquete>());
         }
@@ -45,21 +46,6 @@ public class ReservaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            MetodoPago metodoPagoCodigo = reserva.getMetodoPagoCodigo();
-            if (metodoPagoCodigo != null) {
-                metodoPagoCodigo = em.getReference(metodoPagoCodigo.getClass(), metodoPagoCodigo.getCodigo());
-                reserva.setMetodoPagoCodigo(metodoPagoCodigo);
-            }
-            Usuario usuarioID = reserva.getUsuarioID();
-            if (usuarioID != null) {
-                usuarioID = em.getReference(usuarioID.getClass(), usuarioID.getCodigo());
-                reserva.setUsuarioID(usuarioID);
-            }
-            Viaje viaje = reserva.getViaje();
-            if (viaje != null) {
-                viaje = em.getReference(viaje.getClass(), viaje.getCodigo());
-                reserva.setViaje(viaje);
-            }
             MetodoPago pago = reserva.getPago();
             if (pago != null) {
                 pago = em.getReference(pago.getClass(), pago.getCodigo());
@@ -70,6 +56,11 @@ public class ReservaJpaController implements Serializable {
                 usuario = em.getReference(usuario.getClass(), usuario.getCodigo());
                 reserva.setUsuario(usuario);
             }
+            Viaje viaje = reserva.getViaje();
+            if (viaje != null) {
+                viaje = em.getReference(viaje.getClass(), viaje.getCodigo());
+                reserva.setViaje(viaje);
+            }
             List<Tiquete> attachedTiqueteList = new ArrayList<Tiquete>();
             for (Tiquete tiqueteListTiqueteToAttach : reserva.getTiqueteList()) {
                 tiqueteListTiqueteToAttach = em.getReference(tiqueteListTiqueteToAttach.getClass(), tiqueteListTiqueteToAttach.getCodigo());
@@ -77,18 +68,6 @@ public class ReservaJpaController implements Serializable {
             }
             reserva.setTiqueteList(attachedTiqueteList);
             em.persist(reserva);
-            if (metodoPagoCodigo != null) {
-                metodoPagoCodigo.getReservaList().add(reserva);
-                metodoPagoCodigo = em.merge(metodoPagoCodigo);
-            }
-            if (usuarioID != null) {
-                usuarioID.getReservaList().add(reserva);
-                usuarioID = em.merge(usuarioID);
-            }
-            if (viaje != null) {
-                viaje.getReservaList().add(reserva);
-                viaje = em.merge(viaje);
-            }
             if (pago != null) {
                 pago.getReservaList().add(reserva);
                 pago = em.merge(pago);
@@ -97,16 +76,25 @@ public class ReservaJpaController implements Serializable {
                 usuario.getReservaList().add(reserva);
                 usuario = em.merge(usuario);
             }
+            if (viaje != null) {
+                viaje.getReservaList().add(reserva);
+                viaje = em.merge(viaje);
+            }
             for (Tiquete tiqueteListTiquete : reserva.getTiqueteList()) {
-                Reserva oldReservaCodigoOfTiqueteListTiquete = tiqueteListTiquete.getReservaCodigo();
-                tiqueteListTiquete.setReservaCodigo(reserva);
+                Reserva oldReservaOfTiqueteListTiquete = tiqueteListTiquete.getReserva();
+                tiqueteListTiquete.setReserva(reserva);
                 tiqueteListTiquete = em.merge(tiqueteListTiquete);
-                if (oldReservaCodigoOfTiqueteListTiquete != null) {
-                    oldReservaCodigoOfTiqueteListTiquete.getTiqueteList().remove(tiqueteListTiquete);
-                    oldReservaCodigoOfTiqueteListTiquete = em.merge(oldReservaCodigoOfTiqueteListTiquete);
+                if (oldReservaOfTiqueteListTiquete != null) {
+                    oldReservaOfTiqueteListTiquete.getTiqueteList().remove(tiqueteListTiquete);
+                    oldReservaOfTiqueteListTiquete = em.merge(oldReservaOfTiqueteListTiquete);
                 }
             }
             em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findReserva(reserva.getCodigo()) != null) {
+                throw new PreexistingEntityException("Reserva " + reserva + " already exists.", ex);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();
@@ -120,16 +108,12 @@ public class ReservaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Reserva persistentReserva = em.find(Reserva.class, reserva.getCodigo());
-            MetodoPago metodoPagoCodigoOld = persistentReserva.getMetodoPagoCodigo();
-            MetodoPago metodoPagoCodigoNew = reserva.getMetodoPagoCodigo();
-            Usuario usuarioIDOld = persistentReserva.getUsuarioID();
-            Usuario usuarioIDNew = reserva.getUsuarioID();
-            Viaje viajeOld = persistentReserva.getViaje();
-            Viaje viajeNew = reserva.getViaje();
             MetodoPago pagoOld = persistentReserva.getPago();
             MetodoPago pagoNew = reserva.getPago();
             Usuario usuarioOld = persistentReserva.getUsuario();
             Usuario usuarioNew = reserva.getUsuario();
+            Viaje viajeOld = persistentReserva.getViaje();
+            Viaje viajeNew = reserva.getViaje();
             List<Tiquete> tiqueteListOld = persistentReserva.getTiqueteList();
             List<Tiquete> tiqueteListNew = reserva.getTiqueteList();
             List<String> illegalOrphanMessages = null;
@@ -138,23 +122,11 @@ public class ReservaJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Tiquete " + tiqueteListOldTiquete + " since its reservaCodigo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Tiquete " + tiqueteListOldTiquete + " since its reserva field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            if (metodoPagoCodigoNew != null) {
-                metodoPagoCodigoNew = em.getReference(metodoPagoCodigoNew.getClass(), metodoPagoCodigoNew.getCodigo());
-                reserva.setMetodoPagoCodigo(metodoPagoCodigoNew);
-            }
-            if (usuarioIDNew != null) {
-                usuarioIDNew = em.getReference(usuarioIDNew.getClass(), usuarioIDNew.getCodigo());
-                reserva.setUsuarioID(usuarioIDNew);
-            }
-            if (viajeNew != null) {
-                viajeNew = em.getReference(viajeNew.getClass(), viajeNew.getCodigo());
-                reserva.setViaje(viajeNew);
             }
             if (pagoNew != null) {
                 pagoNew = em.getReference(pagoNew.getClass(), pagoNew.getCodigo());
@@ -164,6 +136,10 @@ public class ReservaJpaController implements Serializable {
                 usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getCodigo());
                 reserva.setUsuario(usuarioNew);
             }
+            if (viajeNew != null) {
+                viajeNew = em.getReference(viajeNew.getClass(), viajeNew.getCodigo());
+                reserva.setViaje(viajeNew);
+            }
             List<Tiquete> attachedTiqueteListNew = new ArrayList<Tiquete>();
             for (Tiquete tiqueteListNewTiqueteToAttach : tiqueteListNew) {
                 tiqueteListNewTiqueteToAttach = em.getReference(tiqueteListNewTiqueteToAttach.getClass(), tiqueteListNewTiqueteToAttach.getCodigo());
@@ -172,30 +148,6 @@ public class ReservaJpaController implements Serializable {
             tiqueteListNew = attachedTiqueteListNew;
             reserva.setTiqueteList(tiqueteListNew);
             reserva = em.merge(reserva);
-            if (metodoPagoCodigoOld != null && !metodoPagoCodigoOld.equals(metodoPagoCodigoNew)) {
-                metodoPagoCodigoOld.getReservaList().remove(reserva);
-                metodoPagoCodigoOld = em.merge(metodoPagoCodigoOld);
-            }
-            if (metodoPagoCodigoNew != null && !metodoPagoCodigoNew.equals(metodoPagoCodigoOld)) {
-                metodoPagoCodigoNew.getReservaList().add(reserva);
-                metodoPagoCodigoNew = em.merge(metodoPagoCodigoNew);
-            }
-            if (usuarioIDOld != null && !usuarioIDOld.equals(usuarioIDNew)) {
-                usuarioIDOld.getReservaList().remove(reserva);
-                usuarioIDOld = em.merge(usuarioIDOld);
-            }
-            if (usuarioIDNew != null && !usuarioIDNew.equals(usuarioIDOld)) {
-                usuarioIDNew.getReservaList().add(reserva);
-                usuarioIDNew = em.merge(usuarioIDNew);
-            }
-            if (viajeOld != null && !viajeOld.equals(viajeNew)) {
-                viajeOld.getReservaList().remove(reserva);
-                viajeOld = em.merge(viajeOld);
-            }
-            if (viajeNew != null && !viajeNew.equals(viajeOld)) {
-                viajeNew.getReservaList().add(reserva);
-                viajeNew = em.merge(viajeNew);
-            }
             if (pagoOld != null && !pagoOld.equals(pagoNew)) {
                 pagoOld.getReservaList().remove(reserva);
                 pagoOld = em.merge(pagoOld);
@@ -212,14 +164,22 @@ public class ReservaJpaController implements Serializable {
                 usuarioNew.getReservaList().add(reserva);
                 usuarioNew = em.merge(usuarioNew);
             }
+            if (viajeOld != null && !viajeOld.equals(viajeNew)) {
+                viajeOld.getReservaList().remove(reserva);
+                viajeOld = em.merge(viajeOld);
+            }
+            if (viajeNew != null && !viajeNew.equals(viajeOld)) {
+                viajeNew.getReservaList().add(reserva);
+                viajeNew = em.merge(viajeNew);
+            }
             for (Tiquete tiqueteListNewTiquete : tiqueteListNew) {
                 if (!tiqueteListOld.contains(tiqueteListNewTiquete)) {
-                    Reserva oldReservaCodigoOfTiqueteListNewTiquete = tiqueteListNewTiquete.getReservaCodigo();
-                    tiqueteListNewTiquete.setReservaCodigo(reserva);
+                    Reserva oldReservaOfTiqueteListNewTiquete = tiqueteListNewTiquete.getReserva();
+                    tiqueteListNewTiquete.setReserva(reserva);
                     tiqueteListNewTiquete = em.merge(tiqueteListNewTiquete);
-                    if (oldReservaCodigoOfTiqueteListNewTiquete != null && !oldReservaCodigoOfTiqueteListNewTiquete.equals(reserva)) {
-                        oldReservaCodigoOfTiqueteListNewTiquete.getTiqueteList().remove(tiqueteListNewTiquete);
-                        oldReservaCodigoOfTiqueteListNewTiquete = em.merge(oldReservaCodigoOfTiqueteListNewTiquete);
+                    if (oldReservaOfTiqueteListNewTiquete != null && !oldReservaOfTiqueteListNewTiquete.equals(reserva)) {
+                        oldReservaOfTiqueteListNewTiquete.getTiqueteList().remove(tiqueteListNewTiquete);
+                        oldReservaOfTiqueteListNewTiquete = em.merge(oldReservaOfTiqueteListNewTiquete);
                     }
                 }
             }
@@ -258,25 +218,10 @@ public class ReservaJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Reserva (" + reserva + ") cannot be destroyed since the Tiquete " + tiqueteListOrphanCheckTiquete + " in its tiqueteList field has a non-nullable reservaCodigo field.");
+                illegalOrphanMessages.add("This Reserva (" + reserva + ") cannot be destroyed since the Tiquete " + tiqueteListOrphanCheckTiquete + " in its tiqueteList field has a non-nullable reserva field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            MetodoPago metodoPagoCodigo = reserva.getMetodoPagoCodigo();
-            if (metodoPagoCodigo != null) {
-                metodoPagoCodigo.getReservaList().remove(reserva);
-                metodoPagoCodigo = em.merge(metodoPagoCodigo);
-            }
-            Usuario usuarioID = reserva.getUsuarioID();
-            if (usuarioID != null) {
-                usuarioID.getReservaList().remove(reserva);
-                usuarioID = em.merge(usuarioID);
-            }
-            Viaje viaje = reserva.getViaje();
-            if (viaje != null) {
-                viaje.getReservaList().remove(reserva);
-                viaje = em.merge(viaje);
             }
             MetodoPago pago = reserva.getPago();
             if (pago != null) {
@@ -287,6 +232,11 @@ public class ReservaJpaController implements Serializable {
             if (usuario != null) {
                 usuario.getReservaList().remove(reserva);
                 usuario = em.merge(usuario);
+            }
+            Viaje viaje = reserva.getViaje();
+            if (viaje != null) {
+                viaje.getReservaList().remove(reserva);
+                viaje = em.merge(viaje);
             }
             em.remove(reserva);
             em.getTransaction().commit();

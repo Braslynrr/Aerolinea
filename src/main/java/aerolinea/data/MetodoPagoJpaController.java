@@ -51,12 +51,12 @@ public class MetodoPagoJpaController implements Serializable {
             metodoPago.setReservaList(attachedReservaList);
             em.persist(metodoPago);
             for (Reserva reservaListReserva : metodoPago.getReservaList()) {
-                MetodoPago oldMetodoPagoCodigoOfReservaListReserva = reservaListReserva.getMetodoPagoCodigo();
-                reservaListReserva.setMetodoPagoCodigo(metodoPago);
+                MetodoPago oldPagoOfReservaListReserva = reservaListReserva.getPago();
+                reservaListReserva.setPago(metodoPago);
                 reservaListReserva = em.merge(reservaListReserva);
-                if (oldMetodoPagoCodigoOfReservaListReserva != null) {
-                    oldMetodoPagoCodigoOfReservaListReserva.getReservaList().remove(reservaListReserva);
-                    oldMetodoPagoCodigoOfReservaListReserva = em.merge(oldMetodoPagoCodigoOfReservaListReserva);
+                if (oldPagoOfReservaListReserva != null) {
+                    oldPagoOfReservaListReserva.getReservaList().remove(reservaListReserva);
+                    oldPagoOfReservaListReserva = em.merge(oldPagoOfReservaListReserva);
                 }
             }
             em.getTransaction().commit();
@@ -86,7 +86,7 @@ public class MetodoPagoJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Reserva " + reservaListOldReserva + " since its metodoPagoCodigo field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Reserva " + reservaListOldReserva + " since its pago field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -102,12 +102,12 @@ public class MetodoPagoJpaController implements Serializable {
             metodoPago = em.merge(metodoPago);
             for (Reserva reservaListNewReserva : reservaListNew) {
                 if (!reservaListOld.contains(reservaListNewReserva)) {
-                    MetodoPago oldMetodoPagoCodigoOfReservaListNewReserva = reservaListNewReserva.getMetodoPagoCodigo();
-                    reservaListNewReserva.setMetodoPagoCodigo(metodoPago);
+                    MetodoPago oldPagoOfReservaListNewReserva = reservaListNewReserva.getPago();
+                    reservaListNewReserva.setPago(metodoPago);
                     reservaListNewReserva = em.merge(reservaListNewReserva);
-                    if (oldMetodoPagoCodigoOfReservaListNewReserva != null && !oldMetodoPagoCodigoOfReservaListNewReserva.equals(metodoPago)) {
-                        oldMetodoPagoCodigoOfReservaListNewReserva.getReservaList().remove(reservaListNewReserva);
-                        oldMetodoPagoCodigoOfReservaListNewReserva = em.merge(oldMetodoPagoCodigoOfReservaListNewReserva);
+                    if (oldPagoOfReservaListNewReserva != null && !oldPagoOfReservaListNewReserva.equals(metodoPago)) {
+                        oldPagoOfReservaListNewReserva.getReservaList().remove(reservaListNewReserva);
+                        oldPagoOfReservaListNewReserva = em.merge(oldPagoOfReservaListNewReserva);
                     }
                 }
             }
@@ -146,7 +146,7 @@ public class MetodoPagoJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This MetodoPago (" + metodoPago + ") cannot be destroyed since the Reserva " + reservaListOrphanCheckReserva + " in its reservaList field has a non-nullable metodoPagoCodigo field.");
+                illegalOrphanMessages.add("This MetodoPago (" + metodoPago + ") cannot be destroyed since the Reserva " + reservaListOrphanCheckReserva + " in its reservaList field has a non-nullable pago field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
