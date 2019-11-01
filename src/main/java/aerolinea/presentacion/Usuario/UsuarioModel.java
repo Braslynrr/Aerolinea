@@ -28,7 +28,7 @@ public class UsuarioModel extends Observable{
     }
     
     public Usuario FindUser(String codigo){
-        return aerolinea.data.UsuarioDao.getInstance().findUsuario(codigo); 
+        return aerolinea.data.UsuarioDao.getInstance().FindUser(codigo).get(0);
     }
     
     public String[] Userdata(){
@@ -48,8 +48,7 @@ public class UsuarioModel extends Observable{
     public Boolean Access(String Codigo,String password){
         user=aerolinea.data.UsuarioDao.getInstance().Access(Codigo, password).get(0);
         return user!=null;
-        
-    }
+        }
     public boolean modificarUsuario(String codigo,String nombre,String apellido,String correo,String numero,String fnacimiento,String dir,String password){
         user.setCodigo(codigo);
         user.setNombre(nombre);
@@ -60,7 +59,7 @@ public class UsuarioModel extends Observable{
         user.setDireccion(dir);
         user.setPassword(password);
         try{
-            aerolinea.data.UsuarioDao.getInstance().edit(user);
+            aerolinea.data.UsuarioDao.getInstance().update(user);
             return true;
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -78,6 +77,8 @@ public class UsuarioModel extends Observable{
         aerolinea.data.UsuarioDao.getInstance().create(user);
         return true;
     }
+    
+    
     @Override
     public void addObserver(Observer o){
         super.addObserver(o);

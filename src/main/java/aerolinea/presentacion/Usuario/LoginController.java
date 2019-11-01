@@ -25,8 +25,4 @@ public class LoginController {
         return model.Access(codigo, password);
     }
     
-    public Usuario FindUser(String codigo){
-        return this.model.FindUser(codigo);
-    }
-
 }

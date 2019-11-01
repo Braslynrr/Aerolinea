@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aerolinea.logic;
+
+import aerolinea.data.UsuarioDao;
+
+import java.util.List;
 
 /**
  *
@@ -23,7 +22,9 @@ public class ModeloUsuario {
         private static final ModeloUsuario INSTANCE = new ModeloUsuario();
     }
     
-    
+    public List<Usuario> Search(String code){
+        return (List<Usuario>) UsuarioDao.getInstance().findUsuario(code);
+    }
     
     
 }

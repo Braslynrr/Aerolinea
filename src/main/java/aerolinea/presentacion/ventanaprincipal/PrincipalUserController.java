@@ -28,6 +28,11 @@ public class PrincipalUserController {
       }
     
     
+     public Usuario FinUser(String codigo){
+        return model.FindUser(codigo);
+     }
+      
+      
     public Boolean modifyUser(String codigo,String nombre,String apellido,String correo,String numero,String fnacimiento,String dir,String password){
        return this.model.modificarUsuario(codigo, nombre, apellido, correo, numero, fnacimiento, dir, password);
     }
