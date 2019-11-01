@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -40,7 +41,7 @@ public class UsuarioJpaController implements Serializable {
             em.persist(usuario);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findUsuario(usuario.getId()) != null) {
+            if (findUsuario(usuario.getCodigo()) != null) {
                 throw new PreexistingEntityException("Usuario " + usuario + " already exists.", ex);
             }
             throw ex;
@@ -61,7 +62,7 @@ public class UsuarioJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = usuario.getId();
+                String id = usuario.getCodigo();
                 if (findUsuario(id) == null) {
                     throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
                 }
@@ -82,7 +83,7 @@ public class UsuarioJpaController implements Serializable {
             Usuario usuario;
             try {
                 usuario = em.getReference(Usuario.class, id);
-                usuario.getId();
+                usuario.getCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.", enfe);
             }
@@ -136,6 +137,35 @@ public class UsuarioJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+        public Boolean Editar(String id,String nombre,String apellido,String password){
+            EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Usuario> consultUser = em.createNamedQuery("Usuario.Edit",Usuario.class);
+            consultUser.setParameter("codigo",id);
+            consultUser.setParameter("nombre",nombre);
+            consultUser.setParameter("apellido",apellido);
+            consultUser.setParameter("password",password);
+            consultUser.executeUpdate();
+            System.out.println(consultUser.toString());
+            return true;
+        } finally {
+            em.close();
+        }
+        }
+    
+        public Usuario Access(String id,String pass){
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Usuario> consultUser = em.createNamedQuery("Usuario.Password",Usuario.class);
+            consultUser.setParameter("id",id);
+            consultUser.setParameter("password",pass);
+            Usuario user = consultUser.getSingleResult();
+            return user;
         } finally {
             em.close();
         }

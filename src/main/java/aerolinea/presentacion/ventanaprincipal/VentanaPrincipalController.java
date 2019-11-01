@@ -7,7 +7,6 @@ import aerolinea.presentacion.tipoavion.TipoAvionView;
 public class VentanaPrincipalController {
     VentanaPrincipalModel model;
     VentanaPrincipalView view;
-
     public VentanaPrincipalController(VentanaPrincipalModel model, VentanaPrincipalView view) {
         this.model = model;
         this.view = view;

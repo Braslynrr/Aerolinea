@@ -11,13 +11,10 @@ public class UsuarioController {
 
     public UsuarioController(UsuarioModel model, UsuarioView view) {
         this.model = model;
-        this.view = view;
-        view.setModel(model);
-        view.setController(this);
+            this.view = view;
+            view.setModel(model);
+            view.setController(this);
     }
     
-    void UpdateTable(){
-        
-    }
-    
+
 }

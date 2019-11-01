@@ -21,36 +21,46 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
+    @NamedQuery(name ="Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name ="Usuario.Edit", query = "UPDATE Usuario u SET u.nombre=:nombre,u.apellido=:apellido,u.password=:password WHERE u.codigo=:codigo"),
+    @NamedQuery(name="Usuario.Password",query="SELECT u FROM Usuario u WHERE u.codigo =:id AND u.password =:password")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ID")
-    private String id;
+    @Column(name = "Codigo")
+    private String codigo;
     @Column(name = "Nombre")
     private String nombre;
     @Column(name = "Apellido")
     private String apellido;
     @Column(name = "Password")
     private String password;
-    @Column(name = "tipo")
-    private String tipo;
+    @Column(name = "CorreoE")
+    private String correoE;
+    @Column(name = "Telefono")
+    private String telefono;
+    @Column(name = "Fnacimiento")
+    private String fnacimiento;
+    @Column(name = "Direccion")
+    private String direccion;
+    @Column(name = "Tipo")
+    private Character tipo;
 
     public Usuario() {
     }
 
-    public Usuario(String id) {
-        this.id = id;
+    public Usuario(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getId() {
-        return id;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -77,18 +87,50 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public String getTipo() {
+    public String getCorreoE() {
+        return correoE;
+    }
+
+    public void setCorreoE(String correoE) {
+        this.correoE = correoE;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getFnacimiento() {
+        return fnacimiento;
+    }
+
+    public void setFnacimiento(String fnacimiento) {
+        this.fnacimiento = fnacimiento;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Character getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Character tipo) {
         this.tipo = tipo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (codigo != null ? codigo.hashCode() : 0);
         return hash;
     }
 
@@ -99,7 +141,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
             return false;
         }
         return true;
@@ -107,7 +149,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.logic.Usuario[ id=" + id + " ]";
+        return this.codigo+" "+this.nombre+" "+this.apellido;
     }
     
 }

@@ -25,7 +25,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "TipoAvion.findByIdentificador", query = "SELECT t FROM TipoAvion t WHERE t.identificador = :identificador"),
     @NamedQuery(name = "TipoAvion.findByA\u00f1o", query = "SELECT t FROM TipoAvion t WHERE t.a\u00f1o = :a\u00f1o"),
     @NamedQuery(name = "TipoAvion.findByModelo", query = "SELECT t FROM TipoAvion t WHERE t.modelo = :modelo"),
-    @NamedQuery(name = "TipoAvion.findByMarca", query = "SELECT t FROM TipoAvion t WHERE t.marca = :marca")})
+    @NamedQuery(name = "TipoAvion.findByMarca", query = "SELECT t FROM TipoAvion t WHERE t.marca = :marca"),
+    @NamedQuery(name = "TipoAvion.findByAsientos", query = "SELECT t FROM TipoAvion t WHERE t.asientos = :asientos"),
+    @NamedQuery(name = "TipoAvion.findByFilas", query = "SELECT t FROM TipoAvion t WHERE t.filas = :filas")})
 public class TipoAvion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +44,12 @@ public class TipoAvion implements Serializable {
     @Basic(optional = false)
     @Column(name = "Marca")
     private String marca;
+    @Basic(optional = false)
+    @Column(name = "Asientos")
+    private int asientos;
+    @Basic(optional = false)
+    @Column(name = "Filas")
+    private int filas;
 
     public TipoAvion() {
     }
@@ -50,11 +58,13 @@ public class TipoAvion implements Serializable {
         this.identificador = identificador;
     }
 
-    public TipoAvion(String identificador, String año, String modelo, String marca) {
+    public TipoAvion(String identificador, String año, String modelo, String marca, int asientos, int filas) {
         this.identificador = identificador;
         this.año = año;
         this.modelo = modelo;
         this.marca = marca;
+        this.asientos = asientos;
+        this.filas = filas;
     }
 
     public String getIdentificador() {
@@ -87,6 +97,22 @@ public class TipoAvion implements Serializable {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public int getAsientos() {
+        return asientos;
+    }
+
+    public void setAsientos(int asientos) {
+        this.asientos = asientos;
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public void setFilas(int filas) {
+        this.filas = filas;
     }
 
     @Override
