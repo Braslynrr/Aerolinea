@@ -6,12 +6,15 @@
 package aerolinea.logic;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +32,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "TipoAvion.findByAsientos", query = "SELECT t FROM TipoAvion t WHERE t.asientos = :asientos"),
     @NamedQuery(name = "TipoAvion.findByFilas", query = "SELECT t FROM TipoAvion t WHERE t.filas = :filas")})
 public class TipoAvion implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoA")
+    private List<Avion> avionList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -137,7 +143,15 @@ public class TipoAvion implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.logic.TipoAvion[ identificador=" + identificador + " ]";
+        return identificador + " / " + marca + " / " + modelo;
+    }
+
+    public List<Avion> getAvionList() {
+        return avionList;
+    }
+
+    public void setAvionList(List<Avion> avionList) {
+        this.avionList = avionList;
     }
     
 }

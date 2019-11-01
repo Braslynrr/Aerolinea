@@ -5,21 +5,24 @@
  */
 package aerolinea.data;
 
+import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
 import aerolinea.exceptions.PreexistingEntityException;
-import aerolinea.logic.TipoAvion;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import aerolinea.logic.Avion;
+import aerolinea.logic.TipoAvion;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 public class TipoAvionJpaController implements Serializable {
 
@@ -33,11 +36,29 @@ public class TipoAvionJpaController implements Serializable {
     }
 
     public void create(TipoAvion tipoAvion) throws PreexistingEntityException, Exception {
+        if (tipoAvion.getAvionList() == null) {
+            tipoAvion.setAvionList(new ArrayList<Avion>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Avion> attachedAvionList = new ArrayList<Avion>();
+            for (Avion avionListAvionToAttach : tipoAvion.getAvionList()) {
+                avionListAvionToAttach = em.getReference(avionListAvionToAttach.getClass(), avionListAvionToAttach.getIdentificador());
+                attachedAvionList.add(avionListAvionToAttach);
+            }
+            tipoAvion.setAvionList(attachedAvionList);
             em.persist(tipoAvion);
+            for (Avion avionListAvion : tipoAvion.getAvionList()) {
+                TipoAvion oldTipoAOfAvionListAvion = avionListAvion.getTipoA();
+                avionListAvion.setTipoA(tipoAvion);
+                avionListAvion = em.merge(avionListAvion);
+                if (oldTipoAOfAvionListAvion != null) {
+                    oldTipoAOfAvionListAvion.getAvionList().remove(avionListAvion);
+                    oldTipoAOfAvionListAvion = em.merge(oldTipoAOfAvionListAvion);
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findTipoAvion(tipoAvion.getIdentificador()) != null) {
@@ -51,12 +72,45 @@ public class TipoAvionJpaController implements Serializable {
         }
     }
 
-    public void edit(TipoAvion tipoAvion) throws NonexistentEntityException, Exception {
+    public void edit(TipoAvion tipoAvion) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            TipoAvion persistentTipoAvion = em.find(TipoAvion.class, tipoAvion.getIdentificador());
+            List<Avion> avionListOld = persistentTipoAvion.getAvionList();
+            List<Avion> avionListNew = tipoAvion.getAvionList();
+            List<String> illegalOrphanMessages = null;
+            for (Avion avionListOldAvion : avionListOld) {
+                if (!avionListNew.contains(avionListOldAvion)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Avion " + avionListOldAvion + " since its tipoA field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            List<Avion> attachedAvionListNew = new ArrayList<Avion>();
+            for (Avion avionListNewAvionToAttach : avionListNew) {
+                avionListNewAvionToAttach = em.getReference(avionListNewAvionToAttach.getClass(), avionListNewAvionToAttach.getIdentificador());
+                attachedAvionListNew.add(avionListNewAvionToAttach);
+            }
+            avionListNew = attachedAvionListNew;
+            tipoAvion.setAvionList(avionListNew);
             tipoAvion = em.merge(tipoAvion);
+            for (Avion avionListNewAvion : avionListNew) {
+                if (!avionListOld.contains(avionListNewAvion)) {
+                    TipoAvion oldTipoAOfAvionListNewAvion = avionListNewAvion.getTipoA();
+                    avionListNewAvion.setTipoA(tipoAvion);
+                    avionListNewAvion = em.merge(avionListNewAvion);
+                    if (oldTipoAOfAvionListNewAvion != null && !oldTipoAOfAvionListNewAvion.equals(tipoAvion)) {
+                        oldTipoAOfAvionListNewAvion.getAvionList().remove(avionListNewAvion);
+                        oldTipoAOfAvionListNewAvion = em.merge(oldTipoAOfAvionListNewAvion);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -74,7 +128,7 @@ public class TipoAvionJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,6 +139,17 @@ public class TipoAvionJpaController implements Serializable {
                 tipoAvion.getIdentificador();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The tipoAvion with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            List<Avion> avionListOrphanCheck = tipoAvion.getAvionList();
+            for (Avion avionListOrphanCheckAvion : avionListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This TipoAvion (" + tipoAvion + ") cannot be destroyed since the Avion " + avionListOrphanCheckAvion + " in its avionList field has a non-nullable tipoA field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(tipoAvion);
             em.getTransaction().commit();

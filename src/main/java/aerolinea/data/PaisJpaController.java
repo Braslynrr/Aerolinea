@@ -5,21 +5,24 @@
  */
 package aerolinea.data;
 
+import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
 import aerolinea.exceptions.PreexistingEntityException;
-import aerolinea.logic.Pais;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import aerolinea.logic.Ciudad;
+import aerolinea.logic.Pais;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 public class PaisJpaController implements Serializable {
 
@@ -33,11 +36,29 @@ public class PaisJpaController implements Serializable {
     }
 
     public void create(Pais pais) throws PreexistingEntityException, Exception {
+        if (pais.getCiudadList() == null) {
+            pais.setCiudadList(new ArrayList<Ciudad>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Ciudad> attachedCiudadList = new ArrayList<Ciudad>();
+            for (Ciudad ciudadListCiudadToAttach : pais.getCiudadList()) {
+                ciudadListCiudadToAttach = em.getReference(ciudadListCiudadToAttach.getClass(), ciudadListCiudadToAttach.getCodigo());
+                attachedCiudadList.add(ciudadListCiudadToAttach);
+            }
+            pais.setCiudadList(attachedCiudadList);
             em.persist(pais);
+            for (Ciudad ciudadListCiudad : pais.getCiudadList()) {
+                Pais oldPaisOfCiudadListCiudad = ciudadListCiudad.getPais();
+                ciudadListCiudad.setPais(pais);
+                ciudadListCiudad = em.merge(ciudadListCiudad);
+                if (oldPaisOfCiudadListCiudad != null) {
+                    oldPaisOfCiudadListCiudad.getCiudadList().remove(ciudadListCiudad);
+                    oldPaisOfCiudadListCiudad = em.merge(oldPaisOfCiudadListCiudad);
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findPais(pais.getCodigo()) != null) {
@@ -51,12 +72,45 @@ public class PaisJpaController implements Serializable {
         }
     }
 
-    public void edit(Pais pais) throws NonexistentEntityException, Exception {
+    public void edit(Pais pais) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Pais persistentPais = em.find(Pais.class, pais.getCodigo());
+            List<Ciudad> ciudadListOld = persistentPais.getCiudadList();
+            List<Ciudad> ciudadListNew = pais.getCiudadList();
+            List<String> illegalOrphanMessages = null;
+            for (Ciudad ciudadListOldCiudad : ciudadListOld) {
+                if (!ciudadListNew.contains(ciudadListOldCiudad)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Ciudad " + ciudadListOldCiudad + " since its pais field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            List<Ciudad> attachedCiudadListNew = new ArrayList<Ciudad>();
+            for (Ciudad ciudadListNewCiudadToAttach : ciudadListNew) {
+                ciudadListNewCiudadToAttach = em.getReference(ciudadListNewCiudadToAttach.getClass(), ciudadListNewCiudadToAttach.getCodigo());
+                attachedCiudadListNew.add(ciudadListNewCiudadToAttach);
+            }
+            ciudadListNew = attachedCiudadListNew;
+            pais.setCiudadList(ciudadListNew);
             pais = em.merge(pais);
+            for (Ciudad ciudadListNewCiudad : ciudadListNew) {
+                if (!ciudadListOld.contains(ciudadListNewCiudad)) {
+                    Pais oldPaisOfCiudadListNewCiudad = ciudadListNewCiudad.getPais();
+                    ciudadListNewCiudad.setPais(pais);
+                    ciudadListNewCiudad = em.merge(ciudadListNewCiudad);
+                    if (oldPaisOfCiudadListNewCiudad != null && !oldPaisOfCiudadListNewCiudad.equals(pais)) {
+                        oldPaisOfCiudadListNewCiudad.getCiudadList().remove(ciudadListNewCiudad);
+                        oldPaisOfCiudadListNewCiudad = em.merge(oldPaisOfCiudadListNewCiudad);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -74,7 +128,7 @@ public class PaisJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,6 +139,17 @@ public class PaisJpaController implements Serializable {
                 pais.getCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pais with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            List<Ciudad> ciudadListOrphanCheck = pais.getCiudadList();
+            for (Ciudad ciudadListOrphanCheckCiudad : ciudadListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This Pais (" + pais + ") cannot be destroyed since the Ciudad " + ciudadListOrphanCheckCiudad + " in its ciudadList field has a non-nullable pais field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(pais);
             em.getTransaction().commit();

@@ -5,21 +5,24 @@
  */
 package aerolinea.data;
 
+import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
 import aerolinea.exceptions.PreexistingEntityException;
 import aerolinea.logic.MetodoPago;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import aerolinea.logic.Reserva;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author Mario
+ * @author Admin2
  */
 public class MetodoPagoJpaController implements Serializable {
 
@@ -33,11 +36,29 @@ public class MetodoPagoJpaController implements Serializable {
     }
 
     public void create(MetodoPago metodoPago) throws PreexistingEntityException, Exception {
+        if (metodoPago.getReservaList() == null) {
+            metodoPago.setReservaList(new ArrayList<Reserva>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            List<Reserva> attachedReservaList = new ArrayList<Reserva>();
+            for (Reserva reservaListReservaToAttach : metodoPago.getReservaList()) {
+                reservaListReservaToAttach = em.getReference(reservaListReservaToAttach.getClass(), reservaListReservaToAttach.getCodigo());
+                attachedReservaList.add(reservaListReservaToAttach);
+            }
+            metodoPago.setReservaList(attachedReservaList);
             em.persist(metodoPago);
+            for (Reserva reservaListReserva : metodoPago.getReservaList()) {
+                MetodoPago oldMetodoPagoCodigoOfReservaListReserva = reservaListReserva.getMetodoPagoCodigo();
+                reservaListReserva.setMetodoPagoCodigo(metodoPago);
+                reservaListReserva = em.merge(reservaListReserva);
+                if (oldMetodoPagoCodigoOfReservaListReserva != null) {
+                    oldMetodoPagoCodigoOfReservaListReserva.getReservaList().remove(reservaListReserva);
+                    oldMetodoPagoCodigoOfReservaListReserva = em.merge(oldMetodoPagoCodigoOfReservaListReserva);
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findMetodoPago(metodoPago.getCodigo()) != null) {
@@ -51,12 +72,45 @@ public class MetodoPagoJpaController implements Serializable {
         }
     }
 
-    public void edit(MetodoPago metodoPago) throws NonexistentEntityException, Exception {
+    public void edit(MetodoPago metodoPago) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            MetodoPago persistentMetodoPago = em.find(MetodoPago.class, metodoPago.getCodigo());
+            List<Reserva> reservaListOld = persistentMetodoPago.getReservaList();
+            List<Reserva> reservaListNew = metodoPago.getReservaList();
+            List<String> illegalOrphanMessages = null;
+            for (Reserva reservaListOldReserva : reservaListOld) {
+                if (!reservaListNew.contains(reservaListOldReserva)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain Reserva " + reservaListOldReserva + " since its metodoPagoCodigo field is not nullable.");
+                }
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
+            }
+            List<Reserva> attachedReservaListNew = new ArrayList<Reserva>();
+            for (Reserva reservaListNewReservaToAttach : reservaListNew) {
+                reservaListNewReservaToAttach = em.getReference(reservaListNewReservaToAttach.getClass(), reservaListNewReservaToAttach.getCodigo());
+                attachedReservaListNew.add(reservaListNewReservaToAttach);
+            }
+            reservaListNew = attachedReservaListNew;
+            metodoPago.setReservaList(reservaListNew);
             metodoPago = em.merge(metodoPago);
+            for (Reserva reservaListNewReserva : reservaListNew) {
+                if (!reservaListOld.contains(reservaListNewReserva)) {
+                    MetodoPago oldMetodoPagoCodigoOfReservaListNewReserva = reservaListNewReserva.getMetodoPagoCodigo();
+                    reservaListNewReserva.setMetodoPagoCodigo(metodoPago);
+                    reservaListNewReserva = em.merge(reservaListNewReserva);
+                    if (oldMetodoPagoCodigoOfReservaListNewReserva != null && !oldMetodoPagoCodigoOfReservaListNewReserva.equals(metodoPago)) {
+                        oldMetodoPagoCodigoOfReservaListNewReserva.getReservaList().remove(reservaListNewReserva);
+                        oldMetodoPagoCodigoOfReservaListNewReserva = em.merge(oldMetodoPagoCodigoOfReservaListNewReserva);
+                    }
+                }
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -74,7 +128,7 @@ public class MetodoPagoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -85,6 +139,17 @@ public class MetodoPagoJpaController implements Serializable {
                 metodoPago.getCodigo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The metodoPago with id " + id + " no longer exists.", enfe);
+            }
+            List<String> illegalOrphanMessages = null;
+            List<Reserva> reservaListOrphanCheck = metodoPago.getReservaList();
+            for (Reserva reservaListOrphanCheckReserva : reservaListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This MetodoPago (" + metodoPago + ") cannot be destroyed since the Reserva " + reservaListOrphanCheckReserva + " in its reservaList field has a non-nullable metodoPagoCodigo field.");
+            }
+            if (illegalOrphanMessages != null) {
+                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(metodoPago);
             em.getTransaction().commit();

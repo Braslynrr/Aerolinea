@@ -6,12 +6,15 @@
 package aerolinea.logic;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,6 +28,12 @@ import javax.persistence.Table;
     @NamedQuery(name ="Usuario.Edit", query = "UPDATE Usuario u SET u.nombre=:nombre,u.apellido=:apellido,u.password=:password WHERE u.codigo=:codigo"),
     @NamedQuery(name="Usuario.Password",query="SELECT u FROM Usuario u WHERE u.codigo =:id AND u.password =:password")})
 public class Usuario implements Serializable {
+
+    @Basic(optional = false)
+    @Column(name = "Tipo")
+    private String tipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Reserva> reservaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,8 +54,6 @@ public class Usuario implements Serializable {
     private String fnacimiento;
     @Column(name = "Direccion")
     private String direccion;
-    @Column(name = "Tipo")
-    private Character tipo;
 
     public Usuario() {
     }
@@ -119,13 +126,6 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Character getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Character tipo) {
-        this.tipo = tipo;
-    }
 
     @Override
     public int hashCode() {
@@ -150,6 +150,22 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return this.codigo+" "+this.nombre+" "+this.apellido;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<Reserva> getReservaList() {
+        return reservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        this.reservaList = reservaList;
     }
     
 }

@@ -45,7 +45,11 @@ public class UsuarioModel extends Observable{
         return list;
     }
     
-    
+    public Boolean Access(String Codigo,String password){
+        user=aerolinea.data.UsuarioDao.getInstance().Access(Codigo, password).get(0);
+        return user!=null;
+        
+    }
     public boolean modificarUsuario(String codigo,String nombre,String apellido,String correo,String numero,String fnacimiento,String dir,String password){
         user.setCodigo(codigo);
         user.setNombre(nombre);
@@ -70,7 +74,7 @@ public class UsuarioModel extends Observable{
         user.setNombre(nombre);
         user.setApellido(apellido);
         user.setPassword(password);
-        user.setTipo('C');
+        user.setTipo("C");
         aerolinea.data.UsuarioDao.getInstance().create(user);
         return true;
     }

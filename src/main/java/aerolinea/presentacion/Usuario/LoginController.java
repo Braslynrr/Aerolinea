@@ -22,8 +22,7 @@ public class LoginController {
     }
             
     Boolean Acceso(String codigo,String password){
-        this.model.setUser(aerolinea.data.UsuarioDao.getInstance().Access(codigo, password));  
-        return this.model.getUser()!=null;
+        return model.Access(codigo, password);
     }
     
     public Usuario FindUser(String codigo){

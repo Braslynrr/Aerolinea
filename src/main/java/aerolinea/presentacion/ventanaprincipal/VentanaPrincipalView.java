@@ -2,7 +2,6 @@ package aerolinea.presentacion.ventanaprincipal;
 
 import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
-import aerolinea.presentacion.Usuario.UsuarioController;
 import aerolinea.presentacion.Usuario.UsuarioModel;
 import java.awt.Checkbox;
 import java.awt.Event;
@@ -417,10 +416,10 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.Blogin.setVisible(false);
         this.ISalir.setVisible(true);
         switch (user.getTipo()) {
-            case 'A':
+            case "A":
                 this.IAdministrar.setVisible(true);
                 break;
-            case 'C':
+            case "C":
                 this.IAdministrar.setVisible(false);
                 break;
         }

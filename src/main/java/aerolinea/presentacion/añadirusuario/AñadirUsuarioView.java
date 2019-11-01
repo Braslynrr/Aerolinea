@@ -148,7 +148,7 @@ public class AñadirUsuarioView extends javax.swing.JPanel implements Observer{
         usuario.setApellido(apellidofield.getText());
         usuario.setCodigo(Idfield.getText());
         usuario.setPassword(contraseñafield.getText());
-        usuario.setTipo(standart.isSelected() ? 'A': 'C');
+        usuario.setTipo(standart.isSelected() ? "A": "C");
         try {
             controller.Añadir(usuario);
         } catch (Exception ex) {
