@@ -19,9 +19,11 @@ import javax.swing.JOptionPane;
  *
  * @author Admin2
  */
-public class TiqueteView extends javax.swing.JPanel implements Observer{
+public class TiqueteView extends javax.swing.JPanel implements Observer {
+
     TiquetesController controller;
-VentanaPrincipalView main;
+    VentanaPrincipalView main;
+
     public TiquetesController getController() {
         return controller;
     }
@@ -29,42 +31,75 @@ VentanaPrincipalView main;
     public void setController(TiquetesController controller) {
         this.controller = controller;
     }
-    
-    
-    public TiqueteView(VentanaPrincipalView main){
+
+    public TiqueteView(VentanaPrincipalView main) {
         initComponents();
-         Boolean xs=true;
-        this.main=main;
-        int x=this.Lavioncalculo.getX(),y=this.Lavioncalculo.getY();
-        int Gw=this.Lavioncalculo.getWidth()/15,Gh=this.Lavioncalculo.getHeight()/6;
+        Boolean xs = true;
+        this.main = main;
+        int x = this.Lavioncalculo.getX(), y = this.Lavioncalculo.getY();
+        int Gw = this.Lavioncalculo.getWidth() / 20, Gh = this.Lavioncalculo.getHeight() / 8;
         JButton boton;
-        for(int i=0;i<15;i++){
-            for(int j=0;j<6;j++){
-                boton=new JButton();
-                boton.setText(i+"-"+j);
+        int count;
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 8; j++) {
+                boton = new JButton();
+                int F=i+1,A=j+1;
+                boton.setText( F+ "-" +A );
                 this.add(boton);
+                boton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent evt) {
+                        JButton p = (JButton) evt.getComponent();
+                       int[] par = getPoint(p.getText());
+                        ComprarTiquete(par[0],par[1], null);
+                    }
+                });
                 boton.setSize(Gw, Gh);
-                boton.setLocation(x+(Gw)*i, y+(Gh)*j);
-                if(xs==true){
+                boton.setLocation(x + (Gw) * i, y + (Gh) * j);
+                if (xs == true) {
                     boton.setBackground(Color.red);
-                    xs=false;
-                }else{
+                    xs = false;
+                } else {
                     boton.setBackground(Color.GREEN);
-                    xs=true;
+                    xs = true;
                 }
                 this.setComponentZOrder(boton, 0);
+
             }
-            
-            
+
         }
-        
-        
+
     }
 
-    
-    
-    public void ComprarTiquete(int fila,int asiento,Usuario user){
+    public int[] getPoint(String point) {
+        int[] par = new int[2];
+        par[0] = 0;
+        par[1] = 0;
+        String aux = "";
+        for (int i = 0; i < point.length()+1; i++) {
+            if(point.length()<=i){
+                par[1] = Integer.parseInt(aux);
+                break;
+            }
+            if (point.charAt(i) != '-') {
+                aux += point.charAt(i);
+            } else {
+                if (par[0] != 0) {
+                    par[1] = Integer.parseInt(aux);
+                } else {
+                    par[0] = Integer.parseInt(aux);
+                }
+                aux = "";
+            }
+        }
+        return par;
     }
+
+    public void ComprarTiquete(int fila, int asiento, Usuario user) {
+        System.out.println(fila + "-" + asiento);
+        JOptionPane.showMessageDialog(null, "Se compra->" + fila + "-" + asiento);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,7 +149,7 @@ VentanaPrincipalView main;
         add(jLabel4);
         jLabel4.setBounds(30, 80, 310, 30);
         add(Lavioncalculo);
-        Lavioncalculo.setBounds(290, 350, 390, 120);
+        Lavioncalculo.setBounds(290, 360, 390, 100);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Avion.png"))); // NOI18N
@@ -140,6 +175,6 @@ VentanaPrincipalView main;
 
     @Override
     public void update(Observable arg0, Object arg1) {
-       
+
     }
 }
