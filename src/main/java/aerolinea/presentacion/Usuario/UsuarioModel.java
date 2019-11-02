@@ -16,7 +16,10 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioModel extends Observable{
     Usuario user;
-
+    
+    public UsuarioModel() {
+    }
+    
     public Usuario getUser() {
         return user;
     }
@@ -24,25 +27,8 @@ public class UsuarioModel extends Observable{
     public void setUser(Usuario user) {
         this.user = user;
     }
-    public UsuarioModel() {
-    }
-    
     public Usuario FindUser(String codigo){
         return aerolinea.data.UsuarioDao.getInstance().findUsuario(codigo);
-    }
-    
-    public String[] Userdata(){
-        String[] list=new String[9];
-        list[0]=user.getCodigo();
-        list[1]=user.getNombre();
-        list[2]=user.getApellido();
-        list[3]=user.getCorreoE();
-        list[4]=user.getTelefono();
-        list[5]=user.getFnacimiento();
-        list[6]=user.getDireccion();
-        list[7]=user.getPassword();
-        list[8]=""+user.getTipo();
-        return list;
     }
     
     public Boolean Access(String Codigo,String password){
@@ -77,6 +63,20 @@ public class UsuarioModel extends Observable{
         aerolinea.data.UsuarioDao.getInstance().create(user);
         return true;
     }
+    
+    public String[] Userdata(){
+        String[] data=new String[9];
+        data[0]=user.getCodigo();
+        data[1]=user.getNombre();
+        data[2]=user.getApellido();
+        data[3]=user.getCorreoE();
+        data[4]=user.getTelefono();
+        data[5]=user.getFnacimiento();
+        data[6]=user.getDireccion();
+        data[7]=user.getPassword();
+        return data;
+    }
+    
     
     
     @Override
