@@ -14,6 +14,7 @@ ReservaView view;
     public ReservaController(ReservaModel mdoel, ReservaView view) {
         this.model = mdoel;
         this.view = view;
+        view.setModel(model);
         view.setController(this);
     }
 
@@ -21,7 +22,7 @@ ReservaView view;
         return model;
     }
 
-    public void setMdoel(ReservaModel mdoel) {
+    public void setModel(ReservaModel mdoel) {
         this.model = mdoel;
     }
 

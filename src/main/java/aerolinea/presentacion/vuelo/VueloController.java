@@ -23,7 +23,6 @@ public class VueloController {
         view.setModel(model);
         view.setController(this);
         model.tabletipo.vuelo = this;
-//        UpdateTable();
     }
     
     public void OcutarDialogo()

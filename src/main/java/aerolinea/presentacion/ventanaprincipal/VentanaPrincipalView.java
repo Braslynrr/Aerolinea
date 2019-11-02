@@ -2,6 +2,9 @@ package aerolinea.presentacion.ventanaprincipal;
 
 import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
+import aerolinea.presentacion.Reserva.ReservaController;
+import aerolinea.presentacion.Reserva.ReservaModel;
+import aerolinea.presentacion.Reserva.ReservaView;
 import aerolinea.presentacion.Usuario.UsuarioModel;
 import aerolinea.presentacion.avion.AvionController;
 import aerolinea.presentacion.avion.AvionModel;
@@ -24,7 +27,6 @@ import aerolinea.presentacion.vuelo.VueloView;
 import java.awt.CardLayout;
 import java.awt.Checkbox;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Event;
 import java.awt.event.MouseAdapter;
 import java.text.ParseException;
@@ -96,6 +98,11 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         VueloModel vmodel = new VueloModel();
         VueloView vview = new VueloView(this);
         VueloController vcontroller = new VueloController(vmodel, vview);
+        
+        
+        ReservaModel rmodel= new ReservaModel();
+        ReservaView rview = new ReservaView(this);
+        ReservaController rcontroller = new ReservaController(rmodel,rview);
 
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
@@ -103,9 +110,8 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(paview, "Pais");
         this.addWindow(cview, "ciudad");
         this.addWindow(vview, "Vuelos");
+        this.addWindow(rview, "reserva");
         this.iniciarComponentes();
-        
-        this.setLayout(null);
     }
 
     public void iniciarComponentes() {
@@ -150,7 +156,6 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Lbienvenida = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         IAdministrar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -160,7 +165,14 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         IComprar = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         ICompras = new javax.swing.JMenu();
+        jMenuItem14 = new javax.swing.JMenuItem();
         Iperfil = new javax.swing.JMenu();
         Pmodificar = new javax.swing.JMenuItem();
         Pver = new javax.swing.JMenuItem();
@@ -168,14 +180,13 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         Blogin = new javax.swing.JMenuItem();
         Bregistrarse = new javax.swing.JMenuItem();
         ISalir = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        MBienvenido = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(585, 435));
         getContentPane().setLayout(null);
-
-        Lbienvenida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(Lbienvenida);
-        Lbienvenida.setBounds(170, 50, 270, 20);
 
         IAdministrar.setText("Administrar");
 
@@ -229,10 +240,48 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
         jMenuBar1.add(IAdministrar);
 
-        IComprar.setText("Comprar");
+        IComprar.setText("Consulta");
+
+        jMenuItem8.setText("Tipo avion");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        IComprar.add(jMenuItem8);
+
+        jMenuItem9.setText("Avion");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        IComprar.add(jMenuItem9);
+
+        jMenuItem10.setText("Ciudades");
+        IComprar.add(jMenuItem10);
+
+        jMenuItem11.setText("Paises");
+        IComprar.add(jMenuItem11);
+
+        jMenuItem12.setText("Metodos de pago");
+        IComprar.add(jMenuItem12);
+
+        jMenuItem13.setText("Vuelos");
+        IComprar.add(jMenuItem13);
+
         jMenuBar1.add(IComprar);
 
         ICompras.setText("Compras");
+
+        jMenuItem14.setText("Compras");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        ICompras.add(jMenuItem14);
+
         jMenuBar1.add(ICompras);
 
         Iperfil.setText("Perfil");
@@ -287,6 +336,20 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         Icuenta.add(ISalir);
 
         jMenuBar1.add(Icuenta);
+
+        jMenu1.setText("Informacion");
+
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setText("About");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(MBienvenido);
 
         setJMenuBar(jMenuBar1);
 
@@ -358,7 +421,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
                     if (Parse.Aprove(correo.getText(), Parse.CORREO)) {
                         if (this.Ucontroller.modifyUser(codigo.getText(), nombre.getText(), apellido.getText(), correo.getText(), numero.getText(), fnacimiento.getText(), direccion.getText(), password.getText())) {
                             JOptionPane.showMessageDialog(null, "Modificado!");
-                            this.Lbienvenida.setText("Bienvenido " + Umodel.getUser().toString());
+                            this.MBienvenido.setText("Bienvenido " + Umodel.getUser().toString());
                         } else {
                             JOptionPane.showMessageDialog(null, "Fallo!");
                         }
@@ -523,7 +586,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_BloginActionPerformed
 
     private void ISalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ISalirActionPerformed
-        this.Lbienvenida.setText("");
+        this.MBienvenido.setText("");
         this.Umodel.setUser(null);
         this.Bregistrarse.setVisible(true);
         this.Blogin.setVisible(true);
@@ -558,6 +621,28 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.swapWindow("Vuelos");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        JOptionPane dialog = new JOptionPane();
+
+        JLabel label = new JLabel("<html><center>Sistema de administracion, aerolinea.<br>"+ "Programación III. Escuela de Informática. Universidad Nacional.<br>" + "Creado por Mario Arguello y Braslyn Rodriguez.</center></html>");
+
+        Object[] options = {"Aceptar"};
+
+        dialog.showOptionDialog(this, label, "Acerca de", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        this.swapWindow("reserva");
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
         model.addObserver(this);
@@ -584,7 +669,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
                 this.IAdministrar.setVisible(false);
                 break;
         }
-        this.Lbienvenida.setText("Bienvenido " + user.toString());
+        this.MBienvenido.setText("Bienvenido " + user.toString());
         this.Umodel.setUser(user);
     }
 
@@ -634,15 +719,24 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem ISalir;
     private javax.swing.JMenu Icuenta;
     private javax.swing.JMenu Iperfil;
-    private javax.swing.JLabel Lbienvenida;
+    private javax.swing.JMenu MBienvenido;
     private javax.swing.JMenuItem Pmodificar;
     private javax.swing.JMenuItem Pver;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
