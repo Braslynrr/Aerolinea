@@ -6,6 +6,7 @@
 package aerolinea.presentacion.Reserva;
 
 
+import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import javax.swing.JPanel;
 
 
@@ -13,12 +14,13 @@ import javax.swing.JPanel;
 public class ReservaController {
 ReservaModel model;
 ReservaView view;
-
+VentanaPrincipalView main;
     public ReservaController(ReservaModel mdoel, ReservaView view) {
         this.model = mdoel;
         this.view = view;
         view.setModel(model);
         view.setController(this);
+        main=view.main;
     }
 
     public ReservaModel getMdoel() {
@@ -38,6 +40,9 @@ ReservaView view;
     }
 
     JPanel VenatanAñadir() {
+       aerolinea.presentacion.SeleccionVuelo.SelectModel model=new aerolinea.presentacion.SeleccionVuelo.SelectModel();
+       aerolinea.presentacion.SeleccionVuelo.SelectView view = new aerolinea.presentacion.SeleccionVuelo.SelectView(main);
+       aerolinea.presentacion.SeleccionVuelo.SelectController controller=new aerolinea.presentacion.SeleccionVuelo.SelectController(model, view);
        view.setSize(840, 500);
        return view;
     }

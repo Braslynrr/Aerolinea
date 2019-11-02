@@ -20,10 +20,10 @@ import javax.swing.JPanel;
 
 public class SelectController {
     SelectModel model;
-    Select view;
+    SelectView view;
     
 
-    public SelectController(SelectModel model, Select view) {
+    public SelectController(SelectModel model, SelectView view) {
         this.model = model;
         this.view = view;
         view.setModel(model);

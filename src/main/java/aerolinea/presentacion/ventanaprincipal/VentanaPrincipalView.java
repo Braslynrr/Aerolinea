@@ -9,6 +9,7 @@ import aerolinea.presentacion.Usuario.UsuarioModel;
 import aerolinea.presentacion.avion.AvionController;
 import aerolinea.presentacion.avion.AvionModel;
 import aerolinea.presentacion.avion.AvionView;
+import aerolinea.presentacion.añadirviaje.AñadirViajeModel;
 import aerolinea.presentacion.ciudad.CiudadController;
 import aerolinea.presentacion.ciudad.CiudadModel;
 import aerolinea.presentacion.ciudad.CiudadView;
@@ -21,6 +22,9 @@ import aerolinea.presentacion.pais.PaisView;
 import aerolinea.presentacion.tipoavion.TipoAvionController;
 import aerolinea.presentacion.tipoavion.TipoAvionModel;
 import aerolinea.presentacion.tipoavion.TipoAvionView;
+import aerolinea.presentacion.viaje.ViajeController;
+import aerolinea.presentacion.viaje.ViajeModel;
+import aerolinea.presentacion.viaje.ViajeView;
 import aerolinea.presentacion.vuelo.VueloController;
 import aerolinea.presentacion.vuelo.VueloModel;
 import aerolinea.presentacion.vuelo.VueloView;
@@ -103,8 +107,9 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         ReservaView rview = new ReservaView(this);
         ReservaController rcontroller = new ReservaController(rmodel,rview);
         
-         
-        
+        ViajeModel vimodel=new ViajeModel();
+        ViajeView viview = new ViajeView(this);
+        ViajeController vicontroller=new ViajeController(vimodel,viview);
         
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
@@ -113,6 +118,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(cview, "ciudad");
         this.addWindow(vview, "Vuelos");
         this.addWindow(rview, "reserva");
+        this.addWindow(viview, "viaje");
         this.add(new Main(this),"Main");
         this.iniciarComponentes();
         this.swapWindow("Main");
@@ -168,6 +174,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         IComprar = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         ICompras = new javax.swing.JMenu();
@@ -237,11 +244,19 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         });
         IAdministrar.add(jMenuItem6);
 
+        jMenuItem8.setText("Viajes");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem8);
+
         jMenuBar1.add(IAdministrar);
 
         IComprar.setText("Consulta");
 
-        jMenuItem13.setText("Vuelos");
+        jMenuItem13.setText("Viajes");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem13ActionPerformed(evt);
@@ -618,6 +633,10 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
        this.swapWindow("Tiquete");
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+       this.swapWindow("viaje");
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
         model.addObserver(this);
@@ -708,5 +727,6 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,20 +14,24 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Select extends javax.swing.JPanel implements Observer {
+public class SelectView extends javax.swing.JPanel implements Observer {
 
     SelectController controller;
     SelectModel model;
     VentanaPrincipalView main;
     public JDialog dialogo;
      
-    public Select(VentanaPrincipalView main) {
+    public SelectView(VentanaPrincipalView main) {
         initComponents();
         this.main = main;
         principaltable.setModel(new TableModelselect(Modelo.getInstance().GetAllViaje()));
        
         dialogo = new JDialog(main," " ,true);
       
+    }
+
+    public VentanaPrincipalView getMain() {
+        return main;
     }
 
     @SuppressWarnings("unchecked")
@@ -183,7 +187,7 @@ public class Select extends javax.swing.JPanel implements Observer {
             try {
             controller.Eliminar(temp);
         } catch (Exception ex) {
-            Logger.getLogger(Select.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SelectView.class.getName()).log(Level.SEVERE, null, ex);
 //              JOptionPane.showMessageDialog(null, "ERROR: Alguna entidad necesita de este viaje por lo que aun no se puede borrar..");
         }
     }//GEN-LAST:event_EliminarActionPerformed
