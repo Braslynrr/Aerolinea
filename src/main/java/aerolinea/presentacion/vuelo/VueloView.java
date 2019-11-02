@@ -167,9 +167,7 @@ public class VueloView extends javax.swing.JPanel implements Observer {
        {
        dialogo = new JDialog(main,"Modificar",true);
        dialogo.setResizable(false);
-       
        JPanel userview = controller.VenatanAñadir(1);
-       
        dialogo.getContentPane().add(userview);
        dialogo.pack();
        dialogo.setLocationRelativeTo(main);

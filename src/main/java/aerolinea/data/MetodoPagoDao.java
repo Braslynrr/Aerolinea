@@ -47,4 +47,17 @@ public class MetodoPagoDao extends MetodoPagoJpaController{
       em.close();
     }
   }
+    
+    public void update(MetodoPago obj)
+   {
+       EntityManager em = getEntityManager();
+       MetodoPago object = em.find(MetodoPago.class, obj.getCodigo());
+
+        em.getTransaction().begin();
+
+         object.setDescripcion(obj.getDescripcion());
+         em.getTransaction().commit();
+         
+         em.close();
+   }
  }

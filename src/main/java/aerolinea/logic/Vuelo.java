@@ -55,7 +55,7 @@ public class Vuelo implements Serializable {
     @Column(name = "Salida")
     @Temporal(TemporalType.TIME)
     private Date salida;
-    @Column(name = "Llegada")
+    @Column(name = "Llegada",insertable=false,updatable=false)
     @Temporal(TemporalType.TIME)
     private Date llegada;
     @Basic(optional = false)

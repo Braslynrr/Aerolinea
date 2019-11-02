@@ -62,7 +62,8 @@ public class AvionDao  extends AvionJpaController {
     }
     }
     
-    public List<Avion> findByAño(String identifier){
+    public List<Avion> findByAño(String identifier)
+    {
         EntityManager em = getEntityManager();
     try
     {
@@ -75,6 +76,19 @@ public class AvionDao  extends AvionJpaController {
       em.close();
     }
     }
+    
+    public void update(Avion obj)
+   {
+       EntityManager em = getEntityManager();
+       Avion avion = em.find(Avion.class, obj.getIdentificador());
+
+        em.getTransaction().begin();
+
+         avion.setTipoA(obj.getTipoA());
+         em.getTransaction().commit();
+         
+         em.close();
+   }
     
     
  }

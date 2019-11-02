@@ -2,9 +2,6 @@ package aerolinea.presentacion.ventanaprincipal;
 
 import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
-import aerolinea.presentacion.Compra.TiqueteView;
-import aerolinea.presentacion.Compra.TiquetesController;
-import aerolinea.presentacion.Compra.TiquetesModel;
 import aerolinea.presentacion.Reserva.ReservaController;
 import aerolinea.presentacion.Reserva.ReservaModel;
 import aerolinea.presentacion.Reserva.ReservaView;
@@ -106,11 +103,9 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         ReservaView rview = new ReservaView(this);
         ReservaController rcontroller = new ReservaController(rmodel,rview);
         
+         
         
-        TiquetesModel timodel=new TiquetesModel();
-        TiqueteView tiView=new TiqueteView(this);
-        TiquetesController ticontrollrt=new TiquetesController(timodel,tiView);
-            
+        
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
         this.addWindow(pview, "pago");
@@ -119,7 +114,6 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(vview, "Vuelos");
         this.addWindow(rview, "reserva");
         this.add(new Main(this),"Main");
-        this.addWindow(tiView, "Tiquete");
         this.iniciarComponentes();
         this.swapWindow("Main");
     }

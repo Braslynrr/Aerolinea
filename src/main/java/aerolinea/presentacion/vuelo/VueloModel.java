@@ -1,15 +1,27 @@
 package aerolinea.presentacion.vuelo;
 
-import aerolinea.presentacion.tipoavion.*;
-import aerolinea.data.TipoAvionDao;
 import aerolinea.logic.Modelo;
-import aerolinea.logic.Vuelo;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
 public class VueloModel extends Observable {
+
+    public TableModelVuelo getTabletipo() {
+        return tabletipo;
+    }
+
+    public void setTabletipo(TableModelVuelo tabletipo) {
+        this.tabletipo = tabletipo;
+    }
+
+    public Vector<String> getCombotipos() {
+        return combotipos;
+    }
+
+    public void setCombotipos(Vector<String> combotipos) {
+        this.combotipos = combotipos;
+    }
     TableModelVuelo tabletipo;
     Vector<String> combotipos;
 

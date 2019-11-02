@@ -62,4 +62,19 @@ public class CiudadDao extends CiudadJpaController {
       em.close();
     }
   }
+    
+    public void update(Ciudad obj)
+   {
+       EntityManager em = getEntityManager();
+       Ciudad ciudad = em.find(Ciudad.class, obj.getCodigo());
+
+        em.getTransaction().begin();
+        
+        ciudad.setNombre(obj.getNombre());
+        ciudad.setPais(obj.getPais());
+        
+         em.getTransaction().commit();
+         
+         em.close();
+   }
  }

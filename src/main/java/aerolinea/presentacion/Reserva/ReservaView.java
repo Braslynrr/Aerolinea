@@ -10,6 +10,7 @@ import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 /**
  *
@@ -114,7 +115,20 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
+       dialogo = new JDialog(main,"Comprar",true);
+       dialogo.setResizable(false);
+       
+       JPanel userview = controller.VenatanAñadir();
+       
+       dialogo.getContentPane().add(userview);
+       dialogo.pack();
+       dialogo.setLocationRelativeTo(main);
+       dialogo.setVisible(true);
+        
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

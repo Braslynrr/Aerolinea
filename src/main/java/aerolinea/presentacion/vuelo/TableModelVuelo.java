@@ -12,8 +12,13 @@ import javax.swing.table.AbstractTableModel;
 
 public class TableModelVuelo extends AbstractTableModel {
     List <Vuelo> lista;
-    
+
+    public void setVuelo(VueloController vuelo) {
+        this.vuelo = vuelo;
+    }
     VueloController vuelo;
+    
+    
     public TableModelVuelo(List<Vuelo> lista) {
         this.lista = lista;
     }

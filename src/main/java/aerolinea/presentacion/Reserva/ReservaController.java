@@ -6,6 +6,9 @@
 package aerolinea.presentacion.Reserva;
 
 
+import javax.swing.JPanel;
+
+
 
 public class ReservaController {
 ReservaModel model;
@@ -32,6 +35,11 @@ ReservaView view;
 
     public void setView(ReservaView view) {
         this.view = view;
+    }
+
+    JPanel VenatanAñadir() {
+       view.setSize(840, 500);
+       return view;
     }
 
 
