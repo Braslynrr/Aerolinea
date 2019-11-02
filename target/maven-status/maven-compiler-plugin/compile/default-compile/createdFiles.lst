@@ -85,6 +85,7 @@ aerolinea\data\ReservaDao.class
 aerolinea\logic\ModeloUsuario$1.class
 aerolinea\presentacion\Usuario\UsuarioModel.class
 aerolinea\logic\ModeloUsuario$ModeloUsuarioHolder.class
+aerolinea\presentacion\ventanaprincipal\Main.class
 aerolinea\presentacion\vuelo\VueloView$1.class
 aerolinea\presentacion\avion\TableModelAvion.class
 aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$1.class
@@ -148,7 +149,6 @@ aerolinea\presentacion\ciudad\CiudadView.class
 aerolinea\presentacion\pais\PaisView$1.class
 aerolinea\presentacion\añadirtipoavion\AñadirTipoAModel.class
 aerolinea\Main.class
-aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$18.class
 aerolinea\presentacion\añadirpais\AñadirPaisView$2.class
 aerolinea\presentacion\añadirusuario\AñadirUsuarioModel.class
 aerolinea\presentacion\añadirusuario\AñadirUsuarioView.class
@@ -163,7 +163,6 @@ aerolinea\data\PaisDao$1.class
 aerolinea\data\ReservaDao$ReservaDaoHolder.class
 aerolinea\presentacion\añadiravion\AñadirAvionView.class
 aerolinea\presentacion\tipoavion\TipoAvionModel.class
-aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$17.class
 aerolinea\presentacion\ciudad\TableModelCiudad.class
 aerolinea\presentacion\Compra\TiquetesController.class
 aerolinea\presentacion\añadirmetododepago\AñadirPagoModel.class

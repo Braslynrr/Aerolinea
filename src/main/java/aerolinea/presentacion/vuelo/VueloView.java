@@ -1,9 +1,7 @@
 
 package aerolinea.presentacion.vuelo;
 
-import aerolinea.presentacion.tipoavion.*;
 import aerolinea.logic.Modelo;
-import aerolinea.logic.TipoAvion;
 import aerolinea.logic.Vuelo;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import java.util.Observable;

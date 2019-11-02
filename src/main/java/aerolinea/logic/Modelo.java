@@ -296,8 +296,7 @@ public class Modelo {
     }
 
     public List<Reserva> SearchReserva(int search, int index) {
-        switch (index) {
-            //  case 0:  return (List<Reserva>) ReservaDao.getInstance().findReserva(search);
+        switch (index) { 
 
         }
         return null;
