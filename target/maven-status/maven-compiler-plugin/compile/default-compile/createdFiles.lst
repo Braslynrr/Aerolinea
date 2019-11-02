@@ -48,6 +48,7 @@ aerolinea\data\TiqueteDao$TiqueteDaoHolder.class
 aerolinea\presentacion\añadirpais\AñadirPaisController.class
 aerolinea\data\CiudadDao$CiudadDaoHolder.class
 aerolinea\presentacion\añadiravion\AñadirAvionView$2.class
+aerolinea\presentacion\Compra\TiqueteView$1.class
 aerolinea\logic\Usuario.class
 aerolinea\presentacion\pais\PaisController.class
 aerolinea\data\UsuarioDao$1.class
@@ -88,6 +89,7 @@ aerolinea\logic\ModeloUsuario$ModeloUsuarioHolder.class
 aerolinea\presentacion\ventanaprincipal\Main.class
 aerolinea\presentacion\vuelo\VueloView$1.class
 aerolinea\presentacion\avion\TableModelAvion.class
+aerolinea\presentacion\SeleccionVuelo\SeleccionVueloView.class
 aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$1.class
 aerolinea\presentacion\vuelo\VueloView$2.class
 aerolinea\presentacion\tipoavion\TableModelTipoAvion.class
@@ -96,6 +98,7 @@ aerolinea\presentacion\añadirvuelo\AñadirVueloView$3.class
 aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$4.class
 aerolinea\presentacion\pago\PagoView$1.class
 aerolinea\data\TipoAvionDao$1.class
+aerolinea\presentacion\SeleccionVuelo\SeleccionVueloController.class
 aerolinea\logic\Tiquete_.class
 aerolinea\data\ReservaJpaController.class
 aerolinea\presentacion\tipoavion\TipoAvionView$1.class
@@ -105,6 +108,7 @@ aerolinea\presentacion\añadirmetododepago\AñadirPagoView$1.class
 aerolinea\presentacion\Reserva\ReservaModel.class
 aerolinea\presentacion\añadirvuelo\AñadirVueloView$2.class
 aerolinea\data\PaisDao$PaisDaoHolder.class
+aerolinea\presentacion\SeleccionVuelo\SeleccionVueloModel.class
 aerolinea\presentacion\vuelo\VueloView$3.class
 aerolinea\presentacion\añadirciudad\AñadirCiudadView$2.class
 aerolinea\presentacion\pago\PagoController.class
@@ -163,6 +167,7 @@ aerolinea\data\PaisDao$1.class
 aerolinea\data\ReservaDao$ReservaDaoHolder.class
 aerolinea\presentacion\añadiravion\AñadirAvionView.class
 aerolinea\presentacion\tipoavion\TipoAvionModel.class
+aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$17.class
 aerolinea\presentacion\ciudad\TableModelCiudad.class
 aerolinea\presentacion\Compra\TiquetesController.class
 aerolinea\presentacion\añadirmetododepago\AñadirPagoModel.class
@@ -173,6 +178,7 @@ aerolinea\presentacion\pais\TableModelPais.class
 aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$14.class
 aerolinea\presentacion\ciudad\CiudadView$2.class
 aerolinea\presentacion\pago\PagoModel.class
+aerolinea\presentacion\SeleccionVuelo\SeleccionVueloView$1.class
 aerolinea\data\CiudadDao.class
 aerolinea\data\PersistenceManager$PersistenceManagerHolder.class
 aerolinea\presentacion\tipoavion\TipoAvionView.class

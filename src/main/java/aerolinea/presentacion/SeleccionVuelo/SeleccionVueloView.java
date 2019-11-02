@@ -6,8 +6,6 @@
 package aerolinea.presentacion.SeleccionVuelo;
 
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
-import aerolinea.presentacion.vuelo.VueloController;
-import aerolinea.presentacion.vuelo.VueloModel;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JDialog;
@@ -19,6 +17,30 @@ import javax.swing.JDialog;
 public class SeleccionVueloView extends javax.swing.JPanel implements Observer{
     SeleccionVueloController controller;
     SeleccionVueloModel model;
+
+    public SeleccionVueloController getController() {
+        return controller;
+    }
+
+    public void setController(SeleccionVueloController controller) {
+        this.controller = controller;
+    }
+
+    public SeleccionVueloModel getModel() {
+        return model;
+    }
+
+    public void setModel(SeleccionVueloModel model) {
+        this.model = model;
+    }
+
+    public VentanaPrincipalView getMain() {
+        return main;
+    }
+
+    public void setMain(VentanaPrincipalView main) {
+        this.main = main;
+    }
     VentanaPrincipalView main;
     public JDialog dialogo;
 

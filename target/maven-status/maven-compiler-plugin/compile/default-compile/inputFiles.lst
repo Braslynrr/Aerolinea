@@ -1,6 +1,7 @@
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\pago\PagoModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TiqueteDao.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\avion\TableModelAvion.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\SeleccionVuelo\SeleccionVueloModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\pais\PaisView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\logic\Vuelo.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TipoAvionDao.java
@@ -22,6 +23,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\PaisJpaC
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ventanaprincipal\PrincipalUserController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirtipoavion\AñadirTipoAModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\tipoavion\TipoAvionController.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ventanaprincipal\Main.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\Parse.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirmetododepago\AñadirPagoController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadView.java
@@ -44,6 +46,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Reserva\ReservaModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadController.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\SeleccionVuelo\SeleccionVueloController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\UsuarioModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\tipoavion\TipoAvionModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirciudad\AñadirCiudadView.java
@@ -65,6 +68,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ventanaprincipal\VentanaPrincipalController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\PersistenceManager.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\AvionDao.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\SeleccionVuelo\SeleccionVueloView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ventanaprincipal\VentanaPrincipalModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\UsuarioDao.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\TableModelCiudad.java

@@ -2,6 +2,9 @@ package aerolinea.presentacion.ventanaprincipal;
 
 import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
+import aerolinea.presentacion.Compra.TiqueteView;
+import aerolinea.presentacion.Compra.TiquetesController;
+import aerolinea.presentacion.Compra.TiquetesModel;
 import aerolinea.presentacion.Reserva.ReservaController;
 import aerolinea.presentacion.Reserva.ReservaModel;
 import aerolinea.presentacion.Reserva.ReservaView;
@@ -102,7 +105,12 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         ReservaModel rmodel= new ReservaModel();
         ReservaView rview = new ReservaView(this);
         ReservaController rcontroller = new ReservaController(rmodel,rview);
-
+        
+        
+        TiquetesModel timodel=new TiquetesModel();
+        TiqueteView tiView=new TiqueteView(this);
+        TiquetesController ticontrollrt=new TiquetesController(timodel,tiView);
+            
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
         this.addWindow(pview, "pago");
@@ -111,6 +119,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(vview, "Vuelos");
         this.addWindow(rview, "reserva");
         this.add(new Main(this),"Main");
+        this.addWindow(tiView, "Tiquete");
         this.iniciarComponentes();
         this.swapWindow("Main");
     }
@@ -239,6 +248,11 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         IComprar.setText("Consulta");
 
         jMenuItem13.setText("Vuelos");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         IComprar.add(jMenuItem13);
 
         jMenuBar1.add(IComprar);
@@ -605,6 +619,10 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         this.swapWindow("reserva");
     }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+       this.swapWindow("Tiquete");
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
