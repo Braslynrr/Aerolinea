@@ -7,9 +7,11 @@ import aerolinea.exceptions.NonexistentEntityException;
 import aerolinea.logic.Modelo;
 import aerolinea.logic.Viaje;
 import aerolinea.logic.Vuelo;
+import aerolinea.presentacion.Compra.TiquetesModel;
 import aerolinea.presentacion.añadirviaje.AñadirViajeController;
 import aerolinea.presentacion.añadirviaje.AñadirViajeModel;
 import aerolinea.presentacion.añadirviaje.AñadirViajeView;
+import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,17 +21,22 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 
 public class SelectController {
+
     SelectModel model;
     SelectView view;
+    VentanaPrincipalView main;
     
-
+    
+    
+    
     public SelectController(SelectModel model, SelectView view) {
         this.model = model;
         this.view = view;
         view.setModel(model);
         view.setController(this);
         model.tabletipo.vuelo = this;
-//        UpdateTable();
+        model.addObserver(view);
+        main=view.main;
     }
     
     public void OcutarDialogo()
@@ -119,8 +126,11 @@ public class SelectController {
 
     }
 
-    JPanel VenatanAñadir(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    JPanel VenatanAñadir(Viaje viaje) {
+        TiquetesModel model=new TiquetesModel();
+        aerolinea.presentacion.Compra.TiqueteView view= new aerolinea.presentacion.Compra.TiqueteView(main,viaje);
+        aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view);
+        return view;
     }
 
     

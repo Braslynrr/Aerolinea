@@ -24,6 +24,7 @@ public class TiquetesController {
         this.model = model;
         this.view = view;
         view.setController(this);
+        view.setModel(model);
         model.addObserver(view);
     }
 
@@ -45,6 +46,18 @@ public class TiquetesController {
 
     public void setView(TiqueteView view) {
         this.view = view;
+    }
+    public void ChargeTickets(String code){
+        model.ChargeTiquets(code);
+    }
+    
+    
+    
+    public Boolean BuyTiquete(int fila,int asiento){
+         return true;
+     }
+    public Boolean getTicket(int fila,int asiento){
+       return model.findTicket(fila, asiento);
     }
     
     

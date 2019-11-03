@@ -101,16 +101,15 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         VueloModel vmodel = new VueloModel();
         VueloView vview = new VueloView(this);
         VueloController vcontroller = new VueloController(vmodel, vview);
-        
-        
-        ReservaModel rmodel= new ReservaModel();
+
+        ReservaModel rmodel = new ReservaModel();
         ReservaView rview = new ReservaView(this);
-        ReservaController rcontroller = new ReservaController(rmodel,rview);
-        
-        ViajeModel vimodel=new ViajeModel();
+        ReservaController rcontroller = new ReservaController(rmodel, rview);
+
+        ViajeModel vimodel = new ViajeModel();
         ViajeView viview = new ViajeView(this);
-        ViajeController vicontroller=new ViajeController(vimodel,viview);
-        
+        ViajeController vicontroller = new ViajeController(vimodel, viview);
+
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
         this.addWindow(pview, "pago");
@@ -119,7 +118,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.addWindow(vview, "Vuelos");
         this.addWindow(rview, "reserva");
         this.addWindow(viview, "viaje");
-        this.add(new Main(this),"Main");
+        this.add(new Main(this), "Main");
         this.iniciarComponentes();
         this.swapWindow("Main");
     }
@@ -473,10 +472,12 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         cb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (cb.getState() == false) {
-                    password.setEchoChar('*');
-                } else {
+                if (cb.getState() == true) {
                     password.setEchoChar((char) 0);
+                    password.setText(password.getText());
+                } else {
+                    password.setEchoChar('*');
+                    password.setText(password.getText());
                 }
             }
         });
@@ -618,7 +619,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         JOptionPane dialog = new JOptionPane();
 
-        JLabel label = new JLabel("<html><center>Sistema de administracion, aerolinea.<br>"+ "Programación III. Escuela de Informática. Universidad Nacional.<br>" + "Creado por Mario Arguello y Braslyn Rodriguez.</center></html>");
+        JLabel label = new JLabel("<html><center>Sistema de administracion, aerolinea.<br>" + "Programación III. Escuela de Informática. Universidad Nacional.<br>" + "Creado por Mario Arguello y Braslyn Rodriguez.</center></html>");
 
         Object[] options = {"Aceptar"};
 
@@ -630,11 +631,11 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-       this.swapWindow("Tiquete");
+        this.swapWindow("Tiquete");
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-       this.swapWindow("viaje");
+        this.swapWindow("viaje");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     public void setModel(VentanaPrincipalModel model) {

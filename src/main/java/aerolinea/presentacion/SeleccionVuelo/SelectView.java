@@ -1,4 +1,3 @@
-
 package aerolinea.presentacion.SeleccionVuelo;
 
 import aerolinea.data.ViajeDao;
@@ -20,14 +19,14 @@ public class SelectView extends javax.swing.JPanel implements Observer {
     SelectModel model;
     VentanaPrincipalView main;
     public JDialog dialogo;
-     
+
     public SelectView(VentanaPrincipalView main) {
         initComponents();
         this.main = main;
         principaltable.setModel(new TableModelselect(Modelo.getInstance().GetAllViaje()));
-       
-        dialogo = new JDialog(main," " ,true);
-      
+
+        dialogo = new JDialog(main, " ", true);
+
     }
 
     public VentanaPrincipalView getMain() {
@@ -41,7 +40,6 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         labeltittle = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         principaltable = new javax.swing.JTable();
-        Eliminar = new javax.swing.JButton();
         fechasalida = new javax.swing.JComboBox<>();
         searchfield = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
@@ -54,10 +52,12 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         jLabel4 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1280, 720));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labeltittle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         labeltittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labeltittle.setText("Administrar Viajes");
+        labeltittle.setText("Elija su Destino");
+        add(labeltittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 791, 28));
 
         principaltable.setAutoCreateRowSorter(true);
         principaltable.setModel(new javax.swing.table.DefaultTableModel(
@@ -78,14 +78,11 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         });
         jScrollPane2.setViewportView(principaltable);
 
-        Eliminar.setText("Eliminar");
-        Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarActionPerformed(evt);
-            }
-        });
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 791, 292));
 
         fechasalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(fechasalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 73, 131, -1));
+        add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(644, 73, 90, -1));
 
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,126 +90,52 @@ public class SelectView extends javax.swing.JPanel implements Observer {
                 buscarActionPerformed(evt);
             }
         });
+        add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(736, 72, -1, -1));
 
         idacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(idacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 73, 120, -1));
 
         regresocombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(regresocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 73, 128, -1));
 
         jLabel1.setText("Vuelos de ida:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 52, -1, -1));
 
         jLabel2.setText("Vuelos de regreso:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 52, -1, -1));
 
         fecharegreso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(fecharegreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(417, 73, 217, -1));
 
         jLabel3.setText("Fecha de salida:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 52, -1, -1));
 
         jLabel4.setText("Fecha de regreso");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Eliminar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(idacombo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(40, 40, 40)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel2)
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabel3)
-                                .addGap(62, 62, 62)
-                                .addComponent(jLabel4)
-                                .addGap(0, 120, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(regresocombo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fecharegreso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchfield, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(buscar))
-                    .addComponent(labeltittle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscar)
-                    .addComponent(idacombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(regresocombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fecharegreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Eliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 52, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-            this.setTable();
+        this.setTable();
     }//GEN-LAST:event_buscarActionPerformed
 
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        Viaje temp = model.tabletipo.getElement(principaltable.convertRowIndexToModel(principaltable.getSelectedRow()));
-            try {
-            controller.Eliminar(temp);
-        } catch (Exception ex) {
-            Logger.getLogger(SelectView.class.getName()).log(Level.SEVERE, null, ex);
-//              JOptionPane.showMessageDialog(null, "ERROR: Alguna entidad necesita de este viaje por lo que aun no se puede borrar..");
-        }
-    }//GEN-LAST:event_EliminarActionPerformed
-
     private void principaltableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_principaltableMouseClicked
-        if (evt.getClickCount() == 2 )
-       {
-       dialogo = new JDialog(main,"Modificar",true);
-       dialogo.setResizable(false);
-       
-      JPanel userview = controller.VenatanAñadir(1);
-       
-       dialogo.getContentPane().add(userview);
-       dialogo.pack();
-       dialogo.setLocationRelativeTo(main);
-       dialogo.setVisible(true);
-       }
+        if (evt.getClickCount() == 2) {
+            Viaje temp = model.tabletipo.getElement(principaltable.convertRowIndexToModel(principaltable.getSelectedRow()));
+            dialogo = new JDialog(main, "Comprar Tiquetes", true);
+            dialogo.setResizable(true);
+            JPanel userview = controller.VenatanAñadir(temp);
+            userview.setSize(950, 500);
+            dialogo.getContentPane().add(userview);
+            dialogo.pack();
+            dialogo.setLocationRelativeTo(main);
+            dialogo.setVisible(true);
+        }
     }//GEN-LAST:event_principaltableMouseClicked
 
-    
-     public void setTable()
-    {
+    public void setTable() {
         principaltable.setModel(controller.setTables());
     }
-     
+
     public SelectController getController() {
         return controller;
     }
@@ -232,13 +155,11 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         idacombo.setModel(new DefaultComboBoxModel(model.ida));
         regresocombo.setModel(new DefaultComboBoxModel(model.regreso));
         fecharegreso.setModel(new DefaultComboBoxModel(model.fecharegreso));
-        
+
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton Eliminar;
     public javax.swing.JButton buscar;
     public javax.swing.JComboBox<String> fecharegreso;
     public javax.swing.JComboBox<String> fechasalida;
