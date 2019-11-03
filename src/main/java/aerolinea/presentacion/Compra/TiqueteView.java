@@ -156,7 +156,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     public void ComprarTiquete(int fila, int asiento, Usuario user) {
         if(Parse.Aprove(this.jTextField1.getText(), Parse.PALABRAS)){
             String metodo= (String) this.searchcombo.getSelectedItem();
-            if(controller.BuyTiquete(fila, asiento,metodo)){
+            if(controller.BuyTiquete(fila, asiento,metodo,this.jTextField1.getText(),viaje)){
                 JOptionPane.showMessageDialog(null,"Comprado");
             }else{
                 JOptionPane.showMessageDialog(null,"Compra Fallida");

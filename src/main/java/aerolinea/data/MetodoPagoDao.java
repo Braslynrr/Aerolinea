@@ -33,8 +33,7 @@ public class MetodoPagoDao extends MetodoPagoJpaController{
     }
   }
     
-    public List<MetodoPago> findByDescripcion(String identifier)
-  {
+    public List<MetodoPago> findByDescripcion(String identifier){
     EntityManager em = getEntityManager();
     try
     {
