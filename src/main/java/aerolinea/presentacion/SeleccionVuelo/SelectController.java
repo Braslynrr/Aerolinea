@@ -115,8 +115,7 @@ public class SelectController {
             case 0:
                 TiquetesModel model = new TiquetesModel();
                 aerolinea.presentacion.Compra.TiqueteView view = new aerolinea.presentacion.Compra.TiqueteView(main, viaje);
-                aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view);
-                controller.setDialogo(dialog);
+                aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view,dialog);
                 return view;
             case 1:
                 ReservaModel model1= new ReservaModel();

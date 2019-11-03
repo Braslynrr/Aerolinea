@@ -22,9 +22,10 @@ public class TiquetesController {
         this.dialogo = dialogo;
     }
     
-    public TiquetesController(TiquetesModel model, TiqueteView view) {
+    public TiquetesController(TiquetesModel model, TiqueteView view,Dialog dialog) {
         this.model = model;
         this.view = view;
+        dialogo=dialog;
         view.setController(this);
         view.setModel(model);
         model.addObserver(view);

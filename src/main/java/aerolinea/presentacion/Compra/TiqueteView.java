@@ -9,15 +9,19 @@ import aerolinea.data.Parse;
 import aerolinea.logic.Usuario;
 import aerolinea.logic.Viaje;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
+import com.mysql.cj.util.StringUtils;
 import java.awt.Color;
 import java.awt.MenuComponent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,9 +29,14 @@ import javax.swing.JOptionPane;
  */
 public class TiqueteView extends javax.swing.JPanel implements Observer {
 
+    int TicketsTotales = 0;
     TiquetesController controller;
     VentanaPrincipalView main;
     TiquetesModel model;
+    int[] fila;
+    int[] asiento;
+    List<String> metodo;
+    List<String> nombre;
 
     public TiquetesModel getModel() {
         return model;
@@ -47,7 +56,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
 
     public void setController(TiquetesController controller) {
         this.controller = controller;
-        this.actualizarCampos();
+        this.Cantickets();
     }
 
     public TiqueteView(VentanaPrincipalView main, Viaje viaje) {
@@ -57,15 +66,41 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         bviaje = true;
         this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio());
         if (viaje.getRegreso() == null) {
-            Bviaje2.setEnabled(false);
         } else {
-            Bviaje2.setEnabled(true);
             viaje.getReservaList();
             this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio() + " y " + viaje.getRegreso().getPrecio());
         }
     }
 
+    public void Cantickets() {
+        JTextField ticks = new JTextField();
+        Object[] files = {
+            "Digite la cantidad de tickets que desea comprar ", ticks
+        };
+        if (JOptionPane.showConfirmDialog(null, files, "Cantidad de tiquetes", JOptionPane.OK_CANCEL_OPTION) == 0) {
+            if (StringUtils.isStrictlyNumeric(ticks.getText()) == true) {
+                this.TicketsTotales = Integer.parseInt(ticks.getText());
+                if (this.TicketsTotales > 0) {
+                    this.actualizarCampos();
+                    this.Btickets.setVisible(false);
+                    this.Bcomprar.setVisible(true);
+                    fila = new int[this.TicketsTotales];
+                    nombre = new ArrayList();
+                    asiento = new int[this.TicketsTotales];
+                    metodo = new ArrayList();
+                } else {
+                    this.Bcomprar.setVisible(false);
+                }
+            } else {
+                this.Bcomprar.setVisible(false);
+            }
+        } else {
+            this.Bcomprar.setVisible(false);
+        }
+    }
+
     public void actualizarCampos() {
+
         int x = this.Lavioncalculo.getX(), y = this.Lavioncalculo.getY();
         int Gw = 0, Gh = 0;
         int fil = 0, asin = 0;
@@ -104,7 +139,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
                             public void mouseClicked(MouseEvent evt) {
                                 JButton p = (JButton) evt.getComponent();
                                 int[] par = getPoint(p.getText());
-                                ComprarTiquete(par[0], par[1], main.getUModel().getUser());
+                                ComprarTiquete(par[0], par[1], main.getUModel().getUser(), p);
                             }
                         });
                     }
@@ -153,18 +188,55 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         return par;
     }
 
-    public void ComprarTiquete(int fila, int asiento, Usuario user) {
-        if (Parse.Aprove(this.jTextField1.getText(), Parse.NOMBRES)) {
-            String metodo = (String) this.searchcombo.getSelectedItem();
-            if (controller.BuyTiquete(fila, asiento, metodo, this.jTextField1.getText(), viaje, user)) {
-                JOptionPane.showMessageDialog(null, "Comprado");
-                controller.HideDialog();
+    public void ComprarTiquete(int fila, int asiento, Usuario user, JButton btn) {
+        if(this.nombre.size()==this.TicketsTotales){
+            JOptionPane.showMessageDialog(null, "Numero propuesto de tickets alcanzado");
+        }else{
+        JTextField name = new JTextField();
+        Object[] files = {
+            "Digite el nombre ", name
+        };
+        if (JOptionPane.showConfirmDialog(null, files, "Nombre", JOptionPane.OK_CANCEL_OPTION) == 0) {
+            if (Parse.Aprove(name.getText(), Parse.NOMBRES)) {
+                btn.setEnabled(false);
+                String metodo = (String) this.searchcombo.getSelectedItem();
+                btn.removeAll();
+                //se asigna el campo
+                int index=this.nombre.size();
+                this.fila[index]=fila;
+                this.asiento[index]=asiento;
+                this.metodo.add(metodo);
+                this.nombre.add(name.getText());
+                JOptionPane.showMessageDialog(null, "Asignado");
+                if(this.nombre.size()==this.TicketsTotales){
+                 this.Bcomprar.setVisible(true);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Compra Fallida");
+                JOptionPane.showMessageDialog(null, "Nombre invalido");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cancelado");
+        }
+        files=null;
+        }
+
+    }
+
+    public void CompraTotal() {
+        if (this.nombre.size() == this.TicketsTotales) {
+            try {
+                for (int i = 0; i < this.TicketsTotales; i++) {
+                    controller.BuyTiquete(fila[i], asiento[i], metodo.get(i), nombre.get(i), viaje, main.getUModel().getUser());
+                }
+                JOptionPane.showMessageDialog(null, "Comprados");
+                this.controller.HideDialog();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Fallo " + ex.getMessage());
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Nombre invalido");
+            int def = this.TicketsTotales - fila.length;
+            JOptionPane.showMessageDialog(null, "Faltan " + def + " tiquetes por comprar");
         }
 
     }
@@ -180,17 +252,15 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
 
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         LabelPrecio = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         Lavioncalculo = new javax.swing.JLabel();
-        Bviaje1 = new javax.swing.JButton();
-        Bviaje2 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         searchcombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        Btickets = new javax.swing.JButton();
+        Bcomprar = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(982, 550));
         setLayout(null);
@@ -200,51 +270,26 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         add(jLabel2);
         jLabel2.setBounds(90, 10, 300, 70);
 
-        jButton2.setText("Salir");
+        jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         add(jButton2);
-        jButton2.setBounds(760, 500, 100, 30);
-        add(jTextField1);
-        jTextField1.setBounds(670, 30, 240, 30);
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel3.setText("Nombre de la Persona");
-        add(jLabel3);
-        jLabel3.setBounds(490, 30, 180, 30);
+        jButton2.setBounds(690, 500, 90, 30);
 
         LabelPrecio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         LabelPrecio.setText("Precio por asiento : ");
         add(LabelPrecio);
         LabelPrecio.setBounds(30, 70, 310, 30);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setText("Total a Pagar: ");
+        add(jLabel3);
+        jLabel3.setBounds(30, 110, 320, 21);
         add(Lavioncalculo);
         Lavioncalculo.setBounds(140, 260, 390, 100);
-
-        Bviaje1.setText("Viaje 1");
-        Bviaje1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Bviaje1ActionPerformed(evt);
-            }
-        });
-        add(Bviaje1);
-        Bviaje1.setBounds(710, 250, 170, 50);
-
-        Bviaje2.setText("Viaje 2");
-        Bviaje2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Bviaje2ActionPerformed(evt);
-            }
-        });
-        add(Bviaje2);
-        Bviaje2.setBounds(710, 340, 170, 50);
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel5.setText("Vuelos del viaje");
-        add(jLabel5);
-        jLabel5.setBounds(720, 190, 180, 30);
 
         searchcombo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         searchcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -266,28 +311,33 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         jLabel4.setText("Para comprar Ticket Click en un asiento!");
         add(jLabel4);
         jLabel4.setBounds(10, 504, 270, 30);
+
+        Btickets.setText("Dar cantidad de Tickets");
+        Btickets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BticketsActionPerformed(evt);
+            }
+        });
+        add(Btickets);
+        Btickets.setBounds(550, 20, 280, 30);
+
+        Bcomprar.setText("Comprar");
+        add(Bcomprar);
+        Bcomprar.setBounds(790, 500, 90, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         controller.HideDialog();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void Bviaje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bviaje1ActionPerformed
-        this.limpiaAvion();
-        bviaje = true;
-        this.actualizarCampos();
-    }//GEN-LAST:event_Bviaje1ActionPerformed
-
-    private void Bviaje2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bviaje2ActionPerformed
-        this.limpiaAvion();
-        bviaje = true;
-        this.actualizarCampos();
-    }//GEN-LAST:event_Bviaje2ActionPerformed
+    private void BticketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BticketsActionPerformed
+        this.Cantickets();
+    }//GEN-LAST:event_BticketsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Bviaje1;
-    private javax.swing.JButton Bviaje2;
+    private javax.swing.JButton Bcomprar;
+    private javax.swing.JButton Btickets;
     private javax.swing.JLabel LabelPrecio;
     private javax.swing.JLabel Lavioncalculo;
     private javax.swing.JButton jButton2;
@@ -295,9 +345,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> searchcombo;
     // End of variables declaration//GEN-END:variables
 
