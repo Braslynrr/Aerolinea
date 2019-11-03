@@ -154,7 +154,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     }
 
     public void ComprarTiquete(int fila, int asiento, Usuario user) {
-        if (Parse.Aprove(this.jTextField1.getText(), Parse.PALABRAS)) {
+        if (Parse.Aprove(this.jTextField1.getText(), Parse.NOMBRES)) {
             String metodo = (String) this.searchcombo.getSelectedItem();
             if (controller.BuyTiquete(fila, asiento, metodo, this.jTextField1.getText(), viaje, user)) {
                 JOptionPane.showMessageDialog(null, "Comprado");
@@ -190,6 +190,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         searchcombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(982, 550));
         setLayout(null);
@@ -220,7 +221,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         add(LabelPrecio);
         LabelPrecio.setBounds(30, 70, 310, 30);
         add(Lavioncalculo);
-        Lavioncalculo.setBounds(140, 280, 390, 100);
+        Lavioncalculo.setBounds(140, 260, 390, 100);
 
         Bviaje1.setText("Viaje 1");
         Bviaje1.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +259,13 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Avion.png"))); // NOI18N
         add(jLabel1);
-        jLabel1.setBounds(20, 120, 610, 430);
+        jLabel1.setBounds(30, 100, 610, 430);
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel4.setText("Para comprar Ticket Click en un asiento!");
+        add(jLabel4);
+        jLabel4.setBounds(10, 504, 270, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -287,6 +294,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField1;

@@ -56,6 +56,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     VentanaPrincipalController controller;
     CardLayout windows;
     Container container;
+    
     public static aerolinea.presentacion.tipoavion.TipoAvionController Controller_Admin;
     public static aerolinea.presentacion.avion.AvionController Controller_Avion;
     public static aerolinea.presentacion.pago.PagoController Controller_Pago;

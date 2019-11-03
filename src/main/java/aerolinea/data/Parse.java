@@ -12,7 +12,7 @@ public class Parse {
     public static final int PALABRAS = 0;
     public static final int CORREO = 1;
     public static final int CODIGOS = 2;
-    
+    public static final int NOMBRES=3;
    
    public static Boolean Aprove(String line,int code){
         String aux=line;
@@ -30,6 +30,10 @@ public class Parse {
                  return match.find();
             case CODIGOS:
                 compile= Pattern.compile("^[a-zA-Z0-9]{3,15}");
+                match=compile.matcher(aux);
+                return match.find();
+            case NOMBRES:
+                compile=Pattern.compile("^([a-zA-Z]{2,}\\s[a-zA-z]{1,}'?-?[a-zA-Z]{2,}\\s?([a-zA-Z]{1,})?)");
                 match=compile.matcher(aux);
                 return match.find();
             default:

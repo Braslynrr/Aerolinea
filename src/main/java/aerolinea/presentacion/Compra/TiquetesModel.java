@@ -68,45 +68,45 @@ public class TiquetesModel extends Observable {
         }
     }
 
-    public Boolean buyTicket(int fila, int asiento, String nombre,String metodo, Usuario user, Viaje viaj) throws Exception {
-        try{
+    public Boolean buyTicket(int fila, int asiento, String nombre, String metodo, Usuario user, Viaje viaj) throws Exception {
+        try {
             Tiquete nuevo;
-        nuevo = new Tiquete();
-        nuevo.setCodigo(TiqueteDao.getInstance().getTiqueteCount());
-        nuevo.setFila(String.valueOf(fila));
-        nuevo.setAsiento(String.valueOf(asiento));
-        nuevo.setPersonaNombre(nombre);
-        Reserva res = null;
-        List<Reserva> reserva = ReservaDao.getInstance().getReservasViaje(user.getCodigo(), viaj.getCodigo());
-        for (int i = 0; i < reserva.size(); i++) {
-            if (reserva.get(i).getPago().getDescripcion().equals(metodo) && reserva.get(i).getViaje().getCodigo().equals(viaj.getCodigo())) {
-                res = reserva.get(i);
+            nuevo = new Tiquete();
+            nuevo.setCodigo(TiqueteDao.getInstance().getTiqueteCount());
+            nuevo.setFila(String.valueOf(fila));
+            nuevo.setAsiento(String.valueOf(asiento));
+            nuevo.setPersonaNombre(nombre);
+            Reserva res = null;
+            List<Reserva> reserva = ReservaDao.getInstance().getReservasViaje(viaj.getCodigo());
+            for (int i = 0; i < reserva.size(); i++) {
+                if (reserva.get(i).getUsuario().getCodigo().equals(user.getCodigo()) && reserva.get(i).getPago().getDescripcion().equals(metodo) && reserva.get(i).getViaje().getCodigo().equals(viaj.getCodigo())) {
+                    res = reserva.get(i);
+                }
             }
-        }
-        if (res != null) {
-            nuevo.setReserva(res);
-            TiqueteDao.getInstance().create(nuevo);
-        } else {
-            res=new Reserva();
-            res.setCodigo(ReservaDao.getInstance().getReservaCount()+1);
-            MetodoPago mpago= MetodoPagoDao.getInstance().findByDescripcion(metodo).get(0);
-            res.setPago(mpago);
-            res.setUsuario(user);
-            res.setViaje(viaj);
-            ReservaDao.getInstance().create(res);
-            nuevo.setReserva(res);
-            TiqueteDao.getInstance().create(nuevo);
-        }
-        return true;
-        }catch(Exception ex){
-         System.out.println(ex.getMessage());
-         return false;
+            if (res != null) {
+                nuevo.setReserva(res);
+                TiqueteDao.getInstance().create(nuevo);
+            } else {
+                res = new Reserva();
+                res.setCodigo(ReservaDao.getInstance().getReservaCount() + 1);
+                MetodoPago mpago = MetodoPagoDao.getInstance().findByDescripcion(metodo).get(0);
+                res.setPago(mpago);
+                res.setUsuario(user);
+                res.setViaje(viaj);
+                ReservaDao.getInstance().create(res);
+                nuevo.setReserva(res);
+                TiqueteDao.getInstance().create(nuevo);
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
         }
     }
 
     public Boolean findTicket(int fila, int asiento) {
         for (int i = 0; i < list.size(); i++) {
-            if (Integer.parseInt(list.get(i).getAsiento())==asiento && Integer.parseInt(list.get(i).getFila())==fila) {
+            if (Integer.parseInt(list.get(i).getAsiento()) == asiento && Integer.parseInt(list.get(i).getFila()) == fila) {
                 return true;
             }
         }

@@ -377,9 +377,9 @@ public class Modelo {
         return ReservaDao.getInstance().findReservaEntities();
     }
 
-    public List<Reserva> SearchReserva(Object search, int index) {
+    public List<Reserva> SearchReserva(String search, int index) {
         switch (index) { 
-            case 1: return ReservaDao.getInstance().getReservaPersona((String)search);
+            case 0: return ReservaDao.getInstance().getReservaPersona((String)search);
         }
         return null;
     }

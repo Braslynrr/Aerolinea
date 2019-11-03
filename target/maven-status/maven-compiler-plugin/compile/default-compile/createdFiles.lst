@@ -20,6 +20,7 @@ aerolinea\presentacion\viaje\ViajeView$1.class
 aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView$18.class
 aerolinea\presentacion\SeleccionVuelo\SelectModel.class
 aerolinea\presentacion\añadirviaje\AñadirViajeView$3.class
+aerolinea\presentacion\Reserva\ReservaView$3.class
 aerolinea\data\ViajeDao$ViajeDaoHolder.class
 aerolinea\presentacion\SeleccionVuelo\SelectController.class
 aerolinea\data\ViajeDao.class
