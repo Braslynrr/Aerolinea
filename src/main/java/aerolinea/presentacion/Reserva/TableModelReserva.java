@@ -38,7 +38,7 @@ public class TableModelReserva extends AbstractTableModel{
         switch(columnIndex){
             case 0: return object.getCodigo();
             case 1: return object.getUsuario();
-            case 2: return object.getPago();
+            case 2: return object.getPago().getDescripcion();
             case 3: return object.getTiqueteList().size();
             case 4: return object.getViaje().getIda()+"-"+object.getViaje().getRegreso();
             default: return "";

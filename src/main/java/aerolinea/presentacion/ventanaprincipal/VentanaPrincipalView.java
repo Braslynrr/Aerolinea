@@ -590,6 +590,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.IComprar.setVisible(false);
         this.ICompras.setVisible(false);
         this.Iperfil.setVisible(false);
+        this.swapWindow("Main");
     }//GEN-LAST:event_ISalirActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

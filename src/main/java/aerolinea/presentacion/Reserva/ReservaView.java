@@ -34,7 +34,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     public ReservaView(VentanaPrincipalView main) {
         initComponents();
         this.main = main;
-        this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().GetAllReserva()));
+        this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().SearchReserva(main.getUModel().getUser(),1)));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -112,7 +112,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
        dialogo = new JDialog(main,"Comprar",true);
        dialogo.setResizable(false);
        
-       JPanel userview = controller.VenatanAñadir();
+       JPanel userview = controller.VenatanAñadir(dialogo);
        
        dialogo.getContentPane().add(userview);
        dialogo.pack();
@@ -140,7 +140,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     @Override
     public void update(Observable arg0, Object arg1) {
         if (controller != null) {
-            //setTable();
+           this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().SearchReserva(main.getUModel().getUser(),1)));
         }
     }
 

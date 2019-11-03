@@ -1,6 +1,5 @@
 package aerolinea.presentacion.SeleccionVuelo;
 
-import aerolinea.data.TipoAvionDao;
 import aerolinea.data.ViajeDao;
 import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
@@ -8,16 +7,12 @@ import aerolinea.logic.Modelo;
 import aerolinea.logic.Viaje;
 import aerolinea.logic.Vuelo;
 import aerolinea.presentacion.Compra.TiquetesModel;
-import aerolinea.presentacion.añadirviaje.AñadirViajeController;
-import aerolinea.presentacion.añadirviaje.AñadirViajeModel;
-import aerolinea.presentacion.añadirviaje.AñadirViajeView;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
+import java.awt.Dialog;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
-import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 
 public class SelectController {
@@ -25,7 +20,15 @@ public class SelectController {
     SelectModel model;
     SelectView view;
     VentanaPrincipalView main;
-    
+    Dialog dialogo;
+
+    public Dialog getDialogo() {
+        return dialogo;
+    }
+
+    public void setDialogo(Dialog dialogo) {
+        this.dialogo = dialogo;
+    }
     
     
     
@@ -41,7 +44,7 @@ public class SelectController {
     
     public void OcutarDialogo()
     {
-        view.dialogo.setVisible(false);
+        dialogo.setVisible(false);
     }
     
     public TableModelselect setTables()
@@ -126,10 +129,11 @@ public class SelectController {
 
     }
 
-    JPanel VenatanAñadir(Viaje viaje) {
+    JPanel VenatanAñadir(Viaje viaje,Dialog dialog) {
         TiquetesModel model=new TiquetesModel();
         aerolinea.presentacion.Compra.TiqueteView view= new aerolinea.presentacion.Compra.TiqueteView(main,viaje);
         aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view);
+        controller.setDialogo(dialog);
         return view;
     }
 

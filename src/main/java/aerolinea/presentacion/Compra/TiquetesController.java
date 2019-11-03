@@ -5,6 +5,7 @@
  */
 package aerolinea.presentacion.Compra;
 
+import aerolinea.logic.Usuario;
 import aerolinea.logic.Viaje;
 import java.awt.Dialog;
 
@@ -52,9 +53,9 @@ public class TiquetesController {
         model.ChargeTiquets(code);
     }
       
-    public Boolean BuyTiquete(int fila,int asiento ,String nombre,String metodo,Viaje viaj){
+    public Boolean BuyTiquete(int fila,int asiento ,String nombre,String metodo,Viaje viaj,Usuario user){
         try{
-            return model.buyTicket(fila, asiento, metodo,nombre,this.view.main.getUModel().getUser(),viaj);
+            return model.buyTicket(fila, asiento, metodo,nombre,user,viaj);
         }catch(Exception ex){
             return false;
         }

@@ -55,13 +55,13 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         this.main = main;
         this.viaje = viaje;
         bviaje = true;
-        this.LabelPrecio.setText("Precio por asiento : "+viaje.getIda().getPrecio());
+        this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio());
         if (viaje.getRegreso() == null) {
             Bviaje2.setEnabled(false);
         } else {
             Bviaje2.setEnabled(true);
             viaje.getReservaList();
-            this.LabelPrecio.setText("Precio por asiento : "+viaje.getIda().getPrecio()+" y "+viaje.getRegreso().getPrecio());
+            this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio() + " y " + viaje.getRegreso().getPrecio());
         }
     }
 
@@ -83,7 +83,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         controller.ChargeTickets(viaje.getCodigo());
         int tam = fil * asin;
         blist = new Object[tam];
-        tam=0;
+        tam = 0;
         JButton boton;
         for (int i = 0; i < fil; i++) {
             for (int j = 0; j < asin; j++) {
@@ -91,14 +91,6 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
                 int F = i + 1, A = j + 1;
                 boton.setText(F + "-" + A);
                 this.add(boton);
-                boton.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent evt) {
-                        JButton p = (JButton) evt.getComponent();
-                        int[] par = getPoint(p.getText());
-                        ComprarTiquete(par[0], par[1], null);
-                    }
-                });
                 boton.setSize(Gw, Gh);
                 boton.setLocation(x + (Gw) * i, y + (Gh) * j);
                 try {
@@ -107,6 +99,14 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
                         boton.setEnabled(false);
                     } else {
                         boton.setBackground(Color.GREEN);
+                        boton.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent evt) {
+                                JButton p = (JButton) evt.getComponent();
+                                int[] par = getPoint(p.getText());
+                                ComprarTiquete(par[0], par[1], main.getUModel().getUser());
+                            }
+                        });
                     }
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -118,15 +118,15 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         }
 
     }
-    
-    public void limpiaAvion(){
-        int max= viaje.getIda().getAvion().getTipoA().getFilas() *  viaje.getIda().getAvion().getTipoA().getAsientos();
-        for(int i=0 ; i<max;i++){
+
+    public void limpiaAvion() {
+        int max = viaje.getIda().getAvion().getTipoA().getFilas() * viaje.getIda().getAvion().getTipoA().getAsientos();
+        for (int i = 0; i < max; i++) {
             this.remove((JButton) blist[i]);
-            blist[i]=null;
+            blist[i] = null;
         }
         this.repaint();
-        blist=null;
+        blist = null;
     }
 
     public int[] getPoint(String point) {
@@ -154,18 +154,19 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     }
 
     public void ComprarTiquete(int fila, int asiento, Usuario user) {
-        if(Parse.Aprove(this.jTextField1.getText(), Parse.PALABRAS)){
-            String metodo= (String) this.searchcombo.getSelectedItem();
-            if(controller.BuyTiquete(fila, asiento,metodo,this.jTextField1.getText(),viaje)){
-                JOptionPane.showMessageDialog(null,"Comprado");
-            }else{
-                JOptionPane.showMessageDialog(null,"Compra Fallida");
+        if (Parse.Aprove(this.jTextField1.getText(), Parse.PALABRAS)) {
+            String metodo = (String) this.searchcombo.getSelectedItem();
+            if (controller.BuyTiquete(fila, asiento, metodo, this.jTextField1.getText(), viaje, user)) {
+                JOptionPane.showMessageDialog(null, "Comprado");
+                controller.HideDialog();
+            } else {
+                JOptionPane.showMessageDialog(null, "Compra Fallida");
             }
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"Nombre invalido");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Nombre invalido");
         }
-        
+
     }
 
     /**
@@ -261,18 +262,18 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        controller.HideDialog();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void Bviaje1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bviaje1ActionPerformed
         this.limpiaAvion();
-        bviaje=true;
+        bviaje = true;
         this.actualizarCampos();
     }//GEN-LAST:event_Bviaje1ActionPerformed
 
     private void Bviaje2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bviaje2ActionPerformed
         this.limpiaAvion();
-        bviaje=true;
+        bviaje = true;
         this.actualizarCampos();
     }//GEN-LAST:event_Bviaje2ActionPerformed
 

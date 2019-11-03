@@ -45,4 +45,17 @@ public class ReservaDao extends ReservaJpaController {
 
     }
     
+        public List<Reserva> getReservaPersona(String user){
+         EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT r FROM Reserva r WHERE"
+                    + " r.usuario.codigo like :user")
+                    .setParameter("user", "%"+user+"%")
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+
+    }
+    
 }

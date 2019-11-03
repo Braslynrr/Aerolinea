@@ -68,7 +68,7 @@ public class TiquetesModel extends Observable {
         }
     }
 
-    public Boolean buyTicket(int fila, int asiento, String metodo,String nombre, Usuario user, Viaje viaj) throws Exception {
+    public Boolean buyTicket(int fila, int asiento, String nombre,String metodo, Usuario user, Viaje viaj) throws Exception {
         try{
             Tiquete nuevo;
         nuevo = new Tiquete();
@@ -88,8 +88,9 @@ public class TiquetesModel extends Observable {
             TiqueteDao.getInstance().create(nuevo);
         } else {
             res=new Reserva();
-            res.setCodigo(ReservaDao.getInstance().getReservaCount());
-            res.setPago(MetodoPagoDao.getInstance().findByDescripcion(metodo).get(0));
+            res.setCodigo(ReservaDao.getInstance().getReservaCount()+1);
+            MetodoPago mpago= MetodoPagoDao.getInstance().findByDescripcion(metodo).get(0);
+            res.setPago(mpago);
             res.setUsuario(user);
             res.setViaje(viaj);
             ReservaDao.getInstance().create(res);
@@ -105,7 +106,7 @@ public class TiquetesModel extends Observable {
 
     public Boolean findTicket(int fila, int asiento) {
         for (int i = 0; i < list.size(); i++) {
-            if (Integer.getInteger(list.get(i).getAsiento()) == asiento && Integer.getInteger(list.get(i).getFila()) == fila) {
+            if (Integer.parseInt(list.get(i).getAsiento())==asiento && Integer.parseInt(list.get(i).getFila())==fila) {
                 return true;
             }
         }
