@@ -52,12 +52,10 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         jLabel4 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1280, 720));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labeltittle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         labeltittle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labeltittle.setText("Elija su Destino");
-        add(labeltittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 791, 28));
 
         principaltable.setAutoCreateRowSorter(true);
         principaltable.setModel(new javax.swing.table.DefaultTableModel(
@@ -78,11 +76,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         });
         jScrollPane2.setViewportView(principaltable);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 791, 292));
-
         fechasalida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(fechasalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 73, 131, -1));
-        add(searchfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(644, 73, 90, -1));
 
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,28 +84,79 @@ public class SelectView extends javax.swing.JPanel implements Observer {
                 buscarActionPerformed(evt);
             }
         });
-        add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(736, 72, -1, -1));
 
         idacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(idacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 73, 120, -1));
 
         regresocombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(regresocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 73, 128, -1));
 
         jLabel1.setText("Vuelos de ida:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 52, -1, -1));
 
         jLabel2.setText("Vuelos de regreso:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 52, -1, -1));
 
         fecharegreso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(fecharegreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(417, 73, 217, -1));
 
         jLabel3.setText("Fecha de salida:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 52, -1, -1));
 
         jLabel4.setText("Fecha de regreso");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 52, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel1)
+                .addGap(51, 51, 51)
+                .addComponent(jLabel2)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel3)
+                .addGap(62, 62, 62)
+                .addComponent(jLabel4))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(idacombo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(regresocombo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(fechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(fecharegreso, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(searchfield, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(buscar))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buscar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idacombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(regresocombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechasalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fecharegreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
@@ -127,6 +172,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
             userview.setSize(950, 500);
             dialogo.getContentPane().add(userview);
             dialogo.pack();
+            dialogo.setSize(950, 600);
             dialogo.setLocationRelativeTo(main);
             dialogo.setVisible(true);
         }

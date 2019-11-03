@@ -53,9 +53,12 @@ public class TiquetesController {
     
     
     
-    public Boolean BuyTiquete(int fila,int asiento){
+    public Boolean BuyTiquete(int fila,int asiento ,String metodo){
          return true;
      }
+    
+    
+    
     public Boolean getTicket(int fila,int asiento){
        return model.findTicket(fila, asiento);
     }

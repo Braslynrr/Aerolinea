@@ -5,7 +5,8 @@
  */
 package aerolinea.presentacion.Compra;
 
-import aerolinea.logic.Reserva;
+import aerolinea.logic.MetodoPago;
+import aerolinea.logic.Modelo;
 import aerolinea.logic.Tiquete;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ public class TiquetesModel extends Observable {
     Vector<String> combotipos;
     
     public TiquetesModel() {
+        combotipos = new Vector<String>();
+        this.llenarcombo();
     }
 
     public Tiquete getTiquete() {
@@ -52,8 +55,22 @@ public class TiquetesModel extends Observable {
            }
         }
     }
+    
+    
+    public void llenarcombo(){
+        List<MetodoPago> pagos = Modelo.getInstance().GetAllMetodos();
+        for(int i=0; i<pagos.size();i++){
+            combotipos.add(pagos.get(i).getDescripcion());
+        } 
+    }
 
-
+    public Boolean BuyTicket(int fila,int asiento ,String metodo){
+        
+        return true;
+    }
+            
+            
+            
     public Boolean findTicket(int fila, int asiento) {
         for(int i=0;i<list.size();i++){
             if(Integer.getInteger(list.get(i).getAsiento())==asiento && Integer.getInteger(list.get(i).getFila())==fila)

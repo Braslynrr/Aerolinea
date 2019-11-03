@@ -155,7 +155,12 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
 
     public void ComprarTiquete(int fila, int asiento, Usuario user) {
         if(Parse.Aprove(this.jTextField1.getText(), Parse.PALABRAS)){
-            
+            String metodo= (String) this.searchcombo.getSelectedItem();
+            if(controller.BuyTiquete(fila, asiento,metodo)){
+                JOptionPane.showMessageDialog(null,"Comprado");
+            }else{
+                JOptionPane.showMessageDialog(null,"Compra Fallida");
+            }
             
         }else{
             JOptionPane.showMessageDialog(null,"Nombre invalido");
@@ -181,9 +186,9 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         Bviaje1 = new javax.swing.JButton();
         Bviaje2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         searchcombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(982, 550));
         setLayout(null);
@@ -200,7 +205,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
             }
         });
         add(jButton2);
-        jButton2.setBounds(870, 510, 100, 30);
+        jButton2.setBounds(760, 500, 100, 30);
         add(jTextField1);
         jTextField1.setBounds(670, 30, 240, 30);
 
@@ -239,11 +244,6 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         add(jLabel5);
         jLabel5.setBounds(720, 190, 180, 30);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Avion.png"))); // NOI18N
-        add(jLabel1);
-        jLabel1.setBounds(20, 120, 610, 430);
-
         searchcombo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         searchcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(searchcombo);
@@ -253,6 +253,11 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         jLabel6.setText("Metodo de Pago");
         add(jLabel6);
         jLabel6.setBounds(510, 80, 150, 20);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Avion.png"))); // NOI18N
+        add(jLabel1);
+        jLabel1.setBounds(20, 120, 610, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
