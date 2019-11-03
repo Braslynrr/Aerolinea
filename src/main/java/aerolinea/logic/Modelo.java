@@ -379,7 +379,7 @@ public class Modelo {
 
     public List<Reserva> SearchReserva(String search, int index) {
         switch (index) { 
-            case 0: return ReservaDao.getInstance().getReservaPersona((String)search);
+            case 0: return ReservaDao.getInstance().getReservaPersona(search);
         }
         return null;
     }

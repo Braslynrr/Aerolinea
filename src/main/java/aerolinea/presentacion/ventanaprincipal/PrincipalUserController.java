@@ -5,8 +5,10 @@
  */
 package aerolinea.presentacion.ventanaprincipal;
 
+import aerolinea.data.UsuarioDao;
 import aerolinea.logic.Usuario;
 import aerolinea.presentacion.Usuario.UsuarioModel;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +41,22 @@ public class PrincipalUserController {
     
      public void MakeUser(Usuario user) throws Exception{
             this.model.CrearUsuario(user);
+    }
+     
+     
+    public void comprobar(){
+        try{
+            model.comprobarAdmin();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+      
+    }
+    
+    
+    
+    public Boolean MakeAdmin(String code){
+        return model.MakeAdmin(code);
     }
     
 }

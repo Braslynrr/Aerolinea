@@ -51,6 +51,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1280, 720));
 
@@ -107,6 +108,14 @@ public class SelectView extends javax.swing.JPanel implements Observer {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton2.setText("Reservas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,17 +144,22 @@ public class SelectView extends javax.swing.JPanel implements Observer {
                 .addComponent(buscar))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labeltittle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +195,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
             Viaje temp = model.tabletipo.getElement(principaltable.convertRowIndexToModel(principaltable.getSelectedRow()));
             dialogo = new JDialog(main, "Comprar Tiquetes", true);
             dialogo.setResizable(true);
-            JPanel userview = controller.VenatanAñadir(temp,dialogo);
+            JPanel userview = controller.VenatanAñadir(temp,dialogo,0);
             userview.setSize(950, 500);
             dialogo.getContentPane().add(userview);
             dialogo.pack();
@@ -194,6 +208,17 @@ public class SelectView extends javax.swing.JPanel implements Observer {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         controller.OcutarDialogo();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dialogo = new JDialog(main, "Reservas", true);
+            dialogo.setResizable(true);
+            JPanel userview = controller.VenatanAñadir(null,dialogo,1);
+            userview.setSize(950, 500);
+            dialogo.getContentPane().add(userview);
+            dialogo.pack();
+            dialogo.setLocationRelativeTo(main);
+            dialogo.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void setTable() {
         principaltable.setModel(controller.setTables());
@@ -228,6 +253,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
     public javax.swing.JComboBox<String> fechasalida;
     public javax.swing.JComboBox<String> idacombo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

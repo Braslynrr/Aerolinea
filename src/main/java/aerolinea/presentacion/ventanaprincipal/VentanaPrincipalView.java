@@ -5,6 +5,9 @@ import aerolinea.logic.Usuario;
 import aerolinea.presentacion.Reserva.ReservaController;
 import aerolinea.presentacion.Reserva.ReservaModel;
 import aerolinea.presentacion.Reserva.ReservaView;
+import aerolinea.presentacion.SeleccionVuelo.SelectController;
+import aerolinea.presentacion.SeleccionVuelo.SelectModel;
+import aerolinea.presentacion.SeleccionVuelo.SelectView;
 import aerolinea.presentacion.Usuario.UsuarioModel;
 import aerolinea.presentacion.avion.AvionController;
 import aerolinea.presentacion.avion.AvionModel;
@@ -56,7 +59,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     VentanaPrincipalController controller;
     CardLayout windows;
     Container container;
-    
+
     public static aerolinea.presentacion.tipoavion.TipoAvionController Controller_Admin;
     public static aerolinea.presentacion.avion.AvionController Controller_Avion;
     public static aerolinea.presentacion.pago.PagoController Controller_Pago;
@@ -67,10 +70,11 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         Umodel = new UsuarioModel();
         this.Ucontroller = new PrincipalUserController(Umodel, this);
         this.IAdministrar.setVisible(false);
-        this.IComprar.setVisible(false);
+        this.IConsulta.setVisible(true);
         this.ICompras.setVisible(false);
         this.Iperfil.setVisible(false);
         this.ISalir.setVisible(false);
+        
 
         windows = new CardLayout();
         container = this.getContentPane();
@@ -103,23 +107,28 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         VueloView vview = new VueloView(this);
         VueloController vcontroller = new VueloController(vmodel, vview);
 
-        ReservaModel rmodel = new ReservaModel();
-        ReservaView rview = new ReservaView(this);
-        ReservaController rcontroller = new ReservaController(rmodel, rview);
+       SelectModel comprarmodel = new SelectModel();
+       SelectView comprarview = new SelectView(this);
+       SelectController contrcomprar = new aerolinea.presentacion.SeleccionVuelo.SelectController(comprarmodel, comprarview);
 
         ViajeModel vimodel = new ViajeModel();
         ViajeView viview = new ViajeView(this);
         ViajeController vicontroller = new ViajeController(vimodel, viview);
-
+        
+        aerolinea.presentacion.Consulta.ViajeModel consmodel=new  aerolinea.presentacion.Consulta.ViajeModel();
+        aerolinea.presentacion.Consulta.ViajeView consview = new aerolinea.presentacion.Consulta.ViajeView(main);
+        aerolinea.presentacion.Consulta.ViajeController conscontroller = new aerolinea.presentacion.Consulta.ViajeController(consmodel, consview);
+        
         this.addWindow(tview, "tipoavion");
         this.addWindow(aview, "avion");
         this.addWindow(pview, "pago");
         this.addWindow(paview, "Pais");
         this.addWindow(cview, "ciudad");
         this.addWindow(vview, "Vuelos");
-        this.addWindow(rview, "reserva");
+        this.addWindow(comprarview, "comprar");
         this.addWindow(viview, "viaje");
         this.add(new Main(this), "Main");
+        this.addWindow(consview, "consulta");
         this.iniciarComponentes();
         this.swapWindow("Main");
     }
@@ -143,6 +152,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
     public void setUcontroller(PrincipalUserController Ucontroller) {
         this.Ucontroller = Ucontroller;
+        Ucontroller.comprobar();
     }
 
     public UsuarioModel getUModel() {
@@ -175,7 +185,8 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        IComprar = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        IConsulta = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         ICompras = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -252,9 +263,17 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         });
         IAdministrar.add(jMenuItem8);
 
+        jMenuItem9.setText("Dar Permisos");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        IAdministrar.add(jMenuItem9);
+
         jMenuBar1.add(IAdministrar);
 
-        IComprar.setText("Consulta");
+        IConsulta.setText("Consulta");
 
         jMenuItem13.setText("Viajes");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
@@ -262,9 +281,9 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
                 jMenuItem13ActionPerformed(evt);
             }
         });
-        IComprar.add(jMenuItem13);
+        IConsulta.add(jMenuItem13);
 
-        jMenuBar1.add(IComprar);
+        jMenuBar1.add(IConsulta);
 
         ICompras.setText("Compras");
 
@@ -588,7 +607,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.Blogin.setVisible(true);
         this.ISalir.setVisible(false);
         this.IAdministrar.setVisible(false);
-        this.IComprar.setVisible(false);
+        this.IConsulta.setVisible(true);
         this.ICompras.setVisible(false);
         this.Iperfil.setVisible(false);
         this.swapWindow("Main");
@@ -629,16 +648,38 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        this.swapWindow("reserva");
+        this.swapWindow("comprar");
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        this.swapWindow("Tiquete");
+        this.swapWindow("consulta");
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         this.swapWindow("viaje");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        JTextField code = new JTextField();
+        Object[] files = {
+            "Digite el codigo del usuario que sea convertir un administrador", code
+        };
+        if (JOptionPane.showConfirmDialog(null, files, "Crear admin", JOptionPane.OK_CANCEL_OPTION) == 0) {
+            if (Parse.Aprove(code.getText(), Parse.CODIGOS)) {
+                if (Ucontroller.MakeAdmin(code.getText())) {
+                    JOptionPane.showMessageDialog(null, code.getText() + " ahora es administrador");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario no Existe");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Codigo invalido");
+            }
+        } else {
+                 JOptionPane.showMessageDialog(null, "Creacion Cancelada");
+        }
+
+
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
@@ -653,7 +694,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         this.Ucontroller = new PrincipalUserController(Umodel, this);
         this.Iperfil.setVisible(true);
         this.jMenuBar1.setVisible(true);
-        this.IComprar.setVisible(true);
+        this.IConsulta.setVisible(true);
         this.ICompras.setVisible(true);
         this.Bregistrarse.setVisible(false);
         this.Blogin.setVisible(false);
@@ -711,8 +752,8 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem Blogin;
     private javax.swing.JMenuItem Bregistrarse;
     private javax.swing.JMenu IAdministrar;
-    private javax.swing.JMenu IComprar;
     private javax.swing.JMenu ICompras;
+    private javax.swing.JMenu IConsulta;
     private javax.swing.JMenuItem ISalir;
     private javax.swing.JMenu Icuenta;
     private javax.swing.JMenu Iperfil;
@@ -731,5 +772,6 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }

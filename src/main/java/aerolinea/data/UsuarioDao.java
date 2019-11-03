@@ -46,7 +46,20 @@ public class UsuarioDao extends UsuarioJpaController {
     }
   }
   
-  
+    public List<Usuario> FindUsertype(String type)
+  {
+    EntityManager em = getEntityManager();
+    try
+    {
+      return em.createQuery("SELECT u FROM Usuario u WHERE u.tipo like :type")
+        .setParameter("type", "%" + type + "%")
+        .getResultList();
+    }
+    finally
+    {
+      em.close();
+    }
+  }
   
   public void update(Usuario obj)
    {
@@ -61,6 +74,7 @@ public class UsuarioDao extends UsuarioJpaController {
          user.setFnacimiento(obj.getFnacimiento());
          user.setPassword(obj.getPassword());
          user.setDireccion(obj.getDireccion());
+         user.setTipo(obj.getTipo());
          em.getTransaction().commit();
          
          em.close();

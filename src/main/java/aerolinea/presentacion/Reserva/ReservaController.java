@@ -14,7 +14,7 @@ public class ReservaController {
     ReservaModel model;
     ReservaView view;
     VentanaPrincipalView main;
-
+    Dialog dialogo;
     public ReservaController(ReservaModel mdoel, ReservaView view) {
         this.model = mdoel;
         this.view = view;
@@ -46,6 +46,14 @@ public class ReservaController {
         controller.setDialogo(dialog);
         view.setSize(840, 500);
         return view;
+    }
+
+    public void setDialogo(Dialog dialog) {
+        dialogo=dialog;
+    }
+    
+    public void ocultardilog(){
+        dialogo.setVisible(false);
     }
     
 }

@@ -1,6 +1,7 @@
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\pago\PagoModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TiqueteDao.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\avion\TableModelAvion.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Consulta\ViajeModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\pais\PaisView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\logic\Vuelo.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TipoAvionDao.java
@@ -31,6 +32,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\exceptions\NonexistentEntityException.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Reserva\ReservaView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\ReservaDao.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Consulta\ViajeView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Compra\TiquetesController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\pago\PagoView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirmetododepago\AñadirPagoModel.java
@@ -41,12 +43,14 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\UsuarioView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\VueloJpaController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirciudad\AñadirCiudadModel.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Consulta\ViajeController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirciudad\AñadirCiudadController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TiqueteJpaController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\LoginController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Reserva\ReservaModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadController.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Consulta\TableModelViaje.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\UsuarioModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\SeleccionVuelo\SelectController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\tipoavion\TipoAvionModel.java
