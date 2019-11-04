@@ -18,7 +18,7 @@ public class MetodoPagoDao extends MetodoPagoJpaController{
         private static final MetodoPagoDao INSTANCE = new MetodoPagoDao();
     }
     
-    public List<MetodoPago> findByCodigo(String identifier)
+     public List<MetodoPago> findByCodigo(String identifier)
   {
     EntityManager em = getEntityManager();
     try
@@ -33,7 +33,8 @@ public class MetodoPagoDao extends MetodoPagoJpaController{
     }
   }
     
-    public List<MetodoPago> findByDescripcion(String identifier){
+    public List<MetodoPago> findByDescripcion(String identifier)
+  {
     EntityManager em = getEntityManager();
     try
     {
@@ -59,4 +60,5 @@ public class MetodoPagoDao extends MetodoPagoJpaController{
          
          em.close();
    }
+   
  }

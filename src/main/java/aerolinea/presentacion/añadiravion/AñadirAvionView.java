@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class AñadirAvionView extends javax.swing.JPanel implements Observer{
 
@@ -117,28 +118,34 @@ public class AñadirAvionView extends javax.swing.JPanel implements Observer{
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
 
         Avion object = new Avion();
-        object.setIdentificador(codigofield.getText());
+        if (!codigofield.getText().isEmpty())
+            object.setIdentificador(codigofield.getText());
         object.setTipoA((TipoAvion) tiposcombobox.getSelectedItem());
         
         try {
             controller.Añadir(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirAvionView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios, o que la llave no este repetida..");
+//            Logger.getLogger(AñadirAvionView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        controller.OcultarDialogo();
+     
     }//GEN-LAST:event_añadirActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
       Avion object = new Avion();
+
         object.setIdentificador(codigofield.getText());
         object.setTipoA((TipoAvion) tiposcombobox.getSelectedItem());
         
         try {
             controller.Modifcar(object);
+             controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirAvionView.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
+//            Logger.getLogger(AñadirAvionView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        controller.OcultarDialogo();
+       
     }//GEN-LAST:event_modificarActionPerformed
 
     @Override

@@ -21,7 +21,6 @@ public class AñadirCiudadController {
     
     public void Añadir(Ciudad object) throws Exception
     {
-//        CiudadDao.getInstance().create(object);
          Modelo.getInstance().Añadir(object);
         model.setUser(object);
         ccontrol.Update();
@@ -29,7 +28,6 @@ public class AñadirCiudadController {
     
     public void Modifcar(Ciudad object) throws Exception
     {
-//        CiudadDao.getInstance().edit(object);
         Modelo.getInstance().Modifcar(object);
         model.setUser(object);
         ccontrol.Update();

@@ -64,7 +64,7 @@ public class TipoAvionController {
     public void Eliminar(TipoAvion object) throws NonexistentEntityException, IllegalOrphanException
     {
         Modelo.getInstance().Eliminar(object);
-//        TipoAvionDao.getInstance().destroy(object.getIdentificador());
+
        this.Update();
     }
 

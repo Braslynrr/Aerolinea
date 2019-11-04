@@ -19,7 +19,7 @@ public class TipoAvionDao extends TipoAvionJpaController {
         private static final TipoAvionDao INSTANCE = new TipoAvionDao();
     }
     
-    public List<TipoAvion> findByIdentifier(String identifier)
+   public List<TipoAvion> findByIdentifier(String identifier)
   {
     EntityManager em = getEntityManager();
     try

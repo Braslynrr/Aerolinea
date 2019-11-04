@@ -1,12 +1,13 @@
 package aerolinea.presentacion.pago;
 
+import aerolinea.data.MetodoPagoDao;
 import aerolinea.exceptions.IllegalOrphanException;
 import aerolinea.exceptions.NonexistentEntityException;
 import aerolinea.logic.MetodoPago;
 import aerolinea.logic.Modelo;
-import aerolinea.presentacion.añadirmetododepago.AñadirPagoController;
-import aerolinea.presentacion.añadirmetododepago.AñadirPagoModel;
-import aerolinea.presentacion.añadirmetododepago.AñadirPagoView;
+import aerolinea.presentacion.añadirmetodopago.AñadirPagoController;
+import aerolinea.presentacion.añadirmetodopago.AñadirPagoModel;
+import aerolinea.presentacion.añadirmetodopago.AñadirPagoView;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 

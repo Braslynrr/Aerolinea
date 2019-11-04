@@ -1,6 +1,8 @@
 package aerolinea.data;
 
 import aerolinea.logic.Vuelo;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 public class VueloDao  extends VueloJpaController  {
@@ -17,7 +19,7 @@ public class VueloDao  extends VueloJpaController  {
         private static final VueloDao INSTANCE = new VueloDao();
     }
     
-    public void clearCache(Vuelo object) 
+   public void clearCache(Vuelo object) 
     {
         EntityManager em = getEntityManager();
         try 
@@ -50,5 +52,25 @@ public class VueloDao  extends VueloJpaController  {
          
          em.close();
    }
-    
+    public List<Vuelo> SearchViaje(ArrayList<Object> array)
+    {
+        EntityManager em = getEntityManager();
+    try
+    {
+      return em.createQuery("SELECT p FROM Vuelo p WHERE p.origen.codigo like :ida "
+      +"AND p.destino.codigo like :regresov "
+      +"AND p.avion.identificador like :salida "
+      
+      )
+              
+        .setParameter("ida","%"+array.get(0)+"%")
+        .setParameter("regresov", "%"+array.get(1)+ "%")
+        .setParameter("salida","%"+array.get(2)+"%")
+        .getResultList();
+    }
+    finally
+    {
+      em.close();
+    }
+    }
  }

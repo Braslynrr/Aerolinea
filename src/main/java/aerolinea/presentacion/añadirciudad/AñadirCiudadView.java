@@ -7,6 +7,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class AñadirCiudadView extends javax.swing.JPanel implements Observer{
 
@@ -123,30 +124,36 @@ public class AñadirCiudadView extends javax.swing.JPanel implements Observer{
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
 
         Ciudad object = new Ciudad();
-        object.setCodigo(codigofield.getText());
-        object.setNombre(nombrefield.getText());
+        if(!codigofield.getText().isEmpty())
+            object.setCodigo(codigofield.getText());
+        if(!nombrefield.getText().isEmpty())
+            object.setNombre(nombrefield.getText());
         object.setPais((Pais) paisescombobox.getSelectedItem());
         
         try {
             controller.Añadir(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirCiudadView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirCiudadView.class.getName()).log(Level.SEVERE, null, ex);
+              JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios. O que la llave priamria no este repetida.");
         }
-        controller.OcultarDialogo();
     }//GEN-LAST:event_añadirActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
       Ciudad object = new Ciudad();
         object.setCodigo(codigofield.getText());
-        object.setNombre(nombrefield.getText());
+        if(!nombrefield.getText().isEmpty())
+            object.setNombre(nombrefield.getText());
         object.setPais((Pais) paisescombobox.getSelectedItem());
         
         try {
             controller.Modifcar(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirCiudadView.class.getName()).log(Level.SEVERE, null, ex);
+//          Logger.getLogger(AñadirCiudadView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
         }
-        controller.OcultarDialogo();
+        
     }//GEN-LAST:event_modificarActionPerformed
 
     @Override

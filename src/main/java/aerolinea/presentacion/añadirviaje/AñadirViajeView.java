@@ -81,7 +81,7 @@ public class AñadirViajeView extends javax.swing.JPanel implements Observer{
 
         Title.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Title.setText("Añadir/modificar tipos de avion");
+        Title.setText("Añadir/modificar vuelos programados");
 
         identificador.setText("Identificador:");
 
@@ -139,11 +139,10 @@ public class AñadirViajeView extends javax.swing.JPanel implements Observer{
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(idenfield, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(regresocombo, 0, 140, Short.MAX_VALUE)
-                                .addComponent(idacombo, 0, 140, Short.MAX_VALUE)
-                                .addComponent(salidaspinner)
-                                .addComponent(regresospinner)))
+                            .addComponent(regresocombo, 0, 140, Short.MAX_VALUE)
+                            .addComponent(idacombo, 0, 140, Short.MAX_VALUE)
+                            .addComponent(salidaspinner)
+                            .addComponent(regresospinner))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

@@ -39,10 +39,9 @@ public class ViajeController {
     
     public TableModelViaje setTables()
     {
-        if (view.idacombo.getSelectedIndex() ==0 && view.regresocombo.getSelectedIndex() ==0 && view.fechasalida.getSelectedIndex() ==0 && view.fecharegreso.getSelectedIndex() ==0)
+        if (view.idacombo.getSelectedIndex() ==0 && view.regresocombo.getSelectedIndex() ==0 && view.searchfield.getText().isEmpty() && view.searchfield2.getText().isEmpty())
         {
         model.tabletipo.setLista(Modelo.getInstance().GetAllViaje());
-//        view.fechasalida.setModel(new DefaultComboBoxModel(model.combotipos));
         return model.tabletipo;  
         }
         else
@@ -72,14 +71,11 @@ public class ViajeController {
             }
             return viajeview;
 
-   
     }
-
-    
+ 
     public void Eliminar(Viaje object) throws NonexistentEntityException, IllegalOrphanException
     {
-//        Modelo.getInstance().Eliminar(object);
-       ViajeDao.getInstance().destroy(object.getCodigo());
+       Modelo.getInstance().Eliminar(object);
        this.Update();
     }
 
@@ -110,38 +106,32 @@ public class ViajeController {
             Vuelo aux2 = (Vuelo) view.regresocombo.getSelectedItem();
             datos.add(aux2.getIdentificador());
         }
-        if (view.fechasalida.getSelectedIndex() == 0)
+        if (view.searchfield.getText().isEmpty())
             datos.add("");
         else
         {
-            Date aux3 = (Date) view.fechasalida.getSelectedItem();
-            datos.add(formatter.format(aux3));
+            datos.add(view.searchfield.getText());
         }
-        if (view.fecharegreso.getSelectedIndex() == 0)
+        if (view.searchfield2.getText().isEmpty())
             datos.add("");
         else
         {
-            Date aux4 = (Date) view.fechasalida.getSelectedItem();
-            datos.add(formatter.format(aux4));
+            datos.add(view.searchfield2.getText());
         }
         
         
-        System.out.println(datos.get(0));
-        System.out.println(datos.get(1));
-        System.out.println(datos.get(2).toString());
         System.out.println(datos.get(3));
-        
-        
-        
-//       model.tabletipo.setLista(ViajeDao.getInstance().findViajeEntities());
+
         model.tabletipo.setLista(Modelo.getInstance().searchViajes(datos));
-//         view.fechasalida.setModel(new DefaultComboBoxModel((Vector) model.tabletipo.lista));
-            return model.tabletipo;
+        return model.tabletipo;
 
     }
+    
+    public void updatecombos()
+    {
+        model.UpdateIdaRegreso();
+    }
 
-    
-    
 }
 
 

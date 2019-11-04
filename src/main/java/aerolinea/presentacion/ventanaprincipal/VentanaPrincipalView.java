@@ -161,6 +161,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
     public void setUModel(UsuarioModel Model) {
         this.Umodel = Model;
+         Umodel.addObserver(this);
     }
 
     public void swapWindow(String window) {

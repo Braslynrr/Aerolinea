@@ -61,13 +61,22 @@ public class ViajeModel extends Observable {
     
     public void UpdateIdaRegreso()
     {
+        
+        if(!ida.isEmpty() || !regreso.isEmpty())
+        {
+            ida.clear();
+            regreso.clear();
+
+        }
         int aux = Modelo.getInstance().GetAllVuelo().size();
         
         List<Vuelo> aux2 = Modelo.getInstance().GetAllVuelo();
         List<Vuelo> aux3 = Modelo.getInstance().GetAllVuelo();
         
+        
         String cualquiera = "Cualquiera";
         ida.add(cualquiera);
+        
         regreso.add(cualquiera);  
         for(int i = 0; i< aux; i++ )
         {

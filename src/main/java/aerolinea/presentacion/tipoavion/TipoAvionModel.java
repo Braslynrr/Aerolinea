@@ -1,6 +1,7 @@
 package aerolinea.presentacion.tipoavion;
 
 import aerolinea.data.TipoAvionDao;
+import aerolinea.logic.Modelo;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -24,7 +25,7 @@ public class TipoAvionModel extends Observable {
     public void InicializeTables()
     {
    
-    tabletipo = new TableModelTipoAvion(TipoAvionDao.getInstance().findTipoAvionEntities());
+    tabletipo = new TableModelTipoAvion(Modelo.getInstance().GetAll());
     
     }
     

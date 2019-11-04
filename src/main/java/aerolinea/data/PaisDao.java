@@ -19,7 +19,7 @@ public class PaisDao extends PaisJpaController {
         private static final PaisDao INSTANCE = new PaisDao();
     }
     
-    public void update(Pais obj)
+   public void update(Pais obj)
    {
        EntityManager em = getEntityManager();
        Pais pais = em.find(Pais.class, obj.getCodigo());

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PaisView extends javax.swing.JPanel implements Observer {
@@ -163,7 +164,8 @@ public class PaisView extends javax.swing.JPanel implements Observer {
             try {
             controller.Eliminar(temp);
         } catch (Exception ex) {
-            Logger.getLogger(PaisView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PaisView.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "ERROR: Una ciudad depende de este pais, no es posible eliminarlo aun.");
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
@@ -223,7 +225,6 @@ public class PaisView extends javax.swing.JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (controller != null)
         setTable();
-//        principaltable.setModel(new TableModelTipoAvion(TipoAvionDao.getInstance().findTipoAvionEntities()));
-//        controller.UpdateTable();
+
     }
 }

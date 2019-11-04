@@ -54,6 +54,7 @@ public class ViajeDao  extends ViajeJpaController{
         .setParameter("regresov", "%"+array.get(1)+ "%")
         .setParameter("salida","%"+array.get(2)+"%")
         .setParameter("regreso","%"+array.get(3)+"%")
+
         .getResultList();
     }
     finally

@@ -215,7 +215,7 @@ public class Vuelo implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Vuelo[ identificador=" + identificador + " ]";
+         return origen.getNombre()+"/"+destino.getNombre();
     }
     
 }

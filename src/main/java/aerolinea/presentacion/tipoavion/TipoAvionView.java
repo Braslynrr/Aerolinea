@@ -6,10 +6,9 @@ import aerolinea.logic.TipoAvion;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TipoAvionView extends javax.swing.JPanel implements Observer {
@@ -131,7 +130,7 @@ public class TipoAvionView extends javax.swing.JPanel implements Observer {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Eliminar)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -158,7 +157,8 @@ public class TipoAvionView extends javax.swing.JPanel implements Observer {
             try {
             controller.Eliminar(temp);
         } catch (Exception ex) {
-            Logger.getLogger(TipoAvionView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(TipoAvionView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Alguna entidad necesita de este tipo de avion, no se puede eliminar aun..");
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
@@ -218,7 +218,6 @@ public class TipoAvionView extends javax.swing.JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if (controller != null)
         setTable();
-//        principaltable.setModel(new TableModelTipoAvion(TipoAvionDao.getInstance().findTipoAvionEntities()));
-//        controller.UpdateTable();
+
     }
 }

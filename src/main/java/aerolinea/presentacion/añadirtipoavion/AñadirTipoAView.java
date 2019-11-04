@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AñadirTipoAView extends javax.swing.JPanel implements Observer{
 
@@ -163,18 +164,24 @@ public class AñadirTipoAView extends javax.swing.JPanel implements Observer{
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
 
         TipoAvion tipoavion = new TipoAvion();
-        tipoavion.setAño(añofield.getText());
-        tipoavion.setModelo(modelofield.getText());
-        tipoavion.setIdentificador(idenfield.getText());
-        tipoavion.setMarca(marcafield.getText());
+        if(!idenfield.getText().isEmpty())
+            tipoavion.setIdentificador(idenfield.getText());
+        if(!marcafield.getText().isEmpty())
+            tipoavion.setMarca(marcafield.getText());
+        if(!modelofield.getText().isEmpty())
+            tipoavion.setModelo(modelofield.getText());
+        if(!añofield.getText().isEmpty())
+            tipoavion.setAño(añofield.getText());
         tipoavion.setFilas((Integer)filasspinner.getValue());
         tipoavion.setAsientos((Integer)asientosspinner.getValue());
         try {
             controller.Añadir(tipoavion);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirTipoAView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirTipoAView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios, o que la llave primaria no sea repetida.");
         }
-        controller.OcultarDialogo();
+        
 
     }//GEN-LAST:event_añadirActionPerformed
 
@@ -188,19 +195,25 @@ public class AñadirTipoAView extends javax.swing.JPanel implements Observer{
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
       TipoAvion object = new TipoAvion();
+
         object.setIdentificador(idenfield.getText());
-        object.setMarca(marcafield.getText());
-        object.setModelo(modelofield.getText());
-        object.setAño(añofield.getText());
+        if(!marcafield.getText().isEmpty())
+            object.setMarca(marcafield.getText());
+        if(!modelofield.getText().isEmpty())
+            object.setModelo(modelofield.getText());
+        if(!añofield.getText().isEmpty())
+            object.setAño(añofield.getText());
         object.setAsientos((Integer)asientosspinner.getValue());
         object.setFilas((Integer)filasspinner.getValue());
         
         try {
             controller.Modifcar(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirTipoAView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirTipoAView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
         }
-        controller.OcultarDialogo();
+      
     }//GEN-LAST:event_modificarActionPerformed
 
     @Override

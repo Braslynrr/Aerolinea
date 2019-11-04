@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PagoView extends javax.swing.JPanel implements Observer {
@@ -164,6 +165,7 @@ public class PagoView extends javax.swing.JPanel implements Observer {
             controller.Eliminar(temp);
         } catch (Exception ex) {
             Logger.getLogger(PagoView.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(null, "ERROR: Alguna entidad necesita de este metodo de pago, no se puede eliminar aun.");
         }
     }//GEN-LAST:event_EliminarActionPerformed
 

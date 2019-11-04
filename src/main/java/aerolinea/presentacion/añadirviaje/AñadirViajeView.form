@@ -93,7 +93,7 @@
           <Font name="Arial" size="14" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="A&#xf1;adir/modificar tipos de avion"/>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir/modificar vuelos programados"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="identificador">

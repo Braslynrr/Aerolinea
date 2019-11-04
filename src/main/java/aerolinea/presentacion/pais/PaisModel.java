@@ -3,6 +3,7 @@ package aerolinea.presentacion.pais;
 import aerolinea.data.PaisDao;
 import aerolinea.presentacion.tipoavion.*;
 import aerolinea.data.TipoAvionDao;
+import aerolinea.logic.Modelo;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -26,7 +27,7 @@ public class PaisModel extends Observable {
     public void InicializeTables()
     {
    
-    tabletipo = new TableModelPais(PaisDao.getInstance().findPaisEntities());
+    tabletipo = new TableModelPais(Modelo.getInstance().GetAllPais());
     
     }
     

@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AñadirPaisView extends javax.swing.JPanel implements Observer{
 
@@ -116,28 +117,50 @@ public class AñadirPaisView extends javax.swing.JPanel implements Observer{
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
 
         Pais object = new Pais();
-        object.setCodigo(codigofield.getText());
-        object.setNombre(nombrefield.getText());
+        
+        if (!codigofield.getText().isEmpty())
+        {
+            object.setCodigo(codigofield.getText());
+        }      
+        if (!nombrefield.getText().isEmpty())
+        {
+            object.setNombre(nombrefield.getText());
+        }
+        
+         
         
         try {
             controller.Añadir(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirPaisView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        controller.OcultarDialogo();
+//            Logger.getLogger(AñadirPaisView.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios. O asegurese de que el codigo no sea repetido. ");
+        } 
+     
+        
     }//GEN-LAST:event_añadirActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
       Pais object = new Pais();
-        object.setCodigo(codigofield.getText());
-        object.setNombre(nombrefield.getText());
+        if (!codigofield.getText().isEmpty())
+        {
+            object.setCodigo(codigofield.getText());
+        }      
+        if (!nombrefield.getText().isEmpty())
+        {
+            object.setNombre(nombrefield.getText());
+        }
         
         try {
             controller.Modifcar(object);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirPaisView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirPaisView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
+               
+                        
         }
-        controller.OcultarDialogo();
+        
     }//GEN-LAST:event_modificarActionPerformed
 
     @Override

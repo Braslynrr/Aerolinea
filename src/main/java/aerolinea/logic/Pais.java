@@ -98,7 +98,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Pais[ codigo=" + codigo + " ]";
+         return nombre;
     }
     
 }

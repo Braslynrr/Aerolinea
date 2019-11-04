@@ -21,7 +21,7 @@ public class AñadirAvionController {
     
     public void Añadir(Avion object) throws Exception
     {
-//        AvionDao.getInstance().create(object);
+
         Modelo.getInstance().Añadir(object);
         model.setUser(object);
         pcontrol.Update();

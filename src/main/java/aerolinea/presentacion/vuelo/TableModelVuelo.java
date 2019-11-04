@@ -12,13 +12,8 @@ import javax.swing.table.AbstractTableModel;
 
 public class TableModelVuelo extends AbstractTableModel {
     List <Vuelo> lista;
-
-    public void setVuelo(VueloController vuelo) {
-        this.vuelo = vuelo;
-    }
+    
     VueloController vuelo;
-    
-    
     public TableModelVuelo(List<Vuelo> lista) {
         this.lista = lista;
     }
@@ -49,11 +44,9 @@ public class TableModelVuelo extends AbstractTableModel {
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         
         Vuelo object = lista.get(rowIndex);
-//        if (vuelo != null)
-//        vuelo.model.tabletipo.setLista(Modelo.getInstance().GetListaVuelos());
         switch(columnIndex){
             case 0: return object.getIdentificador();
-            case 1: return object.getAvion().getIdentificador();
+            case 1: return object.getAvion().toString();
             case 2: return object.getOrigen().toString();
             case 3: return object.getDia();
             case 4: return formatter.format(object.getSalida());
@@ -64,8 +57,8 @@ public class TableModelVuelo extends AbstractTableModel {
             else
                 return " ";
             case 7: return formatter.format(object.getDuracion());
-            case 8: return object.getDescuento();
-            case 9: return object.getPrecio();
+            case 8: return "%"+object.getDescuento();
+            case 9: return "$"+object.getPrecio();
             default: return "";
         }
     }

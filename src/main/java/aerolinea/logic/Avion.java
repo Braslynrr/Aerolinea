@@ -94,7 +94,7 @@ public class Avion implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Avion[ identificador=" + identificador + " ]";
+        return tipoA.getIdentificador()+"/"+tipoA.getMarca();
     }
     
 }

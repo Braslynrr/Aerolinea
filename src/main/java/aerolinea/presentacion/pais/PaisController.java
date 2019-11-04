@@ -62,13 +62,13 @@ public class PaisController {
             else
                 paisview.añadir.setEnabled(true);
             return paisview;
+   
     }
 
     
     public void Eliminar(Pais object) throws NonexistentEntityException, IllegalOrphanException
     {
         Modelo.getInstance().Eliminar(object);
-//        PaisDao.getInstance().destroy(object.getCodigo());
         this.Update();
     }
 

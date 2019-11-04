@@ -28,7 +28,9 @@ public class Modelo {
     }
 
     // Tipos de avion metodos...............
-  public void Eliminar(TipoAvion object) throws NonexistentEntityException, IllegalOrphanException
+
+    
+    public void Eliminar(TipoAvion object) throws NonexistentEntityException, IllegalOrphanException
     {
         TipoAvionDao.getInstance().destroy(object.getIdentificador());
     }
@@ -366,6 +368,12 @@ public class Modelo {
     public List<Viaje> searchViajes(ArrayList<Object> array)
     {
         return ViajeDao.getInstance().SearchViaje(array);
+    }
+    
+    
+    public List<Vuelo> searchVuelos(ArrayList<Object> array)
+    {
+        return VueloDao.getInstance().SearchViaje(array);
     }
 
     //Reserva

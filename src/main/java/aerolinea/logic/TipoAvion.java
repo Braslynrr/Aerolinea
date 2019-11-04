@@ -150,7 +150,7 @@ public class TipoAvion implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.TipoAvion[ identificador=" + identificador + " ]";
+         return identificador+"/"+marca;
     }
     
 }

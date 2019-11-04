@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 
 public class AñadirVueloView extends javax.swing.JPanel implements Observer{
@@ -88,6 +89,8 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
         }
         ;
         descuentofield = new javax.swing.JTextField();
+        codigofield = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         Title.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -152,6 +155,8 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
         duracioneditor.getFormat().setTimeZone(TimeZone.getTimeZone("UTC"));
         duracionspinner.setEditor(duracioneditor);
 
+        jLabel5.setText("Identificador:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,72 +171,71 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
                         .addComponent(modificar)
                         .addGap(97, 97, 97))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel4)
                             .addComponent(modelo)
-                            .addComponent(año)
-                            .addComponent(filas))
+                            .addComponent(filas)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(avioncombo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(preciofield, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(diacombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(origenCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(origenCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(codigofield, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(marca)
-                                    .addComponent(asientos))
+                                    .addComponent(asientos)
+                                    .addComponent(año))
                                 .addGap(21, 21, 21)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(destinocombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(salidaspinner)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(descuentofield, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 10, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(avioncombo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jLabel3))
-                                    .addComponent(duracionspinner, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(duracionspinner, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(descuentofield, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 10, Short.MAX_VALUE)))))
                         .addContainerGap())))
+            .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Title)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(salidaspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codigofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(año)
+                    .addComponent(duracionspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diacombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(diacombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(salidaspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(año)
-                            .addComponent(duracionspinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(preciofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(marca)
-                                    .addComponent(descuentofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(modelo))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Title)))
+                            .addComponent(preciofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(marca)
+                            .addComponent(descuentofield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modelo)))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filas)
@@ -258,22 +262,28 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
 
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
 
-        Vuelo vuelo = new Vuelo();
+      Vuelo vuelo = new Vuelo();
 //        vuelo.setIdentificador(null);
-        vuelo.setDia("");
+        vuelo.setDia("Pendiente");
         vuelo.setSalida((Date) salidaspinner.getValue());
-         vuelo.setDuracion((Date) duracionspinner.getValue());
-        vuelo.setPrecio(Double.valueOf(preciofield.getText()));
-        vuelo.setDescuento(BigDecimal.valueOf(Double.valueOf(descuentofield.getText())));
+        vuelo.setDuracion((Date) duracionspinner.getValue());
+        if(!preciofield.getText().isEmpty())
+            vuelo.setPrecio(Double.valueOf(preciofield.getText()));
+        if (!descuentofield.getText().isEmpty())
+            vuelo.setDescuento(BigDecimal.valueOf(Double.valueOf(descuentofield.getText())));
+        else
+            vuelo.setDescuento(BigDecimal.valueOf(0));
         vuelo.setOrigen((Ciudad) origenCombo.getSelectedItem());
         vuelo.setDestino((Ciudad) destinocombo.getSelectedItem());
         vuelo.setAvion((Avion) avioncombo.getSelectedItem());
         try {
             controller.Añadir(vuelo);
+            controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirVueloView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirVueloView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
         }
-        controller.OcultarDialogo();
+      
 
     }//GEN-LAST:event_añadirActionPerformed
 
@@ -284,20 +294,28 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
 
         Vuelo vuelo = new Vuelo();
+        
+        vuelo.setIdentificador(Integer.parseInt(codigofield.getText()));
         vuelo.setDia("");
         vuelo.setSalida((Date) salidaspinner.getValue());
-         vuelo.setDuracion((Date) duracionspinner.getValue());
-        vuelo.setPrecio(Double.valueOf(preciofield.getText()));
-        vuelo.setDescuento(BigDecimal.valueOf(Double.valueOf(descuentofield.getText())));
+        vuelo.setDuracion((Date) duracionspinner.getValue());
+        if(!preciofield.getText().isEmpty())
+            vuelo.setPrecio(Double.valueOf(preciofield.getText()));
+        if (!descuentofield.getText().isEmpty())
+            vuelo.setDescuento(BigDecimal.valueOf(Double.valueOf(descuentofield.getText())));
+        else
+            vuelo.setDescuento(BigDecimal.valueOf(0));
         vuelo.setOrigen((Ciudad) origenCombo.getSelectedItem());
         vuelo.setDestino((Ciudad) destinocombo.getSelectedItem());
         vuelo.setAvion((Avion) avioncombo.getSelectedItem());
         try {
             controller.Modifcar(vuelo);
+             controller.OcultarDialogo();
         } catch (Exception ex) {
-            Logger.getLogger(AñadirVueloView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(AñadirVueloView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: Asegurese de haber llenado todos los espacios necesarios.");
         }
-        controller.OcultarDialogo();
+       
     }//GEN-LAST:event_modificarActionPerformed
 
     private void destinocomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinocomboActionPerformed
@@ -319,6 +337,7 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
     public javax.swing.JComboBox<String> avioncombo;
     public javax.swing.JButton añadir;
     private javax.swing.JLabel año;
+    public javax.swing.JTextField codigofield;
     public javax.swing.JTextField descuentofield;
     public javax.swing.JComboBox<String> destinocombo;
     private javax.swing.JComboBox<String> diacombobox;
@@ -328,6 +347,7 @@ public class AñadirVueloView extends javax.swing.JPanel implements Observer{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel marca;
     private javax.swing.JLabel modelo;
     public javax.swing.JButton modificar;

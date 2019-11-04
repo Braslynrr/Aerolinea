@@ -38,7 +38,7 @@ public class TableModelViaje extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-YYYY");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         
         Viaje object = lista.get(rowIndex);

@@ -121,7 +121,7 @@ public class Ciudad implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Ciudad[ codigo=" + codigo + " ]";
+       return nombre;
     }
     
 }

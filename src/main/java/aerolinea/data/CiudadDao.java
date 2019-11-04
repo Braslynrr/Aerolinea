@@ -18,7 +18,7 @@ public class CiudadDao extends CiudadJpaController {
         private static final CiudadDao INSTANCE = new CiudadDao();
     }
     
-    public List<Ciudad> findByCodigo(String identifier)
+     public List<Ciudad> findByCodigo(String identifier)
   {
     EntityManager em = getEntityManager();
     try

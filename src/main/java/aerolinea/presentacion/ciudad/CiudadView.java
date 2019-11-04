@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class CiudadView extends javax.swing.JPanel implements Observer {
@@ -158,7 +159,8 @@ public class CiudadView extends javax.swing.JPanel implements Observer {
             try {
             controller.Eliminar(temp);
         } catch (Exception ex) {
-            Logger.getLogger(CiudadView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CiudadView.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "ERROR: Algun elemento necesita de esta ciudad, no se puede borrar aun.");
         }
     }//GEN-LAST:event_EliminarActionPerformed
 

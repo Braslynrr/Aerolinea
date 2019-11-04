@@ -37,9 +37,10 @@ public class AñadirVueloController {
     
      public void ModificarVuelo(Vuelo object)
     {
-
+        view.codigofield.setText(String.valueOf(object.getIdentificador()));
+        view.codigofield.setEnabled(false);
         view.salidaspinner.setValue(object.getSalida());
-        view.duracionspinner.setValue(object.getSalida());
+        view.duracionspinner.setValue(object.getDuracion());
         view.preciofield.setText(String.valueOf(object.getPrecio()));
         view.descuentofield.setText(String.valueOf(object.getDescuento()));
         view.origenCombo.setSelectedItem(object.getOrigen());
