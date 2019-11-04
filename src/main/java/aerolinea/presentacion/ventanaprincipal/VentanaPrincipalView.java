@@ -178,6 +178,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
         IAdministrar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -188,9 +189,7 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         IConsulta = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
         ICompras = new javax.swing.JMenu();
-        jMenuItem14 = new javax.swing.JMenuItem();
         Iperfil = new javax.swing.JMenu();
         Pmodificar = new javax.swing.JMenuItem();
         Pver = new javax.swing.JMenuItem();
@@ -205,6 +204,14 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(585, 435));
         getContentPane().setLayout(null);
+
+        jMenu2.setText("Inicio");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenu2MousePressed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
 
         IAdministrar.setText("Administrar");
 
@@ -274,28 +281,20 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
         jMenuBar1.add(IAdministrar);
 
-        IConsulta.setText("Consulta");
-
-        jMenuItem13.setText("Viajes");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
+        IConsulta.setText("Consulta  de viajes");
+        IConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                IConsultaMousePressed(evt);
             }
         });
-        IConsulta.add(jMenuItem13);
-
         jMenuBar1.add(IConsulta);
 
         ICompras.setText("Compras");
-
-        jMenuItem14.setText("Compras");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+        ICompras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                IComprasMousePressed(evt);
             }
         });
-        ICompras.add(jMenuItem14);
-
         jMenuBar1.add(ICompras);
 
         Iperfil.setText("Perfil");
@@ -648,14 +647,6 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
         dialog.showOptionDialog(this, label, "Acerca de", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        this.swapWindow("comprar");
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
-
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
-        this.swapWindow("consulta");
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         this.swapWindow("viaje");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
@@ -681,6 +672,18 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
 
 
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
+      this.swapWindow("Main");
+    }//GEN-LAST:event_jMenu2MousePressed
+
+    private void IConsultaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IConsultaMousePressed
+        this.swapWindow("consulta");
+    }//GEN-LAST:event_IConsultaMousePressed
+
+    private void IComprasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IComprasMousePressed
+      this.swapWindow("comprar");
+    }//GEN-LAST:event_IComprasMousePressed
 
     public void setModel(VentanaPrincipalModel model) {
         this.model = model;
@@ -762,10 +765,9 @@ public class VentanaPrincipalView extends javax.swing.JFrame implements Observer
     private javax.swing.JMenuItem Pmodificar;
     private javax.swing.JMenuItem Pver;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

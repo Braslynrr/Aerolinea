@@ -195,7 +195,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
             Viaje temp = model.tabletipo.getElement(principaltable.convertRowIndexToModel(principaltable.getSelectedRow()));
             dialogo = new JDialog(main, "Comprar Tiquetes", true);
             dialogo.setResizable(true);
-            JPanel userview = controller.VenatanAñadir(temp,dialogo,0);
+            JPanel userview = controller.VenatanAñadir(temp,dialogo,this.controller.cantTicketviaje(temp));
             userview.setSize(950, 500);
             dialogo.getContentPane().add(userview);
             dialogo.pack();
@@ -206,7 +206,7 @@ public class SelectView extends javax.swing.JPanel implements Observer {
     }//GEN-LAST:event_principaltableMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controller.OcutarDialogo();
+        this.main.swapWindow("Main");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

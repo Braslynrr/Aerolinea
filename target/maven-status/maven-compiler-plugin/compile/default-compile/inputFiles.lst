@@ -17,6 +17,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\AvionJpa
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirtipoavion\AñadirTipoAView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirviaje\AñadirViajeView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\avion\AvionController.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirmetodopago\AñadirPagoModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirvuelo\AñadirVueloView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\logic\MetodoPago.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Compra\TiquetesModel.java
@@ -49,6 +50,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\TiqueteJ
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\LoginController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadModel.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Reserva\ReservaModel.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirmetodopago\AñadirPagoView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ciudad\CiudadController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Consulta\TableModelViaje.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\UsuarioModel.java
@@ -85,6 +87,7 @@ C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\SeleccionVuelo\TableModelselect.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\Usuario\UsuarioController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\logic\Avion.java
+C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirmetodopago\AñadirPagoController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\data\CiudadJpaController.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\añadirpais\AñadirPaisView.java
 C:\Users\Admin2\Documents\GitHub\Aerolinea\src\main\java\aerolinea\presentacion\ventanaprincipal\VentanaPrincipalView.java

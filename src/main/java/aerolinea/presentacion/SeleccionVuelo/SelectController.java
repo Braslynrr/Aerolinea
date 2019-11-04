@@ -56,6 +56,11 @@ public class SelectController {
         }
 
     }
+    
+    
+    public int cantTicketviaje(Viaje viaje){
+       return this.model.camposcomprables(viaje);
+    }
 
     public void Eliminar(Viaje object) throws NonexistentEntityException, IllegalOrphanException {
 //        Modelo.getInstance().Eliminar(object);
@@ -112,19 +117,17 @@ public class SelectController {
 
     JPanel VenatanAñadir(Viaje viaje, Dialog dialog, int type) {
         switch (type) {
-            case 0:
-                TiquetesModel model = new TiquetesModel();
-                aerolinea.presentacion.Compra.TiqueteView view = new aerolinea.presentacion.Compra.TiqueteView(main, viaje);
-                aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view,dialog);
-                return view;
             case 1:
-                ReservaModel model1= new ReservaModel();
+                ReservaModel model1= new ReservaModel(main.getUModel().getUser().getCodigo());
                 aerolinea.presentacion.Reserva.ReservaView view1=new aerolinea.presentacion.Reserva.ReservaView(main) ;
                 aerolinea.presentacion.Reserva.ReservaController controller1= new aerolinea.presentacion.Reserva.ReservaController(model1, view1);
                 controller1.setDialogo(dialog);
                 return view1;
             default:
-                return null;
+                TiquetesModel model = new TiquetesModel();
+                aerolinea.presentacion.Compra.TiqueteView view = new aerolinea.presentacion.Compra.TiqueteView(main, viaje,type);
+                aerolinea.presentacion.Compra.TiquetesController controller = new aerolinea.presentacion.Compra.TiquetesController(model, view,dialog);
+                return view;
         }
         
     }

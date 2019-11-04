@@ -117,7 +117,7 @@ public class Tiquete implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Tiquete[ codigo=" + codigo + " ]";
+        return "Codigo: "+codigo+" Fila: "+fila+" Asiento: "+asiento+"\n nombre: "+personaNombre;
     }
     
 }

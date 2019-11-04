@@ -6,11 +6,16 @@
 package aerolinea.presentacion.Reserva;
 
 import aerolinea.logic.Modelo;
+import aerolinea.logic.Reserva;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +27,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     ReservaModel model;
     VentanaPrincipalView main;
     public JDialog dialogo;
-    
+
     public ReservaController getController() {
         return controller;
     }
@@ -36,6 +41,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
         this.main = main;
         this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().SearchReserva(main.getUModel().getUser().getCodigo(), 0)));
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,14 +109,43 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        this.controller.ocultardilog();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void TablaReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaReservaMouseClicked
-      if(evt.getClickCount()==2){
-          
-          
-      }
+        if (evt.getClickCount() == 2) {
+            Reserva temp = model.tabletipo.getElement(TablaReserva.convertRowIndexToModel(TablaReserva.getSelectedRow()));
+            Object[] file = new Object[temp.getTiqueteList().size() + 1];
+            JButton btn = new JButton();
+            String precio="";
+            btn.setText("Mostrar viaje");
+            if (temp.getViaje().getRegreso() != null) {
+                precio = "Precio Vuelta :" + temp.getViaje().getRegreso().getPrecio();
+
+            }
+            final String pris=precio;
+            btn.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    Object[] file2 = {
+                        "Codigo :", temp.getViaje().getCodigo(),
+                        "Hora Salida:", temp.getViaje().getDsalida().toString(),
+                        "HoraLlegada:", temp.getViaje().getDsalida().toString(),
+                        "De " + temp.getViaje().getIda().getOrigen().getNombre(),
+                        "A " + temp.getViaje().getIda().getDestino().getNombre(),
+                        "Precio :" + temp.getViaje().getIda().getPrecio(),
+                        pris,"(sin descuento)"
+                    };
+                    JOptionPane.showConfirmDialog(null, file2, "viaje" , JOptionPane.CLOSED_OPTION);
+                }
+            });
+            file[0]=btn;
+            for (int i = 0; i < temp.getTiqueteList().size(); i++) {
+                JLabel label=new JLabel();
+               label.setText(temp.getTiqueteList().get(i).toString()); 
+                file[i+1]=label;
+            }
+            JOptionPane.showConfirmDialog(null, file, "Tiquetes" , JOptionPane.CLOSED_OPTION);
+        }
     }//GEN-LAST:event_TablaReservaMouseClicked
 
 
@@ -124,7 +159,7 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
     @Override
     public void update(Observable arg0, Object arg1) {
         if (controller != null) {
-           this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().GetAllReserva()));
+            this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().GetAllReserva()));
         }
     }
 
@@ -132,15 +167,12 @@ public class ReservaView extends javax.swing.JPanel implements Observer {
         return model;
     }
 
-    
-    public void updateTable(){
-        this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().SearchReserva(main.getUModel().getUser().getCodigo(),0)));
+    public void updateTable() {
+        this.TablaReserva.setModel(new TableModelReserva(Modelo.getInstance().SearchReserva(main.getUModel().getUser().getCodigo(), 0)));
     }
+
     public void setModel(ReservaModel model) {
         this.model = model;
         model.addObserver(this);
     }
 }
-
-
-

@@ -5,8 +5,11 @@
  */
 package aerolinea.presentacion.Reserva;
 
+import aerolinea.logic.Reserva;
+import aerolinea.logic.Tiquete;
 import aerolinea.presentacion.ventanaprincipal.VentanaPrincipalView;
 import java.awt.Dialog;
+import java.util.List;
 import javax.swing.JPanel;
 
 public class ReservaController {
@@ -21,12 +24,16 @@ public class ReservaController {
         view.setModel(model);
         view.setController(this);
         main = view.main;
+        
     }
     
     public ReservaModel getMdoel() {
         return model;
     }
     
+     public void chargetable(String search){
+        this.model.IniciaTabla(search);
+    }
     public void setModel(ReservaModel mdoel) {
         this.model = mdoel;
     }
@@ -56,4 +63,5 @@ public class ReservaController {
         dialogo.setVisible(false);
     }
     
+
 }

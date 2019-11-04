@@ -1,7 +1,11 @@
 package aerolinea.presentacion.SeleccionVuelo;
+import aerolinea.data.ReservaDao;
 import aerolinea.logic.Modelo;
+import aerolinea.logic.Reserva;
+import aerolinea.logic.Tiquete;
 import aerolinea.logic.Viaje;
 import aerolinea.logic.Vuelo;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -32,15 +36,13 @@ public class SelectModel extends Observable {
         this.notifyObservers();   
     }
     
-    public void InicializeTables()
-    {
+    public void InicializeTables(){
    
     tabletipo = new TableModelselect(Modelo.getInstance().GetAllViaje());
     
     }
     
-    public void setUser()
-    {
+    public void setUser(){
         this.setChanged();
         this.notifyObservers();
     }
@@ -55,6 +57,22 @@ public class SelectModel extends Observable {
         combotipos.add("Asientos");
         combotipos.add("Filas");
   
+    }
+    
+    
+    public int camposcomprables(Viaje viaje){
+        List<Tiquete> list=new ArrayList<Tiquete>();
+         List<Tiquete> aux = new ArrayList<Tiquete>();
+        List<aerolinea.logic.Reserva> listareserva = aerolinea.data.ReservaDao.getInstance().getReservasViaje(viaje.getCodigo());
+        for (int i = 0; i < listareserva.size(); i++) {
+            for (int j = 0; j < listareserva.size(); j++) {
+                aux = listareserva.get(j).getTiqueteList();
+                for (int k = 0; k < aux.size(); k++) {
+                    list.add(aux.get(k));
+                }
+            }
+        }
+        return viaje.getIda().getAvion().getTipoA().getAsientos()*viaje.getIda().getAvion().getTipoA().getFilas()-list.size();
     }
     
     public void UpdateIdaRegreso()

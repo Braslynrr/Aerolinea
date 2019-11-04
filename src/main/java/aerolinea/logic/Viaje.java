@@ -138,7 +138,7 @@ public class Viaje implements Serializable {
 
     @Override
     public String toString() {
-        return "aerolinea.Viaje[ codigo=" + codigo + " ]";
+        return  codigo +" "+ida.getOrigen().getNombre()+" a "+ida.getDestino().getNombre();
     }
     
 }

@@ -4,6 +4,14 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jMenu2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Inicio"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu2MousePressed"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="IAdministrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Administrar"/>
@@ -77,33 +85,19 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="IConsulta">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Consulta"/>
+            <Property name="text" type="java.lang.String" value="Consulta  de viajes"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Viajes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem13ActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="IConsultaMousePressed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ICompras">
           <Properties>
             <Property name="text" type="java.lang.String" value="Compras"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Compras"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem14ActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="IComprasMousePressed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="Iperfil">
           <Properties>

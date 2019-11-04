@@ -30,6 +30,7 @@ import javax.swing.JTextField;
  */
 public class TiqueteView extends javax.swing.JPanel implements Observer {
 
+    int max;
     int TicketsTotales = 0;
     TiquetesController controller;
     VentanaPrincipalView main;
@@ -64,8 +65,9 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         this.Cantickets();
     }
 
-    public TiqueteView(VentanaPrincipalView main, Viaje viaje) {
+    public TiqueteView(VentanaPrincipalView main, Viaje viaje, int max) {
         initComponents();
+        this.max = max;
         this.main = main;
         this.viaje = viaje;
         this.Bcomprar.setVisible(false);
@@ -96,15 +98,20 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         if (JOptionPane.showConfirmDialog(null, files, "Cantidad de tiquetes", JOptionPane.OK_CANCEL_OPTION) == 0) {
             if (StringUtils.isStrictlyNumeric(ticks.getText()) == true) {
                 this.TicketsTotales = Integer.parseInt(ticks.getText());
-                if (this.TicketsTotales > 0) {
-                    this.actualizarCampos();
-                    this.Btickets.setVisible(false);
-                    this.Bcomprar.setVisible(false);
-                    fila = new int[this.TicketsTotales];
-                    nombre = new ArrayList();
-                    asiento = new int[this.TicketsTotales];
-                    metodo = new ArrayList();
+                if (this.TicketsTotales > 0){
+                    if (this.TicketsTotales <= max) {
+                        this.actualizarCampos();
+                        this.Btickets.setVisible(false);
+                        this.Bcomprar.setVisible(false);
+                        fila = new int[this.TicketsTotales];
+                        nombre = new ArrayList();
+                        asiento = new int[this.TicketsTotales];
+                        metodo = new ArrayList();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Numero exece los campos validos en el avion (Maximo"+max+")");
+                    }
                 } else {
+                    JOptionPane.showMessageDialog(null, "Numero invalido , digite nuevamente los tickets");
                     this.Bcomprar.setVisible(false);
                 }
             } else {
