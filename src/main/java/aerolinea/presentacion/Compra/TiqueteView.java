@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.MenuComponent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -33,6 +34,10 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     TiquetesController controller;
     VentanaPrincipalView main;
     TiquetesModel model;
+    double precio1;
+    double precio2;
+    BigDecimal descuento1;
+    BigDecimal descuento2;
     int[] fila;
     int[] asiento;
     List<String> metodo;
@@ -63,12 +68,23 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         initComponents();
         this.main = main;
         this.viaje = viaje;
+        this.Bcomprar.setVisible(false);
         bviaje = true;
         this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio());
+        precio1 = viaje.getIda().getPrecio();
+        precio2 = 0;
+        descuento2 = new BigDecimal(0);
+        descuento1 = viaje.getIda().getDescuento();
+        descuento1 = descuento1.divide(new BigDecimal(100));
+        this.Ldescuento.setText("Descuento : " + descuento1.toString());
         if (viaje.getRegreso() == null) {
         } else {
             viaje.getReservaList();
             this.LabelPrecio.setText("Precio por asiento : " + viaje.getIda().getPrecio() + " y " + viaje.getRegreso().getPrecio());
+            this.Ldescuento.setText("Descuento : " + descuento1.toString() + " y " + descuento2.toString());
+            precio2 = viaje.getRegreso().getPrecio();
+            descuento2 = viaje.getRegreso().getDescuento();
+            descuento2 = descuento2.divide(new BigDecimal(100));
         }
     }
 
@@ -83,7 +99,7 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
                 if (this.TicketsTotales > 0) {
                     this.actualizarCampos();
                     this.Btickets.setVisible(false);
-                    this.Bcomprar.setVisible(true);
+                    this.Bcomprar.setVisible(false);
                     fila = new int[this.TicketsTotales];
                     nombre = new ArrayList();
                     asiento = new int[this.TicketsTotales];
@@ -189,35 +205,45 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
     }
 
     public void ComprarTiquete(int fila, int asiento, Usuario user, JButton btn) {
-        if(this.nombre.size()==this.TicketsTotales){
+        if (this.nombre.size() == this.TicketsTotales) {
             JOptionPane.showMessageDialog(null, "Numero propuesto de tickets alcanzado");
-        }else{
-        JTextField name = new JTextField();
-        Object[] files = {
-            "Digite el nombre ", name
-        };
-        if (JOptionPane.showConfirmDialog(null, files, "Nombre", JOptionPane.OK_CANCEL_OPTION) == 0) {
-            if (Parse.Aprove(name.getText(), Parse.NOMBRES)) {
-                btn.setEnabled(false);
-                String metodo = (String) this.searchcombo.getSelectedItem();
-                btn.removeAll();
-                //se asigna el campo
-                int index=this.nombre.size();
-                this.fila[index]=fila;
-                this.asiento[index]=asiento;
-                this.metodo.add(metodo);
-                this.nombre.add(name.getText());
-                JOptionPane.showMessageDialog(null, "Asignado");
-                if(this.nombre.size()==this.TicketsTotales){
-                 this.Bcomprar.setVisible(true);
+        } else {
+            JTextField name = new JTextField();
+            Object[] files = {
+                "Digite el nombre ", name
+            };
+            if (JOptionPane.showConfirmDialog(null, files, "Nombre", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                if (Parse.Aprove(name.getText(), Parse.NOMBRES)) {
+                    btn.setEnabled(false);
+                    String metodo = (String) this.searchcombo.getSelectedItem();
+                    btn.removeAll();
+                    //se asigna el campo
+                    int index = this.nombre.size();
+                    this.fila[index] = fila;
+                    this.asiento[index] = asiento;
+                    this.metodo.add(metodo);
+                    this.nombre.add(name.getText());
+                    BigDecimal total = new BigDecimal(index + 1);
+                    BigDecimal xprecio1 = new BigDecimal(precio1);
+                    BigDecimal xprecio2 = new BigDecimal(precio1);
+                    BigDecimal calc1 = xprecio1.multiply(descuento1);
+                    BigDecimal subtotal1 = xprecio1.subtract(calc1);
+                    calc1 = calc1.add(new BigDecimal(precio1));
+                    BigDecimal calc2 = xprecio2.multiply(descuento2);
+                    BigDecimal subtotal2 = xprecio2.subtract(calc2);
+                    this.Lmuestratotal.setText("Total a Pagar: " + total.multiply(subtotal1.add(subtotal2)).toString());
+                    total = total.multiply(calc1.add(calc2));
+                    JOptionPane.showMessageDialog(null, "Asignado");
+                    if (this.nombre.size() == this.TicketsTotales) {
+                        this.Bcomprar.setVisible(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nombre invalido");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Nombre invalido");
+                JOptionPane.showMessageDialog(null, "Cancelado");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Cancelado");
-        }
-        files=null;
+            files = null;
         }
 
     }
@@ -252,8 +278,10 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
 
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        LabelPrecio = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        LabelPrecio = new javax.swing.JLabel();
+        Ldescuento = new javax.swing.JLabel();
+        Lmuestratotal = new javax.swing.JLabel();
         Lavioncalculo = new javax.swing.JLabel();
         searchcombo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -279,15 +307,25 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         add(jButton2);
         jButton2.setBounds(690, 500, 90, 30);
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setText("Ida       y    Regreso");
+        add(jLabel3);
+        jLabel3.setBounds(250, 50, 160, 21);
+
         LabelPrecio.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         LabelPrecio.setText("Precio por asiento : ");
         add(LabelPrecio);
-        LabelPrecio.setBounds(30, 70, 310, 30);
+        LabelPrecio.setBounds(30, 70, 480, 30);
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel3.setText("Total a Pagar: ");
-        add(jLabel3);
-        jLabel3.setBounds(30, 110, 320, 21);
+        Ldescuento.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Ldescuento.setText("Descuento");
+        add(Ldescuento);
+        Ldescuento.setBounds(30, 100, 460, 21);
+
+        Lmuestratotal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        Lmuestratotal.setText("Total a Pagar: ");
+        add(Lmuestratotal);
+        Lmuestratotal.setBounds(30, 130, 460, 14);
         add(Lavioncalculo);
         Lavioncalculo.setBounds(140, 260, 390, 100);
 
@@ -322,6 +360,11 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         Btickets.setBounds(550, 20, 280, 30);
 
         Bcomprar.setText("Comprar");
+        Bcomprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BcomprarActionPerformed(evt);
+            }
+        });
         add(Bcomprar);
         Bcomprar.setBounds(790, 500, 90, 30);
     }// </editor-fold>//GEN-END:initComponents
@@ -334,12 +377,18 @@ public class TiqueteView extends javax.swing.JPanel implements Observer {
         this.Cantickets();
     }//GEN-LAST:event_BticketsActionPerformed
 
+    private void BcomprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BcomprarActionPerformed
+        this.CompraTotal();
+    }//GEN-LAST:event_BcomprarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bcomprar;
     private javax.swing.JButton Btickets;
     private javax.swing.JLabel LabelPrecio;
     private javax.swing.JLabel Lavioncalculo;
+    private javax.swing.JLabel Ldescuento;
+    private javax.swing.JLabel Lmuestratotal;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

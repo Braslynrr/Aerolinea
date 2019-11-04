@@ -36,7 +36,7 @@ public class TableModelReserva extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Reserva object = lista.get(rowIndex);
         switch(columnIndex){
-            case 0: return object.getCodigo();
+            case 0: return object.getCodigo().intValue();
             case 1: return object.getUsuario();
             case 2: return object.getPago().getDescripcion();
             case 3: return object.getTiqueteList().size();
